@@ -38,9 +38,10 @@ namespace Projet_IMA
 
         public Texture(string ff)
         {
-            string s = System.IO.Path.GetFullPath("..\\..");
+            // VisualStudio: string s = System.IO.Path.GetFullPath("..\\..");
+            string s = System.IO.Path.GetFullPath("src/");
             string path = System.IO.Path.Combine(s,"textures",ff);
-            Bitmap B = new Bitmap(path); 
+            Bitmap B = new Bitmap(path);
             
             Hauteur = B.Height;
             Largeur = B.Width;
@@ -101,5 +102,5 @@ namespace Projet_IMA
             + C[x, ypu] * (1 - ccx) * ccy
             + C[xpu, ypu] * ccx * ccy;*/
         }
-    }    
+    }
 }
