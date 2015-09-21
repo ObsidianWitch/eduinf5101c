@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet_IMA", "Projet_IMA\Projet_IMA.csproj", "{B7251079-FE43-459A-9D98-D30E58B239CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet_IMA", "src\project.csproj", "{B7251079-FE43-459A-9D98-D30E58B239CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
