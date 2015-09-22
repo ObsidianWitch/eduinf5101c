@@ -26,7 +26,7 @@ namespace Projet_IMA
 
                     Couleur c = T1.readColor(u * r_x, v * r_y);
                     
-                    BitmapEcran.DrawPixel(x,y,c );
+                    BitmapScreen.DrawPixel(x,y,c );
                    
                 }
 
@@ -34,11 +34,11 @@ namespace Projet_IMA
             
             Couleur Red = new Couleur(1.0f, 0.0f, 0.0f);
             for (int i = 0; i < 1000; i++)
-                BitmapEcran.DrawPixel(i, i, Red);
+                BitmapScreen.DrawPixel(i, i, Red);
 
             Couleur Green = new Couleur(0.0f, 1.0f, 0.0f);
             for (int i = 0; i < 1000; i++)
-                BitmapEcran.DrawPixel(i, 1000-i, Green);
+                BitmapScreen.DrawPixel(i, 1000-i, Green);
 
             // test des opérations sur les vecteurs
 
