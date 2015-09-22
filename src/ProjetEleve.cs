@@ -24,7 +24,7 @@ namespace Projet_IMA
                     int x = (int) (u * larg + 10); // calcul des coordonnées planes
                     int y = (int) (v * haut + 15);
 
-                    Couleur c = T1.LireCouleur(u * r_x, v * r_y);
+                    Couleur c = T1.readColor(u * r_x, v * r_y);
                     
                     BitmapEcran.DrawPixel(x,y,c );
                    

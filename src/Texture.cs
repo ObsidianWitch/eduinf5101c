@@ -5,102 +5,103 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace Projet_IMA
-{
-    class Texture
-    {
-        int Hauteur;
-        int Largeur;
+namespace Projet_IMA {
+
+    class Texture {
+
+        int Height;
+        int Width;
         Couleur [,] C;
 
-        // public functions
-        // u,v compris entre 0 et 1
+        // Constructor
 
-        public Couleur LireCouleur(float u, float v)
-        {
-            return Interpol(Largeur * u, Hauteur * v);
-        }
-
-        public void Bump(float u, float v, out float dhdu, out float dhdv)
-        {
-            float x = u * Hauteur;
-            float y = v * Largeur;
-
-            float vv = Interpol(x, y).GreyLevel();
-            float vx = Interpol(x + 1, y).GreyLevel();
-            float vy = Interpol(x, y + 1).GreyLevel();
-
-            dhdu = vx - vv;
-            dhdv = vy - vv;
-        }
-    
-        // constructor
-
-        public Texture(string ff)
-        {
-            // VisualStudio: string s = System.IO.Path.GetFullPath("..\\..");
-            string s = System.IO.Path.GetFullPath("src/");
-            string path = System.IO.Path.Combine(s,"textures",ff);
-            Bitmap B = new Bitmap(path);
+        public Texture(string textureFile) {
+            // VisualStudio: System.IO.Path.GetFullPath("..\\..")
+            string path = System.IO.Path.Combine(
+                System.IO.Path.GetFullPath("src/"),
+                "textures",
+                textureFile
+            );
+            Bitmap bmp = new Bitmap(path);
             
-            Hauteur = B.Height;
-            Largeur = B.Width;
-            BitmapData data = B.LockBits(new Rectangle(0, 0, B.Width, B.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            Height = bmp.Height;
+            Width = bmp.Width;
+            
+            BitmapData data = bmp.LockBits(
+                new Rectangle(0, 0, bmp.Width, bmp.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb
+            );
+            
             int stride = data.Stride;
              
-            C = new Couleur[Largeur,Hauteur];
-
-            unsafe
-            {
-                byte* ptr = (byte*)data.Scan0;
-                for (int x = 0; x < Largeur; x++)
-                    for (int y = 0; y < Hauteur; y++)
-                    {
+            C = new Couleur[Width, Height];
+            
+            unsafe {
+                byte* ptr = (byte*) data.Scan0;
+                for (int x = 0 ; x < Width ; x++) {
+                    for (int y = 0 ; y < Height ; y++) {
                         byte RR, VV, BB;
                         BB = ptr[(x * 3) + y * stride];
                         VV = ptr[(x * 3) + y * stride + 1];
                         RR = ptr[(x * 3) + y * stride + 2];
                         C[x, y].From255(RR, VV, BB);
                     }
+                }
             }
-            B.UnlockBits(data);
-            B.Dispose();
+            
+            bmp.UnlockBits(data);
+            bmp.Dispose();
         }
 
-       
-                
-                
+        // Public functions
 
+        /// u,v in [0,1]
+        public Couleur readColor(float u, float v) {
+            return Interpolate(Width * u, Height * v);
+        }
 
-        // private functions
+        public void Bump(float u, float v, out float dhdu, out float dhdv) {
+            float x = u * Height;
+            float y = v * Width;
 
-        private Couleur Interpol(float Lu, float Hv)
-        {
-            int x = (int)(Lu);  // plus grand entier <=
-            int y = (int)(Hv);
+            float vv = Interpolate(x, y).GreyLevel();
+            float vx = Interpolate(x + 1, y).GreyLevel();
+            float vy = Interpolate(x, y + 1).GreyLevel();
 
-          //  float cx = Lu - x; // reste
-          //  float cy = Hv - y;
+            dhdu = vx - vv;
+            dhdv = vy - vv;
+        }
 
-            x = x % Largeur;
-            y = y % Hauteur;
-            if (x < 0) x += Largeur;
-            if (y < 0) y += Hauteur;
+        // Private functions
 
-
+        private Couleur Interpolate(float Lu, float Hv) {
+            int x = (int) Lu;  // plus grand entier <=
+            int y = (int) Hv;
+            
+            // float cx = Lu - x; // reste
+            // float cy = Hv - y;
+          
+            x %= Width;
+            y %= Height;
+            if (x < 0) { x += Width; }
+            if (y < 0) { y += Height; }
+            
             return C[x, y];
-
-        /*    int xpu = (x + 1) % Largeur;
-            int ypu = (y + 1) % Hauteur;
-
+            
+            /*
+            int xpu = (x + 1) % Width;
+            int ypu = (y + 1) % Height;
+            
             float ccx = cx * cx;
             float ccy = cy * cy;
-
-            return
-              C[x, y] * (1 - ccx) * (1 - ccy)
-            + C[xpu, y] * ccx * (1 - ccy)
-            + C[x, ypu] * (1 - ccx) * ccy
-            + C[xpu, ypu] * ccx * ccy;*/
+            
+            return C[x, y] * (1 - ccx) * (1 - ccy) +
+                   C[xpu, y] * ccx * (1 - ccy) +
+                   C[x, ypu] * (1 - ccx) * ccy +
+                   C[xpu, ypu] * ccx * ccy;
+            */
         }
     }
+
 }
