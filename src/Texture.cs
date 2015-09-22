@@ -13,8 +13,6 @@ namespace Projet_IMA {
         int Width;
         Couleur [,] C;
 
-        // Constructor
-
         public Texture(string textureFile) {
             // VisualStudio: System.IO.Path.GetFullPath("..\\..")
             string path = System.IO.Path.Combine(
@@ -54,8 +52,6 @@ namespace Projet_IMA {
             bmp.Dispose();
         }
 
-        // Public functions
-
         /// u,v in [0,1]
         public Couleur readColor(float u, float v) {
             return Interpolate(Width * u, Height * v);
@@ -72,8 +68,6 @@ namespace Projet_IMA {
             dhdu = vx - vv;
             dhdv = vy - vv;
         }
-
-        // Private functions
 
         private Couleur Interpolate(float Lu, float Hv) {
             int x = (int) Lu;  // plus grand entier <=
