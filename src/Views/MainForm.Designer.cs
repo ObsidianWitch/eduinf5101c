@@ -1,4 +1,5 @@
-﻿namespace ImageSynthesis.Views
+﻿
+namespace ImageSynthesis.Views
 {
     partial class MainForm
     {

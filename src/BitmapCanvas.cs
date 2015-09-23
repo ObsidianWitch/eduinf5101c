@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace ImageSynthesis {
@@ -35,7 +31,7 @@ namespace ImageSynthesis {
             unsafe {
                 byte RR, VV, BB;
                 c.check();
-                c.To255(out RR, out  VV, out  BB);
+                c.To255(out RR, out VV, out BB);
                 
                 byte* ptr = (byte*) data.Scan0;
                 ptr[(x * 3) + y * Stride    ] = BB;

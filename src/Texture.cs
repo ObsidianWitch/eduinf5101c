@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;﻿
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -14,9 +11,9 @@ namespace ImageSynthesis {
         Couleur [,] C;
 
         public Texture(string textureFile) {
-            // VisualStudio: System.IO.Path.GetFullPath("..\\..")
-            string path = System.IO.Path.Combine(
-                System.IO.Path.GetFullPath("resources"),
+            // VisualStudio: Path.GetFullPath("..\\..")
+            string path = Path.Combine(
+                Path.GetFullPath("resources"),
                 "textures",
                 textureFile
             );
