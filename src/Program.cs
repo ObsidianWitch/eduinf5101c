@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Projet_IMA {
+namespace ImageSynthesis {
 
     static class Program {
 

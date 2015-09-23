@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Projet_IMA.Properties
+namespace ImageSynthesis.Properties
 {
 
 

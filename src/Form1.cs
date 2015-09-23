@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 
-namespace Projet_IMA
+namespace ImageSynthesis
 {
     public partial class Form1 : Form
     {

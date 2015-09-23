@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace Projet_IMA {
+namespace ImageSynthesis {
 
     enum DisplayMode { SLOW_MODE, FULL_SPEED};
 

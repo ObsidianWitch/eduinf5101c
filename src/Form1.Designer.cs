@@ -1,4 +1,4 @@
-﻿namespace Projet_IMA
+﻿namespace ImageSynthesis
 {
     partial class Form1
     {
