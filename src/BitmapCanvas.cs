@@ -48,18 +48,18 @@ namespace ImageSynthesis {
             Color cc = c.Convertion();
             Bmp.SetPixel(x, y, cc);
             
-            Program.MyForm.PictureBoxInvalidate();
+            Program.Form.PictureBoxInvalidate();
             pxCounter++;
             
             // Force redraw every REFRESH px
             if (pxCounter > REFRESH) {
-               Program.MyForm.PictureBoxRefresh();
+               Program.Form.PictureBoxRefresh();
                pxCounter = 0;
             }
          }
 
         static public void RefreshScreen(Couleur c) {
-            if (Program.MyForm.Checked()) {
+            if (Program.Form.Checked()) {
                 Mode = DisplayMode.SLOW_MODE;
                 Graphics g = Graphics.FromImage(Bmp);
                 Color cc = c.Convertion();
@@ -105,7 +105,7 @@ namespace ImageSynthesis {
                 Bmp.UnlockBits(data);
             }
             
-            Program.MyForm.PictureBoxInvalidate();
+            Program.Form.PictureBoxInvalidate();
         }
 
         static public int GetWidth() { return Width; }

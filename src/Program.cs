@@ -7,15 +7,15 @@ namespace ImageSynthesis {
 
     static class Program {
 
-        static public Form1 MyForm;
+        static public Form1 Form;
 
         [STAThread]
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            MyForm = new Form1();
-            Application.Run(MyForm);
+            Form = new Form1();
+            Application.Run(Form);
         }
     }
 }
