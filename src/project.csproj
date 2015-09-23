@@ -71,7 +71,8 @@
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Trigo_InvertCoordSpherique.cs" />
+    <Compile Include="Geometry.cs" />
+    <Compile Include="Mathf.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjetEleve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

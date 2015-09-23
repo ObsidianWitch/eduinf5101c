@@ -1,4 +1,3 @@
-﻿
 namespace ImageSynthesis {
 
     struct V3 {
@@ -26,7 +25,7 @@ namespace ImageSynthesis {
         }
 
         public float Norm1() {
-            return (float) IMA.Sqrtf(X * X + Y * Y + Z * Z);
+            return Mathf.Sqrt(X * X + Y * Y + Z * Z);
         }
 
         public float Norm2() {
