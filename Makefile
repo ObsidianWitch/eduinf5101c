@@ -8,6 +8,7 @@ OUT = build/project.out
 .PHONY: build clean
 
 build:
+	mkdir -p build
 	$(MCS) $(MCSFLAGS) $(IN) -out:$(OUT)
 
 clean:
