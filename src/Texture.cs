@@ -16,7 +16,7 @@ namespace ImageSynthesis {
         public Texture(string textureFile) {
             // VisualStudio: System.IO.Path.GetFullPath("..\\..")
             string path = System.IO.Path.Combine(
-                System.IO.Path.GetFullPath("src/"),
+                System.IO.Path.GetFullPath("resources"),
                 "textures",
                 textureFile
             );
