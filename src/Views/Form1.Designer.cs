@@ -1,4 +1,4 @@
-﻿namespace ImageSynthesis
+﻿namespace ImageSynthesis.Views
 {
     partial class Form1
     {
@@ -33,9 +33,9 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // button1
-            // 
+            //
             this.button1.Location = new System.Drawing.Point(23, 23);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(179, 55);
@@ -43,9 +43,9 @@
             this.button1.Text = "Projet Eleves";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(23, 103);
@@ -54,9 +54,9 @@
             this.pictureBox1.Size = new System.Drawing.Size(957, 569);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // checkBox1
-            // 
+            //
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -66,9 +66,9 @@
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "Show";
             this.checkBox1.UseVisualStyleBackColor = true;
-            // 
+            //
             // Form1
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -91,4 +91,3 @@
         private System.Windows.Forms.CheckBox checkBox1;
     }
 }
-
