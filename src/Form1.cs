@@ -15,7 +15,7 @@ namespace ImageSynthesis
         public Form1()
         {
             InitializeComponent();
-            pictureBox1.Image = BitmapScreen.Init(pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.Image = BitmapCanvas.Init(pictureBox1.Width, pictureBox1.Height);
         }
 
         public bool Checked()               { return checkBox1.Checked;   }
@@ -24,9 +24,9 @@ namespace ImageSynthesis
 
         private void button1_Click(object sender, EventArgs e)
         {
-            BitmapScreen.RefreshScreen(new Couleur(0,0,0));
+            BitmapCanvas.RefreshScreen(new Couleur(0,0,0));
             ProjetEleve.Go();
-            BitmapScreen.Show();          
+            BitmapCanvas.Show();
         }
     }
 }

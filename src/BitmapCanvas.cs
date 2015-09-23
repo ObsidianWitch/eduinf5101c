@@ -9,7 +9,7 @@ namespace ImageSynthesis {
 
     enum DisplayMode { SLOW_MODE, FULL_SPEED};
 
-    class BitmapScreen {
+    class BitmapCanvas {
 
         const int REFRESH = 1000;
 
