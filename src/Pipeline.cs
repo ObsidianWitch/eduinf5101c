@@ -41,7 +41,7 @@ namespace ImageSynthesis {
             float radius = 100;
             V3 center = new V3(100, 100, 0);
             for (float u = 0 ; u < 2 * Mathf.PI ; u += 0.01f) {
-                for (float v = -Mathf.PI / 2 ; v < Mathf.PI ; v += 0.01f) {
+                for (float v = -Mathf.PI / 2 ; v < Mathf.PI / 2 ; v += 0.01f) {
                     V3 tmp = new V3(
                         (radius * Mathf.Sin(v) * Mathf.Cos(u)) + center.X,
                         (radius * Mathf.Sin(v) * Mathf.Sin(u)) + center.Y,
