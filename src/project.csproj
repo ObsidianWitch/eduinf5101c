@@ -63,7 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Couleur.cs" />
+    <Compile Include="Color.cs" />
     <Compile Include="BitmapCanvas.cs" />
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>

@@ -27,7 +27,7 @@ namespace ImageSynthesis {
             return Bmp;
         }
  
-        static void DrawFastPixel(int x, int y, Couleur c) {
+        static void DrawFastPixel(int x, int y, Color c) {
             unsafe {
                 byte* ptr = (byte*) data.Scan0;
                 ptr[(x * 3) + y * Stride    ] = c.B255();
@@ -36,7 +36,7 @@ namespace ImageSynthesis {
             }
         }
 
-        static void DrawSlowPixel(int x, int y, Couleur c) {
+        static void DrawSlowPixel(int x, int y, Color c) {
             Bmp.SetPixel(x, y, c.To255());
             
             Program.Form.PictureBoxInvalidate();
@@ -49,7 +49,7 @@ namespace ImageSynthesis {
             }
          }
 
-        static public void RefreshScreen(Couleur c) {
+        static public void RefreshScreen(Color c) {
             if (Program.Form.Checked()) {
                 Mode = DisplayMode.SLOW_MODE;
                 Graphics g = Graphics.FromImage(Bmp);
@@ -73,7 +73,7 @@ namespace ImageSynthesis {
             }
         }
 
-        public static void DrawPixel(int x, int y, Couleur c) {
+        public static void DrawPixel(int x, int y, Color c) {
             int x_Screen = x;
             int y_Screen = Height - y;
             

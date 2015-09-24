@@ -2,18 +2,18 @@ using System.Drawing;
 
 namespace ImageSynthesis {
 
-    public struct Couleur {
+    public struct Color {
 
         /// R,G,B in [0,1]
         public float R, G, B;
 
-        public Couleur(float R, float G, float B) {
+        public Color(float R, float G, float B) {
             this.R = R;
             this.G = G;
             this.B = B;
         }
 
-        public Couleur(Couleur c) {
+        public Color(Color c) {
             this.R = c.R;
             this.G = c.G;
             this.B = c.B;
@@ -25,7 +25,7 @@ namespace ImageSynthesis {
             B = (float) (b255 / 255.0);
         }
 
-        public Color To255() {
+        public System.Drawing.Color To255() {
             return System.Drawing.Color.FromArgb(
                 R255(), G255(), B255()
             );
@@ -49,39 +49,39 @@ namespace ImageSynthesis {
             return (byte) (B * 255);
         }
 
-        /// Useful for bump mapping
+        // TODO Useful for bump mapping
         public float GreyLevel() {
             return (R + G + B) / 3.0f;
         }
 
         // Operators
 
-        public static Couleur operator +(Couleur a, Couleur b) {
-            return new Couleur(a.R + b.R, a.G + b.G, a.B + b.B);
+        public static Color operator +(Color a, Color b) {
+            return new Color(a.R + b.R, a.G + b.G, a.B + b.B);
         }
 
-        public static Couleur operator -(Couleur a, Couleur b) {
-            return new Couleur(a.R - b.R, a.G - b.G, a.B - b.B);
+        public static Color operator -(Color a, Color b) {
+            return new Color(a.R - b.R, a.G - b.G, a.B - b.B);
         }
 
-        public static Couleur operator -(Couleur a) {
-            return new Couleur(-a.R, -a.G, -a.B);
+        public static Color operator -(Color a) {
+            return new Color(-a.R, -a.G, -a.B);
         }
 
-        public static Couleur operator *(Couleur a, Couleur b) {
-            return new Couleur(a.R * b.R, a.G * b.G, a.B * b.B);
+        public static Color operator *(Color a, Color b) {
+            return new Color(a.R * b.R, a.G * b.G, a.B * b.B);
         }
 
-        public static Couleur operator *(float a, Couleur b) {
-            return new Couleur(a * b.R, a * b.G, a * b.B);
+        public static Color operator *(float a, Color b) {
+            return new Color(a * b.R, a * b.G, a * b.B);
         }
 
-        public static Couleur operator *(Couleur b, float a) {
-            return new Couleur(a * b.R, a * b.G, a * b.B);
+        public static Color operator *(Color b, float a) {
+            return new Color(a * b.R, a * b.G, a * b.B);
         }
 
-        public static Couleur operator /(Couleur b, float a) {
-            return new Couleur(b.R / a, b.G / a, b.B / a);
+        public static Color operator /(Color b, float a) {
+            return new Color(b.R / a, b.G / a, b.B / a);
         }
     }
 }

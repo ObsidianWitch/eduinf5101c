@@ -8,7 +8,7 @@ namespace ImageSynthesis {
 
         int Height;
         int Width;
-        Couleur [,] C;
+        Color [,] C;
 
         public Texture(string textureFile) {
             // VisualStudio: Path.GetFullPath("..\\..")
@@ -30,7 +30,7 @@ namespace ImageSynthesis {
             
             int stride = data.Stride;
              
-            C = new Couleur[Width, Height];
+            C = new Color[Width, Height];
             
             unsafe {
                 byte* ptr = (byte*) data.Scan0;
@@ -50,7 +50,7 @@ namespace ImageSynthesis {
         }
 
         /// u,v in [0,1]
-        public Couleur readColor(float u, float v) {
+        public Color readColor(float u, float v) {
             return Interpolate(Width * u, Height * v);
         }
 
@@ -66,7 +66,7 @@ namespace ImageSynthesis {
             dhdv = vy - vv;
         }
 
-        private Couleur Interpolate(float Lu, float Hv) {
+        private Color Interpolate(float Lu, float Hv) {
             int x = (int) Lu;  // plus grand entier <=
             int y = (int) Hv;
             

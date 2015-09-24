@@ -20,7 +20,7 @@ namespace ImageSynthesis
                     int x = (int) (u * larg + 10); // calcul des coordonnées planes
                     int y = (int) (v * haut + 15);
 
-                    Couleur c = T1.readColor(u * r_x, v * r_y);
+                    Color c = T1.readColor(u * r_x, v * r_y);
                     
                     BitmapCanvas.DrawPixel(x,y,c );
                    
@@ -28,11 +28,11 @@ namespace ImageSynthesis
 
             // dessin sur l'image pour comprendre l'orientation axe et origine du Bitmap
             
-            Couleur Red = new Couleur(1.0f, 0.0f, 0.0f);
+            Color Red = new Color(1.0f, 0.0f, 0.0f);
             for (int i = 0; i < 1000; i++)
                 BitmapCanvas.DrawPixel(i, i, Red);
 
-            Couleur Green = new Couleur(0.0f, 1.0f, 0.0f);
+            Color Green = new Color(0.0f, 1.0f, 0.0f);
             for (int i = 0; i < 1000; i++)
                 BitmapCanvas.DrawPixel(i, 1000-i, Green);
 
