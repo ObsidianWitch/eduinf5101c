@@ -26,24 +26,32 @@ namespace ImageSynthesis {
         }
 
         public Color To255() {
-            check();
+            return System.Drawing.Color.FromArgb(
+                R255(), G255(), B255()
+            );
+        }
+
+        public byte R255() {
+            if (R > 1.0) { R = 1.0f; }
             
-            byte r255 = (byte) (R * 255);
-            byte g255 = (byte) (G * 255);
-            byte b255 = (byte) (B * 255);
+            return (byte) (R * 255);
+        }
+
+        public byte G255() {
+            if (G > 1.0) { G = 1.0f; }
             
-            return Color.FromArgb(r255, g255, b255);
+            return (byte) (G * 255);
+        }
+
+        public byte B255() {
+            if (B > 1.0) { B = 1.0f; }
+            
+            return (byte) (B * 255);
         }
 
         /// Useful for bump mapping
         public float GreyLevel() {
             return (R + G + B) / 3.0f;
-        }
-
-        private void check() {
-            if (R > 1.0) R = 1.0f;
-            if (G > 1.0) G = 1.0f;
-            if (B > 1.0) B = 1.0f;
         }
 
         // Operators

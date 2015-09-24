@@ -29,18 +29,15 @@ namespace ImageSynthesis {
  
         static void DrawFastPixel(int x, int y, Couleur c) {
             unsafe {
-                Color c255 = c.To255();
-                
                 byte* ptr = (byte*) data.Scan0;
-                ptr[(x * 3) + y * Stride    ] = c255.B;
-                ptr[(x * 3) + y * Stride + 1] = c255.G;
-                ptr[(x * 3) + y * Stride + 2] = c255.R;
+                ptr[(x * 3) + y * Stride    ] = c.B255();
+                ptr[(x * 3) + y * Stride + 1] = c.G255();
+                ptr[(x * 3) + y * Stride + 2] = c.R255();
             }
         }
 
         static void DrawSlowPixel(int x, int y, Couleur c) {
-            Color c255 = c.To255();
-            Bmp.SetPixel(x, y, c255);
+            Bmp.SetPixel(x, y, c.To255());
             
             Program.Form.PictureBoxInvalidate();
             pxCounter++;
@@ -56,8 +53,7 @@ namespace ImageSynthesis {
             if (Program.Form.Checked()) {
                 Mode = DisplayMode.SLOW_MODE;
                 Graphics g = Graphics.FromImage(Bmp);
-                Color c255 = c.To255();
-                g.Clear(c255);
+                g.Clear(c.To255());
             }
             else {
                 Mode = DisplayMode.FULL_SPEED;
