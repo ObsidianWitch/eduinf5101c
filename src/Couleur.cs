@@ -25,17 +25,14 @@ namespace ImageSynthesis {
             if (B > 1.0) B = 1.0f;
         }
 
-        public void To255(out byte RR, out byte GG, out byte BB) {
-            RR = (byte)(R * 255);
-            GG = (byte)(G * 255);
-            BB = (byte)(B * 255);
-        }
-
-        public Color Convertion() {
+        public Color To255() {
             check();
-            byte RR, GG, BB;
-            To255(out RR, out GG, out BB);
-            return Color.FromArgb(RR, GG, BB);
+            
+            byte r255 = (byte) (R * 255);
+            byte g255 = (byte) (G * 255);
+            byte b255 = (byte) (B * 255);
+            
+            return Color.FromArgb(r255, g255, b255);
         }
 
         public Couleur(float R, float G, float B) {
