@@ -1,4 +1,4 @@
-namespace ImageSynthesis {
+namespace ImageSynthesis.Models {
 
     class Sphere {
 

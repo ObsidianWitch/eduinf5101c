@@ -1,3 +1,5 @@
+using ImageSynthesis.Models;
+
 namespace ImageSynthesis {
 
     static class Pipeline {
