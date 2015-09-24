@@ -24,33 +24,22 @@ namespace ImageSynthesis {
                 }
             }
 
-            // dessin sur l'image pour comprendre l'orientation axe et origine
-            // du Bitmap
-            Color Red   = new Color(1.0f, 0.0f, 0.0f);
-            Color Green = new Color(0.0f, 1.0f, 0.0f);
-            Color Blue  = new Color(0.0f, 0.0f, 1.0f);
+            Color red   = new Color(1.0f, 0.0f, 0.0f);
+            Color green = new Color(0.0f, 1.0f, 0.0f);
+            Color blue  = new Color(0.0f, 0.0f, 1.0f);
             
             // Draw some lines
             for (int i = 0 ; i < 1000 ; i++) {
-                BitmapCanvas.DrawPixel(i, i, Red);
-                BitmapCanvas.DrawPixel(i, 1000 - i, Green);
+                BitmapCanvas.DrawPixel(i, i, red);
+                BitmapCanvas.DrawPixel(i, 1000 - i, green);
             }
             
             // Draw sphere
-            // FIXME Z computed but not used yet, needed for Z-buffer
-            float radius = 100;
-            V3 center = new V3(100, 100, 0);
-            for (float u = 0 ; u < 2 * Mathf.PI ; u += 0.01f) {
-                for (float v = -Mathf.PI / 2 ; v < Mathf.PI / 2 ; v += 0.01f) {
-                    V3 tmp = new V3(
-                        (radius * Mathf.Sin(v) * Mathf.Cos(u)) + center.X,
-                        (radius * Mathf.Sin(v) * Mathf.Sin(u)) + center.Y,
-                        (radius * Mathf.Cos(v)) + center.Z
-                    );
-                    
-                    BitmapCanvas.DrawPixel((int) tmp.X, (int) tmp.Y, Blue);
-                }
-            }
+            Sphere sphere = new Sphere(
+                new V3(100, 100, 0), // center
+                100                  // radius
+            );
+            sphere.Draw(blue);
 
             // test des opérations sur les vecteurs
             V3 t = new V3(1, 0, 0);

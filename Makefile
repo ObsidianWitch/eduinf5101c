@@ -2,7 +2,7 @@ MCS = gmcs
 
 MCSFLAGS = -pkg:dotnet -lib:/usr/lib/mono/4.5 -unsafe
 
-IN  = src/*.cs src/Views/*.cs src/Math/*.cs
+IN  = src/*.cs src/Views/*.cs src/Math/*.cs src/Models/*.cs
 OUT = build/project.out
 
 .PHONY: build clean
