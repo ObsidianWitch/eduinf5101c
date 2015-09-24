@@ -11,14 +11,14 @@ namespace ImageSynthesis.Views
             pictureBox1.Image = BitmapCanvas.Init(pictureBox1.Width, pictureBox1.Height);
         }
 
-        public bool Checked()               { return checkBox1.Checked;   }
-        public void PictureBoxInvalidate()  { pictureBox1.Invalidate(); }
-        public void PictureBoxRefresh()     { pictureBox1.Refresh();    }
+        public bool Checked()              { return checkBox1.Checked;   }
+        public void PictureBoxInvalidate() { pictureBox1.Invalidate(); }
+        public void PictureBoxRefresh()    { pictureBox1.Refresh();    }
 
         private void button1_Click(object sender, EventArgs e)
         {
             BitmapCanvas.Refresh(new Color(0,0,0));
-            ProjetEleve.Go();
+            Pipeline.Go();
             BitmapCanvas.Show();
         }
     }
