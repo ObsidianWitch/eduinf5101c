@@ -37,9 +37,10 @@ namespace ImageSynthesis {
             // Draw sphere
             Sphere sphere = new Sphere(
                 new V3(100, 100, 0), // center
-                100                  // radius
+                100,                 // radius
+                blue                 // color
             );
-            sphere.Draw(blue);
+            sphere.Draw();
 
             // test des opérations sur les vecteurs
             V3 t = new V3(1, 0, 0);
