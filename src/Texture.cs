@@ -36,11 +36,11 @@ namespace ImageSynthesis {
                 byte* ptr = (byte*) data.Scan0;
                 for (int x = 0 ; x < Width ; x++) {
                     for (int y = 0 ; y < Height ; y++) {
-                        byte RR, VV, BB;
+                        byte RR, GG, BB;
                         BB = ptr[(x * 3) + y * stride];
-                        VV = ptr[(x * 3) + y * stride + 1];
+                        GG = ptr[(x * 3) + y * stride + 1];
                         RR = ptr[(x * 3) + y * stride + 2];
-                        C[x, y].From255(RR, VV, BB);
+                        C[x, y].From255(RR, GG, BB);
                     }
                 }
             }

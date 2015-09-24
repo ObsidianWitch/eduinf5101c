@@ -1,109 +1,86 @@
 using System.Drawing;
 
-namespace ImageSynthesis
-{
-    public struct Couleur
-    {
-        public float R, V, B;	// composantes R,V,B comprises entre 0 et 1
+namespace ImageSynthesis {
 
-        // constructeurs
+    public struct Couleur {
 
-        public void From255(byte RR, byte VV, byte BB)
-        {
+        /// R,G,B in [0,1]
+        public float R, G, B;
+
+        public void From255(byte RR, byte GG, byte BB) {
             R = (float)(RR / 255.0);
-            V = (float)(VV / 255.0);
+            G = (float)(GG / 255.0);
             B = (float)(BB / 255.0);
         }
 
-        static public  void Transpose(ref Couleur cc, System.Drawing.Color c)
-        {
+        static public  void Transpose(ref Couleur cc, System.Drawing.Color c) {
             cc.R = (float) (c.R / 255.0);
-            cc.V = (float) (c.G / 255.0);
+            cc.G = (float) (c.G / 255.0);
             cc.B = (float) (c.B / 255.0);
         }
 
-        public void check()
-        {
+        public void check() {
             if (R > 1.0) R = 1.0f;
-            if (V > 1.0) V = 1.0f;
+            if (G > 1.0) G = 1.0f;
             if (B > 1.0) B = 1.0f;
         }
 
-        public void To255(out byte RR, out byte VV, out byte BB)
-        {
+        public void To255(out byte RR, out byte GG, out byte BB) {
             RR = (byte)(R * 255);
-            VV = (byte)(V * 255);
+            GG = (byte)(G * 255);
             BB = (byte)(B * 255);
         }
 
-        public Color Convertion()
-        {
+        public Color Convertion() {
             check();
-            byte RR, VV, BB;
-            To255(out RR, out VV, out BB);
-            return Color.FromArgb(RR, VV, BB);
+            byte RR, GG, BB;
+            To255(out RR, out GG, out BB);
+            return Color.FromArgb(RR, GG, BB);
         }
 
-        public Couleur(float R, float V, float B)
-        {
+        public Couleur(float R, float G, float B) {
             this.R = R;
-            this.V = V;
+            this.G = G;
             this.B = B;
         }
 
-        public Couleur(Couleur c)
-        {
+        public Couleur(Couleur c) {
             this.R = c.R;
-            this.V = c.V;
+            this.G = c.G;
             this.B = c.B;
         }
 
-        // méthodes
-
-        public float GreyLevel()						// utile pour le Bump Map
-        {
-            return (R + B + V) / 3.0f;
+        /// Useful for bump mapping
+        public float GreyLevel() {
+            return (R + B + G) / 3.0f;
         }
 
-        // opérateurs surchargés
-
-        public static Couleur operator +(Couleur a, Couleur b)
-        {
-            return new Couleur(a.R + b.R, a.V + b.V, a.B + b.B);
+        public static Couleur operator +(Couleur a, Couleur b) {
+            return new Couleur(a.R + b.R, a.G + b.G, a.B + b.B);
         }
 
-        public static Couleur operator -(Couleur a, Couleur b)
-        {
-            return new Couleur(a.R - b.R, a.V - b.V, a.B - b.B);
+        public static Couleur operator -(Couleur a, Couleur b) {
+            return new Couleur(a.R - b.R, a.G - b.G, a.B - b.B);
         }
 
-        public static Couleur operator -(Couleur a)
-        {
-            return new Couleur(-a.R, -a.V, -a.B);
+        public static Couleur operator -(Couleur a) {
+            return new Couleur(-a.R, -a.G, -a.B);
         }
 
-        public static Couleur operator *(Couleur a, Couleur b)
-        {
-            return new Couleur(a.R * b.R, a.V * b.V, a.B * b.B);
+        public static Couleur operator *(Couleur a, Couleur b) {
+            return new Couleur(a.R * b.R, a.G * b.G, a.B * b.B);
         }
 
-        public static Couleur operator *(float a, Couleur b)
-        {
-            return new Couleur(a * b.R, a * b.V, a * b.B);
+        public static Couleur operator *(float a, Couleur b) {
+            return new Couleur(a * b.R, a * b.G, a * b.B);
         }
 
-        public static Couleur operator *(Couleur b, float a)
-        {
-            return new Couleur(a * b.R, a * b.V, a * b.B);
+        public static Couleur operator *(Couleur b, float a) {
+            return new Couleur(a * b.R, a * b.G, a * b.B);
         }
 
-        public static Couleur operator /(Couleur b, float a)
-        {
-            return new Couleur(b.R / a, b.V / a, b.B / a);
+        public static Couleur operator /(Couleur b, float a) {
+            return new Couleur(b.R / a, b.G / a, b.B / a);
         }
     }
 }
-
-    
-
-    				

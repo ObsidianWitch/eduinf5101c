@@ -29,13 +29,13 @@ namespace ImageSynthesis {
  
         static void DrawFastPixel(int x, int y, Couleur c) {
             unsafe {
-                byte RR, VV, BB;
+                byte RR, GG, BB;
                 c.check();
-                c.To255(out RR, out VV, out BB);
+                c.To255(out RR, out GG, out BB);
                 
                 byte* ptr = (byte*) data.Scan0;
                 ptr[(x * 3) + y * Stride    ] = BB;
-                ptr[(x * 3) + y * Stride + 1] = VV;
+                ptr[(x * 3) + y * Stride + 1] = GG;
                 ptr[(x * 3) + y * Stride + 2] = RR;
             }
         }
