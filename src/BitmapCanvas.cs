@@ -17,12 +17,14 @@ namespace ImageSynthesis {
         static private int Height;
         static private int Stride;
         static private BitmapData data;
+        static private ZBuffer ZBuffer;
 
         static public Bitmap Init(int w, int h) {
             Width = w;
             Height = h;
             
             Bmp = new Bitmap(Width, Height);
+            ZBuffer = new ZBuffer(Width, Height);
             
             return Bmp;
         }
@@ -50,6 +52,8 @@ namespace ImageSynthesis {
          }
 
         static public void Refresh(Color c) {
+            ZBuffer.clear();
+            
             if (Program.Form.Checked()) {
                 Mode = DisplayMode.SLOW_MODE;
                 Graphics g = Graphics.FromImage(Bmp);
@@ -73,14 +77,16 @@ namespace ImageSynthesis {
             }
         }
 
-        public static void DrawPixel(int x, int y, Color c) {
+        public static void DrawPixel(int x, int y, float z, Color c) {
             int x_Screen = x;
             int y_Screen = Height - y;
             
             bool inScreen = (x_Screen >= 0) && (x_Screen < Width) &&
                             (y_Screen >= 0) && (y_Screen < Height);
             
-            if (inScreen) {
+            bool canDraw = ZBuffer.Set(x_Screen, y_Screen, z);
+            
+            if (inScreen && canDraw) {
                 if (Mode == DisplayMode.SLOW_MODE) {
                     DrawSlowPixel(x_Screen, y_Screen, c);
                 }
