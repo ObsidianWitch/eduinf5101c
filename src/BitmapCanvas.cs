@@ -49,7 +49,7 @@ namespace ImageSynthesis {
             }
          }
 
-        static public void RefreshScreen(Color c) {
+        static public void Refresh(Color c) {
             if (Program.Form.Checked()) {
                 Mode = DisplayMode.SLOW_MODE;
                 Graphics g = Graphics.FromImage(Bmp);
