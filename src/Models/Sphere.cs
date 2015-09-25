@@ -19,6 +19,11 @@ namespace ImageSynthesis.Models {
                     
                     // TODO refacto Illu
                     
+                    // Ambiant reflection
+                    Color ia = new Color(0.2f, 0.2f, 0.2f);
+                    float ka = 1.0f;
+                    Color Ia = Color * ia * ka;
+                    
                     // Diffuse reflection
                     V3 lightSrc = new V3(200, -200, 200);
                     
@@ -32,9 +37,14 @@ namespace ImageSynthesis.Models {
                     
                     Color Id = Color * id * kd * (l * n);
                     
+                    // FIXME avoid having negative Id cancelling other components
+                    
+                    if (Id.R < 0.0) { Id.R = 0.0f; }
+                    if (Id.G < 0.0) { Id.G = 0.0f; }
+                    if (Id.B < 0.0) { Id.B = 0.0f; }
                     // TODO end refacto Illu
                     
-                    BitmapCanvas.DrawPixel(p, Id);
+                    BitmapCanvas.DrawPixel(p, Ia + Id);
                 }
             }
         }
