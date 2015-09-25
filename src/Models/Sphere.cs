@@ -1,3 +1,5 @@
+using System;
+
 namespace ImageSynthesis.Models {
 
     class Sphere {
@@ -38,13 +40,24 @@ namespace ImageSynthesis.Models {
                     Color Id = Color * id * kd * (l * n);
                     
                     // FIXME avoid having negative Id cancelling other components
-                    
                     if (Id.R < 0.0) { Id.R = 0.0f; }
                     if (Id.G < 0.0) { Id.G = 0.0f; }
                     if (Id.B < 0.0) { Id.B = 0.0f; }
+                    
+                    // Specular reflection
+                    Color i_s = new Color(1.0f, 1.0f, 1.0f);
+                    float ks = 0.5f;
+                    int alpha = 100;
+                    
+                    V3 r = 2 * (n * l) * n - l;
+                    V3 viewpoint = p - new V3(200, -150, 1); // FIXME
+                    viewpoint.Normalize();
+                    
+                    Color Is = i_s * ks * (float) Math.Pow((r * viewpoint), alpha);
+                    
                     // TODO end refacto Illu
                     
-                    BitmapCanvas.DrawPixel(p, Ia + Id);
+                    BitmapCanvas.DrawPixel(p, Ia + Id + Is);
                 }
             }
         }

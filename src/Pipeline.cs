@@ -13,7 +13,7 @@ namespace ImageSynthesis {
             );
 
             Sphere s2 = new Sphere(
-                new V3(350, 0, 200), // center
+                new V3(450, 0, 200), // center
                 100,                 // radius
                 Color.Green          // color
             );
