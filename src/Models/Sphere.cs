@@ -7,11 +7,15 @@ namespace ImageSynthesis.Models {
         private V3 Center { get; set; }
         private float Radius { get; set; }
         private Color Color { get; set; }
+        private PhongMaterial Material { get; set; }
 
-        public Sphere(V3 center, float radius, Color color) {
+        public Sphere(V3 center, float radius, Color color,
+            PhongMaterial material)
+        {
             Center = center;
             Radius = radius;
             Color  = color;
+            Material = material;
         }
 
         public void Draw() {
@@ -23,8 +27,7 @@ namespace ImageSynthesis.Models {
                     
                     // Ambiant reflection
                     Color ia = new Color(0.2f, 0.2f, 0.2f);
-                    float ka = 1.0f;
-                    Color Ia = Color * ia * ka;
+                    Color Ia = Color * ia * Material.KAmbient;
                     
                     // Diffuse reflection
                     V3 lightSrc = new V3(200, -200, 200);
@@ -35,9 +38,8 @@ namespace ImageSynthesis.Models {
                     l.Normalize();
                     
                     Color id = new Color(1.0f, 1.0f, 1.0f);
-                    float kd = 1.0f;
                     
-                    Color Id = Color * id * kd * (l * n);
+                    Color Id = Color * id * Material.KDiffuse * (l * n);
                     
                     // FIXME avoid having negative Id cancelling other components
                     if (Id.R < 0.0) { Id.R = 0.0f; }
@@ -46,14 +48,12 @@ namespace ImageSynthesis.Models {
                     
                     // Specular reflection
                     Color i_s = new Color(1.0f, 1.0f, 1.0f);
-                    float ks = 0.5f;
-                    int alpha = 100;
                     
                     V3 r = 2 * (n * l) * n - l;
                     V3 viewpoint = p - new V3(200, -150, 1); // FIXME
                     viewpoint.Normalize();
                     
-                    Color Is = i_s * ks * (float) Math.Pow((r * viewpoint), alpha);
+                    Color Is = i_s * Material.KSpecular * (float) Math.Pow((r * viewpoint), Material.Shininess);
                     
                     // TODO end refacto Illu
                     

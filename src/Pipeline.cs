@@ -7,15 +7,27 @@ namespace ImageSynthesis {
         public static void Go() {
             // Draw spheres
             Sphere s1 = new Sphere(
-                new V3(200, 0, 200), // center
-                100,                 // radius
-                Color.Red            // color
+                center: new V3(200, 0, 200),
+                radius: 100,
+                color: Color.Red,
+                material: new PhongMaterial(
+                    kA: 1.0f,
+                    kD: 1.0f,
+                    kS: 0.5f,
+                    shininess: 40
+                )
             );
 
             Sphere s2 = new Sphere(
-                new V3(450, 0, 200), // center
-                100,                 // radius
-                Color.Green          // color
+                center: new V3(450, 0, 200),
+                radius: 100,
+                color: Color.Green,
+                material: new PhongMaterial(
+                    kA: 1.0f,
+                    kD: 1.0f,
+                    kS: 0.0f,
+                    shininess: 40
+                )
             );
 
             s1.Draw();
