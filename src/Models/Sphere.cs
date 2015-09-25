@@ -1,4 +1,5 @@
 using System;
+using ImageSynthesis.Lights;
 
 namespace ImageSynthesis.Models {
 
@@ -25,21 +26,22 @@ namespace ImageSynthesis.Models {
                     
                     // TODO refacto Illu
                     
-                    // Ambiant reflection
-                    Color ia = new Color(0.2f, 0.2f, 0.2f);
-                    Color Ia = Color * ia * Material.KAmbient;
+                    // Ambient reflection
+                    Light ambientLight = new AmbientLight(
+                        new Color(0.2f, 0.2f, 0.2f)
+                    );
+                    Color Ia = Color * ambientLight.Intensity * Material.KAmbient;
                     
                     // Diffuse reflection
-                    V3 lightSrc = new V3(0, 0, 200);
+                    PointLight pointLight = new PointLight(
+                        new Color(1.0f, 1.0f, 1.0f),
+                        new V3(0, 0, 200)
+                    );
                     
                     V3 n = Normal(p);
+                    V3 l = pointLight.Direction(p);
                     
-                    V3 l = lightSrc - p;
-                    l.Normalize();
-                    
-                    Color id = new Color(1.0f, 1.0f, 1.0f);
-                    
-                    Color Id = Color * id * Material.KDiffuse * (l * n);
+                    Color Id = Color * pointLight.Intensity * Material.KDiffuse * (l * n);
                     
                     // FIXME avoid having negative Id cancelling other components
                     if (Id.R < 0.0) { Id.R = 0.0f; }
@@ -50,6 +52,8 @@ namespace ImageSynthesis.Models {
                     Color i_s = new Color(1.0f, 1.0f, 1.0f);
                     
                     V3 r = 2 * (n * l) * n - l;
+                    r.Normalize();
+                    
                     V3 viewingDirection = new V3(0, 0, 0) - p;
                     viewingDirection.Normalize();
                     
