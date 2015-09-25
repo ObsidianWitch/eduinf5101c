@@ -2,14 +2,16 @@ using System.Drawing;
 
 namespace ImageSynthesis {
 
-    public struct Color {
+    public class Color {
 
         public static Color Red = new Color(1.0f, 0.0f, 0.0f);
         public static Color Green = new Color(0.0f, 1.0f, 0.0f);
         public static Color Blue = new Color(0.0f, 0.0f, 1.0f);
 
         /// R,G,B in [0,1]
-        public float R, G, B;
+        public float R { get; set; }
+        public float G { get; set; }
+        public float B { get; set; }
 
         public Color(float R, float G, float B) {
             this.R = R;

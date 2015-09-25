@@ -13,8 +13,8 @@ namespace ImageSynthesis {
 
         static private Bitmap Bmp;
         static private DisplayMode Mode;
-        static private int Width;
-        static private int Height;
+        static public int Width { get; private set; }
+        static public int Height { get; private set; }
         static private int Stride;
         static private BitmapData data;
         static private ZBuffer ZBuffer;
@@ -116,8 +116,5 @@ namespace ImageSynthesis {
             
             Program.Form.PictureBoxInvalidate();
         }
-
-        static public int GetWidth() { return Width; }
-        static public int GetHeight() { return Height; }
     }
 }

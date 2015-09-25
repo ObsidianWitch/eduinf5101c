@@ -6,9 +6,9 @@ namespace ImageSynthesis {
 
     class Texture {
 
-        int Height;
-        int Width;
-        Color [,] C;
+        private int Height;
+        private int Width;
+        private Color [,] C;
 
         public Texture(string textureFile) {
             // VisualStudio: Path.GetFullPath("..\\..")

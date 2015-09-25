@@ -4,10 +4,10 @@ namespace ImageSynthesis.Models {
 
     class Sphere {
 
-        private V3 Center { get; set; }
-        private float Radius { get; set; }
-        private Color Color { get; set; }
-        private PhongMaterial Material { get; set; }
+        public V3 Center { get; set; }
+        public float Radius { get; set; }
+        public Color Color { get; set; }
+        public PhongMaterial Material { get; set; }
 
         public Sphere(V3 center, float radius, Color color,
             PhongMaterial material)
