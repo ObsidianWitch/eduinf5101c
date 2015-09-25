@@ -30,7 +30,7 @@ namespace ImageSynthesis.Models {
                     Color Ia = Color * ia * Material.KAmbient;
                     
                     // Diffuse reflection
-                    V3 lightSrc = new V3(200, -200, 200);
+                    V3 lightSrc = new V3(0, 0, 200);
                     
                     V3 n = Normal(p);
                     
@@ -50,10 +50,17 @@ namespace ImageSynthesis.Models {
                     Color i_s = new Color(1.0f, 1.0f, 1.0f);
                     
                     V3 r = 2 * (n * l) * n - l;
-                    V3 viewpoint = p - new V3(200, -150, 1); // FIXME
-                    viewpoint.Normalize();
+                    V3 viewingDirection = new V3(0, 0, 0) - p;
+                    viewingDirection.Normalize();
                     
-                    Color Is = i_s * Material.KSpecular * (float) Math.Pow((r * viewpoint), Material.Shininess);
+                    Color Is = new Color(0, 0, 0);
+                    if (r * viewingDirection > 0.0f) {
+                        Is = i_s * Material.KSpecular *
+                             (float) Math.Pow(
+                                r * viewingDirection,
+                                Material.Shininess
+                             );
+                    }
                     
                     // TODO end refacto Illu
                     
