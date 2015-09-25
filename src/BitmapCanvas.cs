@@ -77,21 +77,34 @@ namespace ImageSynthesis {
             }
         }
 
+        /// Draw a pixel at the position specified by the p vector.
+        /// p's coordinates are in the orthonormal basis specified in the
+        /// assignement: (X,Z,Y) with Y being the viewing direction.
+        public static void DrawPixel(V3 p, Color c) {
+            DrawPixel((int) p.X, (int) p.Z, p.Y, c);
+        }
+
+        /// Draw a pixel on the screen at the following position:
+        /// xScreen = x
+        /// yScreen = screenHeight - y
+        /// A pixel is drawn only if it is inside the screen (canvas), and
+        /// if it is not hidden by another already drawn pixel (check the
+        /// ZBuffer).
         public static void DrawPixel(int x, int y, float z, Color c) {
-            int x_Screen = x;
-            int y_Screen = Height - y;
+            int xScreen = x;
+            int yScreen = Height - y;
             
-            bool inScreen = (x_Screen >= 0) && (x_Screen < Width) &&
-                            (y_Screen >= 0) && (y_Screen < Height);
+            bool inScreen = (xScreen >= 0) && (xScreen < Width) &&
+                            (yScreen >= 0) && (yScreen < Height);
             
-            bool canDraw = ZBuffer.Set(x_Screen, y_Screen, z);
+            bool canDraw = ZBuffer.Set(xScreen, yScreen, z);
             
             if (inScreen && canDraw) {
                 if (Mode == DisplayMode.SLOW_MODE) {
-                    DrawSlowPixel(x_Screen, y_Screen, c);
+                    DrawSlowPixel(xScreen, yScreen, c);
                 }
                 else {
-                    DrawFastPixel(x_Screen, y_Screen, c);
+                    DrawFastPixel(xScreen, yScreen, c);
                 }
             }
         }
