@@ -37,18 +37,21 @@ namespace ImageSynthesis {
 
         public byte R255() {
             if (R > 1.0) { R = 1.0f; }
+            if (R < 0.0) { R = 0.0f; }
             
             return (byte) (R * 255);
         }
 
         public byte G255() {
             if (G > 1.0) { G = 1.0f; }
+            if (G < 0.0) { G = 0.0f; }
             
             return (byte) (G * 255);
         }
 
         public byte B255() {
             if (B > 1.0) { B = 1.0f; }
+            if (B < 0.0) { B = 0.0f; }
             
             return (byte) (B * 255);
         }

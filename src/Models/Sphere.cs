@@ -15,7 +15,26 @@ namespace ImageSynthesis.Models {
         public void Draw() {
             for (float u = 0 ; u < 2 * Mathf.PI ; u += 0.01f) {
                 for (float v = -Mathf.PI / 2 ; v < Mathf.PI / 2 ; v += 0.01f) {
-                    BitmapCanvas.DrawPixel(Point(u,v), Color);
+                    V3 p = Point(u,v);
+                    
+                    // TODO refacto Illu
+                    
+                    // Diffuse reflection
+                    V3 lightSrc = new V3(200, -200, 200);
+                    
+                    V3 n = Normal(p);
+                    
+                    V3 l = lightSrc - p;
+                    l.Normalize();
+                    
+                    Color id = new Color(1.0f, 1.0f, 1.0f);
+                    float kd = 1.0f;
+                    
+                    Color Id = Color * id * kd * (l * n);
+                    
+                    // TODO end refacto Illu
+                    
+                    BitmapCanvas.DrawPixel(p, Id);
                 }
             }
         }
@@ -26,6 +45,13 @@ namespace ImageSynthesis.Models {
                 Center.Y + (Radius * Mathf.Cos(v) * Mathf.Sin(u)),
                 Center.Z + (Radius * Mathf.Sin(v))
             );
+        }
+
+        public V3 Normal(V3 p) {
+            V3 n = p - Center;
+            n.Normalize();
+            
+            return n;
         }
 
     }
