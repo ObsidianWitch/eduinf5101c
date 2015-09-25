@@ -17,16 +17,16 @@ namespace ImageSynthesis {
             for (float u = 0 ; u < 2 * Mathf.PI ; u += 0.01f) {
                 for (float v = -Mathf.PI / 2 ; v < Mathf.PI / 2 ; v += 0.01f) {
                     V3 p = Point(u, v);
-                    BitmapCanvas.DrawPixel((int) p.X, (int) p.Y, Color);
+                    BitmapCanvas.DrawPixel((int) p.X, (int) p.Z, Color);
                 }
             }
         }
 
         public V3 Point(float u, float v) {
             return new V3(
-                (Radius * Mathf.Sin(v) * Mathf.Cos(u)) + Center.X,
-                (Radius * Mathf.Sin(v) * Mathf.Sin(u)) + Center.Y,
-                (Radius * Mathf.Cos(v)) + Center.Z
+                Center.X + (Radius * Mathf.Cos(v) * Mathf.Cos(u)),
+                Center.Y + (Radius * Mathf.Cos(v) * Mathf.Sin(u)),
+                Center.Z + (Radius * Mathf.Sin(v))
             );
         }
 

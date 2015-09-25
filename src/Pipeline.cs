@@ -5,13 +5,13 @@ namespace ImageSynthesis {
         public static void Go() {
             // Draw spheres
             Sphere s1 = new Sphere(
-                new V3(200, 200, 0), // center
+                new V3(200, 0, 200), // center
                 100,                 // radius
                 Color.Red            // color
             );
 
             Sphere s2 = new Sphere(
-                new V3(350, 200, 0), // center
+                new V3(350, 0, 200), // center
                 100,                 // radius
                 Color.Green          // color
             );
