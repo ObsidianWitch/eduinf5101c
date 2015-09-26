@@ -11,15 +11,15 @@ namespace ImageSynthesis.Lights {
             CameraPos = cameraPos;
         }
         
-        // TODO doc
+        /// Computes the ambient component of the Phong reflection model.
         override public Color ComputeAmbientLight(
             AmbientLight aL, Object3D obj, V3 p
         ) {
             return obj.Color * aL.Intensity * obj.Material.KAmbient;
         }
         
-        // TODO check equations
-        // TODO doc
+        /// Computes the diffuse and specular components of the Phong
+        /// reflection model.
         override public Color ComputePointLight(
             PointLight pL, Object3D obj, V3 p
         ) {
