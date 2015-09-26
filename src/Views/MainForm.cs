@@ -18,7 +18,7 @@ namespace ImageSynthesis.Views
         private void button1_Click(object sender, EventArgs e)
         {
             BitmapCanvas.Refresh(new Color(0,0,0));
-            Pipeline.Go();
+            Program.Run();
             BitmapCanvas.Show();
         }
     }
