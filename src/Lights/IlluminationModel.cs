@@ -6,7 +6,7 @@ namespace ImageSynthesis.Lights {
     abstract class IlluminationModel {
         
         // FIXME avoid introspection (use Visitor?)
-        public Color compute(List<Light> lights, Object3D obj, V3 p) {
+        virtual public Color compute(List<Light> lights, Object3D obj, V3 p) {
             Color illumination = new Color(0, 0, 0);
             
             foreach (Light l in lights) {
