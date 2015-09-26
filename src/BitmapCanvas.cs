@@ -15,7 +15,6 @@ namespace ImageSynthesis {
         static private DisplayMode Mode;
         static public int Width { get; private set; }
         static public int Height { get; private set; }
-        static private int Stride;
         static private BitmapData data;
         static private ZBuffer ZBuffer;
 
@@ -32,9 +31,9 @@ namespace ImageSynthesis {
         static void DrawFastPixel(int x, int y, Color c) {
             unsafe {
                 byte* ptr = (byte*) data.Scan0;
-                ptr[(x * 3) + y * Stride    ] = c.B255();
-                ptr[(x * 3) + y * Stride + 1] = c.G255();
-                ptr[(x * 3) + y * Stride + 2] = c.R255();
+                ptr[(x * 3) + y * data.Stride    ] = c.B255();
+                ptr[(x * 3) + y * data.Stride + 1] = c.G255();
+                ptr[(x * 3) + y * data.Stride + 2] = c.R255();
             }
         }
 
@@ -67,8 +66,6 @@ namespace ImageSynthesis {
                     PixelFormat.Format24bppRgb
                 );
                 
-                Stride = data.Stride;
-                
                 for (int x = 0; x < Width; x++) {
                     for (int y = 0; y < Height; y++) {
                         DrawFastPixel(x, y, c);
@@ -79,7 +76,7 @@ namespace ImageSynthesis {
 
         /// Draw a pixel at the position specified by the p vector.
         /// p's coordinates are in the orthonormal basis specified in the
-        /// assignement: (X,Z,Y) with Y being the viewing direction.
+        /// assignement with Y being the viewing direction.
         public static void DrawPixel(V3 p, Color c) {
             DrawPixel((int) p.X, (int) p.Z, p.Y, c);
         }
