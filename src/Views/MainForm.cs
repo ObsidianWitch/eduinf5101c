@@ -8,7 +8,7 @@ namespace ImageSynthesis.Views
         public MainForm()
         {
             InitializeComponent();
-            pictureBox1.Image = BitmapCanvas.Init(pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.Image = Canvas.Init(pictureBox1.Width, pictureBox1.Height);
         }
 
         public bool Checked()              { return checkBox1.Checked;   }
@@ -17,9 +17,9 @@ namespace ImageSynthesis.Views
 
         private void button1_Click(object sender, EventArgs e)
         {
-            BitmapCanvas.Refresh(new Color(0,0,0));
+            Canvas.Refresh(new Color(0,0,0));
             Program.Run();
-            BitmapCanvas.Show();
+            Canvas.Show();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace ImageSynthesis {
                     
                     Color illumination = IlluModel.Compute(Lights, obj, p);
                     
-                    BitmapCanvas.DrawPixel(p, illumination);
+                    Canvas.DrawPixel(p, illumination);
                 }
             }
         }

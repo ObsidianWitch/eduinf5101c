@@ -5,7 +5,7 @@ namespace ImageSynthesis {
 
     enum DisplayMode { SLOW_MODE, FULL_SPEED};
 
-    class BitmapCanvas {
+    class Canvas {
 
         const int REFRESH = 1000;
 
