@@ -15,34 +15,6 @@ namespace ImageSynthesis.Models {
             Radius = radius;
         }
 
-        public void Draw() {
-            for (float u = 0 ; u < 2 * Mathf.PI ; u += 0.01f) {
-                for (float v = -Mathf.PI / 2 ; v < Mathf.PI / 2 ; v += 0.01f) {
-                    V3 p = Point(u,v);
-                    
-                    AmbientLight aL = new AmbientLight(
-                        new Color(0.2f, 0.2f, 0.2f)
-                    );
-                    
-                    PointLight pL = new PointLight(
-                        new Color(1.0f, 1.0f, 1.0f),
-                        new V3(0, 0, 200)
-                    );
-                    
-                    IlluminationModel illuModel = new PhongIllumination(
-                        cameraPos: new V3(0, 0, 0)
-                    );
-                    List<Light> lights = new List<Light>();
-                    lights.Add(aL);
-                    lights.Add(pL);
-                    
-                    Color illumination = illuModel.compute(lights, this, p);
-                    
-                    BitmapCanvas.DrawPixel(p, illumination);
-                }
-            }
-        }
-
         override public V3 Point(float u, float v) {
             return new V3(
                 Center.X + (Radius * Mathf.Cos(v) * Mathf.Cos(u)),

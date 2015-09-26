@@ -1,11 +1,12 @@
 using ImageSynthesis.Models;
+using ImageSynthesis.Lights;
 
 namespace ImageSynthesis {
 
     static class Pipeline {
 
         public static void Go() {
-            // Draw spheres
+            // Objects
             Sphere s1 = new Sphere(
                 center: new V3(200, 200, 200),
                 radius: 50,
@@ -29,9 +30,30 @@ namespace ImageSynthesis {
                     shininess: 40
                 )
             );
-
-            s1.Draw();
-            s2.Draw();
+            
+            // Lights
+            AmbientLight aL = new AmbientLight(
+                new Color(0.2f, 0.2f, 0.2f)
+            );
+            
+            PointLight pL = new PointLight(
+                new Color(1.0f, 1.0f, 1.0f),
+                new V3(0, 0, 200)
+            );
+            
+            
+            // Scene
+            Scene scene = new Scene(
+                new PhongIllumination(
+                    cameraPos: new V3(0, 0, 0)
+                )
+            );
+            scene.Lights.Add(aL);
+            scene.Lights.Add(pL);
+            scene.Objects.Add(s1);
+            scene.Objects.Add(s2);
+            
+            scene.Draw();
         }
 
     }

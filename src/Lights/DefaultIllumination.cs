@@ -9,7 +9,7 @@ namespace ImageSynthesis.Lights {
         
         public DefaultIllumination() {}
         
-        override public Color compute(List<Light> lights, Object3D obj, V3 p) {
+        override public Color Compute(List<Light> lights, Object3D obj, V3 p) {
             return obj.Color;
         }
         
