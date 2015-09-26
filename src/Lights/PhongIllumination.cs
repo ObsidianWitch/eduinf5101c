@@ -4,18 +4,25 @@ using ImageSynthesis.Models;
 namespace ImageSynthesis.Lights {
 
     class PhongIllumination : IlluminationModel {
-
-        public PhongIllumination() {}
         
-        // FIXME Object3D instead of Sphere
+        private V3 CameraPos;
+        
+        public PhongIllumination(V3 cameraPos) {
+            CameraPos = cameraPos;
+        }
+        
         // TODO doc
-        override public Color ComputeAmbientLight(AmbientLight aL, Sphere obj, V3 p) {
+        override public Color ComputeAmbientLight(
+            AmbientLight aL, Object3D obj, V3 p
+        ) {
             return obj.Color * aL.Intensity * obj.Material.KAmbient;
         }
         
         // TODO check equations
         // TODO doc
-        override public Color ComputePointLight(PointLight pL, Sphere obj, V3 p) {
+        override public Color ComputePointLight(
+            PointLight pL, Object3D obj, V3 p
+        ) {
             V3 normalVec = obj.Normal(p);
             
             V3 incidentVec = pL.Direction(p);
@@ -24,8 +31,7 @@ namespace ImageSynthesis.Lights {
                               normalVec - incidentVec;
             reflectedVec.Normalize();
             
-            // FIXME define cameraPosition outside
-            V3 viewingVec = new V3(0, 0, 0) - p;
+            V3 viewingVec = CameraPos - p;
             viewingVec.Normalize();
             
             // Diffuse reflection

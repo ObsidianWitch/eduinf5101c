@@ -4,20 +4,15 @@ using ImageSynthesis.Lights;
 
 namespace ImageSynthesis.Models {
 
-    class Sphere {
-
-        public V3 Center { get; set; }
+    class Sphere : Object3D {
+        
         public float Radius { get; set; }
-        public Color Color { get; set; }
-        public PhongMaterial Material { get; set; }
 
-        public Sphere(V3 center, float radius, Color color,
-            PhongMaterial material)
+        public Sphere(
+            V3 center, float radius, Color color, PhongMaterial material
+        ) : base(center, color, material)
         {
-            Center = center;
             Radius = radius;
-            Color  = color;
-            Material = material;
         }
 
         public void Draw() {
@@ -34,7 +29,9 @@ namespace ImageSynthesis.Models {
                         new V3(0, 0, 200)
                     );
                     
-                    IlluminationModel illuModel = new PhongIllumination();
+                    IlluminationModel illuModel = new PhongIllumination(
+                        cameraPos: new V3(0, 0, 0)
+                    );
                     List<Light> lights = new List<Light>();
                     lights.Add(aL);
                     lights.Add(pL);
@@ -46,7 +43,7 @@ namespace ImageSynthesis.Models {
             }
         }
 
-        public V3 Point(float u, float v) {
+        override public V3 Point(float u, float v) {
             return new V3(
                 Center.X + (Radius * Mathf.Cos(v) * Mathf.Cos(u)),
                 Center.Y + (Radius * Mathf.Cos(v) * Mathf.Sin(u)),
@@ -54,7 +51,7 @@ namespace ImageSynthesis.Models {
             );
         }
 
-        public V3 Normal(V3 p) {
+        override public V3 Normal(V3 p) {
             V3 n = p - Center;
             n.Normalize();
             
