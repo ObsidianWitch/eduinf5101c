@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ImageSynthesis.Lights;
 
 namespace ImageSynthesis.Models {
@@ -33,11 +34,14 @@ namespace ImageSynthesis.Models {
                         new V3(0, 0, 200)
                     );
                     
-                    PhongIllumination illuModel = new PhongIllumination();
-                    Color I = illuModel.ComputeAmbientLight(aL, this, p) +
-                              illuModel.ComputePointLight(pL, this, p);
+                    IlluminationModel illuModel = new PhongIllumination();
+                    List<Light> lights = new List<Light>();
+                    lights.Add(aL);
+                    lights.Add(pL);
                     
-                    BitmapCanvas.DrawPixel(p, I);
+                    Color illumination = illuModel.compute(lights, this, p);
+                    
+                    BitmapCanvas.DrawPixel(p, illumination);
                 }
             }
         }
