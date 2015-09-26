@@ -29,6 +29,13 @@ namespace ImageSynthesis.Models {
             
             return n;
         }
+
+        override public UVRange UVRange() {
+            return new UVRange(
+                uMin: 0.0f,          uMax: 2 * Mathf.PI,
+                vMin: -Mathf.PI / 2, vMax: Mathf.PI / 2
+            );
+        }
     }
 
 }

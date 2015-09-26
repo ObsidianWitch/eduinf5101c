@@ -30,11 +30,10 @@ namespace ImageSynthesis {
         
         // Draw one object.
         private void DrawObject(Object3D obj) {
-            // FIXME u in [0 ; pi] and v in [-pi/2 ; pi/2] are specific to
-            // a sphere.
-            // idea: add a UVrange() method for each Object3D subclass
-            for (float u = 0 ; u < 2 * Mathf.PI ; u += 0.01f) {
-                for (float v = -Mathf.PI / 2 ; v < Mathf.PI / 2 ; v += 0.01f) {
+            UVRange range = obj.UVRange();
+            
+            for (float u = range.UMin ; u < range.UMax ; u += 0.01f) {
+                for (float v = range.VMin ; v < range.VMax ; v += 0.01f) {
                     V3 p = obj.Point(u,v);
                     
                     Color illumination = IlluModel.Compute(Lights, obj, p);
