@@ -24,51 +24,20 @@ namespace ImageSynthesis.Models {
                 for (float v = -Mathf.PI / 2 ; v < Mathf.PI / 2 ; v += 0.01f) {
                     V3 p = Point(u,v);
                     
-                    // TODO refacto Illu
-                    
-                    // Ambient reflection
-                    Light ambientLight = new AmbientLight(
+                    AmbientLight aL = new AmbientLight(
                         new Color(0.2f, 0.2f, 0.2f)
                     );
-                    Color Ia = Color * ambientLight.Intensity * Material.KAmbient;
                     
-                    // Diffuse reflection
-                    PointLight pointLight = new PointLight(
+                    PointLight pL = new PointLight(
                         new Color(1.0f, 1.0f, 1.0f),
                         new V3(0, 0, 200)
                     );
                     
-                    V3 n = Normal(p);
-                    V3 l = pointLight.Direction(p);
+                    PhongIllumination illuModel = new PhongIllumination();
+                    Color I = illuModel.ComputeAmbientLight(aL, this, p) +
+                              illuModel.ComputePointLight(pL, this, p);
                     
-                    Color Id = Color * pointLight.Intensity * Material.KDiffuse * (l * n);
-                    
-                    // FIXME avoid having negative Id cancelling other components
-                    if (Id.R < 0.0) { Id.R = 0.0f; }
-                    if (Id.G < 0.0) { Id.G = 0.0f; }
-                    if (Id.B < 0.0) { Id.B = 0.0f; }
-                    
-                    // Specular reflection
-                    Color i_s = new Color(1.0f, 1.0f, 1.0f);
-                    
-                    V3 r = 2 * (n * l) * n - l;
-                    r.Normalize();
-                    
-                    V3 viewingDirection = new V3(0, 0, 0) - p;
-                    viewingDirection.Normalize();
-                    
-                    Color Is = new Color(0, 0, 0);
-                    if (r * viewingDirection > 0.0f) {
-                        Is = i_s * Material.KSpecular *
-                             (float) Math.Pow(
-                                r * viewingDirection,
-                                Material.Shininess
-                             );
-                    }
-                    
-                    // TODO end refacto Illu
-                    
-                    BitmapCanvas.DrawPixel(p, Ia + Id + Is);
+                    BitmapCanvas.DrawPixel(p, I);
                 }
             }
         }
@@ -87,7 +56,6 @@ namespace ImageSynthesis.Models {
             
             return n;
         }
-
     }
 
 }

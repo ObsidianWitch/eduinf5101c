@@ -26,6 +26,10 @@ namespace ImageSynthesis {
             return (float) Math.Sqrt(v);
         }
 
+        static public float Pow(float v1, float v2) {
+            return (float) Math.Pow(v1, v2);
+        }
+
         static public float RandNP(float v) {
             Random r = new Random();
             
