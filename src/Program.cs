@@ -8,8 +8,8 @@ namespace ImageSynthesis {
 
     static class Program {
 
-        static public MainForm Form;
-        static private Scene Scene;
+        public static MainForm Form;
+        private static Scene Scene;
 
         [STAThread]
         static void Main() {

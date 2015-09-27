@@ -7,18 +7,18 @@ namespace ImageSynthesis {
 
     class Canvas {
 
-        const int REFRESH = 1000;
+        private const int REFRESH = 1000;
 
-        static int pxCounter = 0;
+        private static int pxCounter = 0;
 
-        static private Bitmap Bmp;
-        static public DisplayMode Mode { get; set; }
-        static public int Width { get; private set; }
-        static public int Height { get; private set; }
-        static private BitmapData data;
-        static private ZBuffer ZBuffer;
+        private static Bitmap Bmp;
+        public static DisplayMode Mode { get; set; }
+        public static int Width { get; private set; }
+        public static int Height { get; private set; }
+        private static BitmapData data;
+        private static ZBuffer ZBuffer;
 
-        static public Bitmap Init(int w, int h, DisplayMode mode) {
+        public static Bitmap Init(int w, int h, DisplayMode mode) {
             Width = w;
             Height = h;
             Mode = mode;
@@ -29,7 +29,7 @@ namespace ImageSynthesis {
             return Bmp;
         }
  
-        static void DrawFastPixel(int x, int y, Color c) {
+        private static void DrawFastPixel(int x, int y, Color c) {
             unsafe {
                 byte* ptr = (byte*) data.Scan0;
                 ptr[(x * 3) + y * data.Stride    ] = c.B255();
@@ -38,7 +38,7 @@ namespace ImageSynthesis {
             }
         }
 
-        static void DrawSlowPixel(int x, int y, Color c) {
+        private static void DrawSlowPixel(int x, int y, Color c) {
             Bmp.SetPixel(x, y, c.To255());
             
             Program.Form.PictureBoxInvalidate();
@@ -51,7 +51,7 @@ namespace ImageSynthesis {
             }
          }
 
-        static public void Refresh(Color c) {
+        public static void Refresh(Color c) {
             ZBuffer.clear();
             
             if (Mode == DisplayMode.SLOW) {
@@ -105,7 +105,7 @@ namespace ImageSynthesis {
             }
         }
 
-        static public void Show() {
+        public static void Show() {
             if (Mode == DisplayMode.FAST) {
                 Bmp.UnlockBits(data);
             }

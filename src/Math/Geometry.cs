@@ -4,9 +4,9 @@ namespace ImageSynthesis {
 
     class Geometry {
 
-        static public void InvertSphericalCoord(V3 P, float r, out float u,
-            out float v)
-        {
+        public static void InvertSphericalCoord(
+            V3 P, float r, out float u, out float v
+        ) {
             P /= r;
             
             if (P.Z >= 1) {
