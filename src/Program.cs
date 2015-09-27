@@ -2,23 +2,26 @@
 using System.Windows.Forms;
 using ImageSynthesis.Models;
 using ImageSynthesis.Lights;
+using ImageSynthesis.Views;
 
 namespace ImageSynthesis {
 
     static class Program {
 
-        static public Views.MainForm Form;
+        static public MainForm Form;
+        static private Scene Scene;
 
         [STAThread]
         static void Main() {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             
-            Form = new Views.MainForm();
+            PopulateScene();
+            
+            Form = new MainForm();
             Application.Run(Form);
         }
         
-        public static void Run() {
+        private static void PopulateScene() {
             // Objects
             Sphere s1 = new Sphere(
                 center: new V3(200, 200, 200),
@@ -56,17 +59,19 @@ namespace ImageSynthesis {
             
             
             // Scene
-            Scene scene = new Scene(
+            Scene = new Scene(
                 new PhongIllumination(
                     cameraPos: new V3(0, 0, 0)
                 )
             );
-            scene.Lights.Add(aL);
-            scene.Lights.Add(pL);
-            scene.Objects.Add(s1);
-            scene.Objects.Add(s2);
-            
-            scene.Draw();
+            Scene.Lights.Add(aL);
+            Scene.Lights.Add(pL);
+            Scene.Objects.Add(s1);
+            Scene.Objects.Add(s2);
+        }
+        
+        public static void Run() {
+            Scene.Draw();
         }
     }
 }
