@@ -49,7 +49,7 @@ namespace ImageSynthesis {
         }
 
         /// u,v in [0,1]
-        public Color readColor(float u, float v) {
+        public Color Color(float u, float v) {
             return Interpolate(Width * u, Height * v);
         }
 
