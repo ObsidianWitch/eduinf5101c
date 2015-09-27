@@ -5,11 +5,15 @@ namespace ImageSynthesis.Models {
         public V3 Center { get; set; }
         public Color Color { get; set; }
         public PhongMaterial Material { get; set; }
+        public Texture Texture { get; set; }
         
-        public Object3D(V3 center, Color color, PhongMaterial material) {
+        public Object3D(
+            V3 center, Color color, PhongMaterial material, Texture texture
+        ) {
             Center = center;
             Color = color;
             Material = material;
+            Texture = texture;
         }
         
         abstract public V3 Point(float u, float v);

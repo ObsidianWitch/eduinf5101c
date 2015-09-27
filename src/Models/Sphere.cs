@@ -9,8 +9,9 @@ namespace ImageSynthesis.Models {
         public float Radius { get; set; }
 
         public Sphere(
-            V3 center, float radius, Color color, PhongMaterial material
-        ) : base(center, color, material)
+            V3 center, float radius, Color color, PhongMaterial material,
+            Texture texture = null
+        ) : base(center, color, material, texture)
         {
             Radius = radius;
         }
