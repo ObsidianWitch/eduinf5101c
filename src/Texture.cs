@@ -8,7 +8,7 @@ namespace ImageSynthesis {
 
         private int Height;
         private int Width;
-        private Color [,] C;
+        private Color[,] C;
 
         public Texture(string textureFile) {
             // VisualStudio: Path.GetFullPath("..\\..")
@@ -29,18 +29,17 @@ namespace ImageSynthesis {
             );
             
             int stride = data.Stride;
-             
             C = new Color[Width, Height];
             
             unsafe {
                 byte* ptr = (byte*) data.Scan0;
                 for (int x = 0 ; x < Width ; x++) {
                     for (int y = 0 ; y < Height ; y++) {
-                        byte RR, GG, BB;
-                        BB = ptr[(x * 3) + y * stride];
-                        GG = ptr[(x * 3) + y * stride + 1];
-                        RR = ptr[(x * 3) + y * stride + 2];
-                        C[x, y].From255(RR, GG, BB);
+                        C[x,y] = new Color(
+                            b255: ptr[(x * 3) + y * stride],
+                            g255: ptr[(x * 3) + y * stride + 1],
+                            r255: ptr[(x * 3) + y * stride + 2]
+                        );
                     }
                 }
             }
