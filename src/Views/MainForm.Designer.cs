@@ -67,6 +67,7 @@ namespace ImageSynthesis.Views
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "Show";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkbox1_clicked);
             //
             // MainForm
             //

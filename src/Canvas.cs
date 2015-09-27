@@ -3,7 +3,7 @@ using System.Drawing.Imaging;
 
 namespace ImageSynthesis {
 
-    enum DisplayMode { SLOW_MODE, FULL_SPEED};
+    enum DisplayMode { SLOW, FAST};
 
     class Canvas {
 
@@ -12,15 +12,16 @@ namespace ImageSynthesis {
         static int pxCounter = 0;
 
         static private Bitmap Bmp;
-        static private DisplayMode Mode;
+        static public DisplayMode Mode { get; set; }
         static public int Width { get; private set; }
         static public int Height { get; private set; }
         static private BitmapData data;
         static private ZBuffer ZBuffer;
 
-        static public Bitmap Init(int w, int h) {
+        static public Bitmap Init(int w, int h, DisplayMode mode) {
             Width = w;
             Height = h;
+            Mode = mode;
             
             Bmp = new Bitmap(Width, Height);
             ZBuffer = new ZBuffer(Width, Height);
@@ -53,13 +54,11 @@ namespace ImageSynthesis {
         static public void Refresh(Color c) {
             ZBuffer.clear();
             
-            if (Program.Form.Checked()) {
-                Mode = DisplayMode.SLOW_MODE;
+            if (Mode == DisplayMode.SLOW) {
                 Graphics g = Graphics.FromImage(Bmp);
                 g.Clear(c.To255());
             }
-            else {
-                Mode = DisplayMode.FULL_SPEED;
+            else if (Mode == DisplayMode.FAST) {
                 data = Bmp.LockBits(
                     new Rectangle(0, 0, Bmp.Width, Bmp.Height),
                     ImageLockMode.ReadWrite,
@@ -97,7 +96,7 @@ namespace ImageSynthesis {
             bool canDraw = ZBuffer.Set(xScreen, yScreen, z);
             
             if (inScreen && canDraw) {
-                if (Mode == DisplayMode.SLOW_MODE) {
+                if (Mode == DisplayMode.SLOW) {
                     DrawSlowPixel(xScreen, yScreen, c);
                 }
                 else {
@@ -107,7 +106,7 @@ namespace ImageSynthesis {
         }
 
         static public void Show() {
-            if (Mode == DisplayMode.FULL_SPEED) {
+            if (Mode == DisplayMode.FAST) {
                 Bmp.UnlockBits(data);
             }
             
