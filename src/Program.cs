@@ -25,7 +25,7 @@ namespace ImageSynthesis {
             // Objects
             Sphere s1 = new Sphere(
                 center: new V3(200, 200, 200),
-                radius: 50,
+                radius: 100,
                 color: Color.Red,
                 material: new PhongMaterial(
                     kA: 1.0f,

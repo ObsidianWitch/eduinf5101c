@@ -17,10 +17,13 @@ namespace ImageSynthesis.Models {
         }
 
         override public V3 Point(float u, float v) {
+            float tmpU = u * 2 * Mathf.PI; // [0;1] -> [0;2PI]
+            float tmpV = (v - 0.5f) * Mathf.PI; // [0;1] -> [-PI/2;PI/2]
+            
             return new V3(
-                Center.X + (Radius * Mathf.Cos(v) * Mathf.Cos(u)),
-                Center.Y + (Radius * Mathf.Cos(v) * Mathf.Sin(u)),
-                Center.Z + (Radius * Mathf.Sin(v))
+                Center.X + (Radius * Mathf.Cos(tmpV) * Mathf.Cos(tmpU)),
+                Center.Y + (Radius * Mathf.Cos(tmpV) * Mathf.Sin(tmpU)),
+                Center.Z + (Radius * Mathf.Sin(tmpV))
             );
         }
 
@@ -29,13 +32,6 @@ namespace ImageSynthesis.Models {
             n.Normalize();
             
             return n;
-        }
-
-        override public UVRange UVRange() {
-            return new UVRange(
-                uMin: 0.0f,          uMax: 2 * Mathf.PI,
-                vMin: -Mathf.PI / 2, vMax: Mathf.PI / 2
-            );
         }
     }
 

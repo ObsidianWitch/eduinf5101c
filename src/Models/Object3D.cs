@@ -28,7 +28,6 @@ namespace ImageSynthesis.Models {
         
         abstract public V3 Point(float u, float v);
         abstract public V3 Normal(V3 p);
-        abstract public UVRange UVRange();
     }
     
 }

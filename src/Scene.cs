@@ -30,10 +30,8 @@ namespace ImageSynthesis {
         
         // Draw one object.
         private void DrawObject(Object3D obj) {
-            UVRange range = obj.UVRange();
-            
-            for (float u = range.UMin ; u < range.UMax ; u += 0.01f) {
-                for (float v = range.VMin ; v < range.VMax ; v += 0.01f) {
+            for (float u = 0.0f ; u < 1.0f ; u += 0.001f) {
+                for (float v = 0.0f ; v < 1.0f ; v += 0.001f) {
                     V3 p = obj.Point(u,v);
                     
                     Color illumination = IlluModel.Compute(Lights, obj, p, u, v);
