@@ -13,15 +13,15 @@ namespace ImageSynthesis.Lights {
         
         /// Computes the ambient component of the Phong reflection model.
         override public Color ComputeAmbientLight(
-            AmbientLight aL, Object3D obj, V3 p
+            AmbientLight aL, Object3D obj, V3 p, float u, float v
         ) {
-            return obj.Color * aL.Intensity * obj.Material.KAmbient;
+            return obj.TextureColor(u,v) * aL.Intensity * obj.Material.KAmbient;
         }
         
         /// Computes the diffuse and specular components of the Phong
         /// reflection model.
         override public Color ComputePointLight(
-            PointLight pL, Object3D obj, V3 p
+            PointLight pL, Object3D obj, V3 p, float u, float v
         ) {
             V3 normalVec = obj.Normal(p);
             
@@ -37,8 +37,8 @@ namespace ImageSynthesis.Lights {
             // Diffuse reflection
             Color diffuseIllu = new Color(0, 0, 0);
             if (incidentVec * normalVec > 0.0f) {
-                diffuseIllu = obj.Color * pL.Intensity * obj.Material.KDiffuse *
-                     (incidentVec * normalVec);
+                diffuseIllu = obj.TextureColor(u,v) * pL.Intensity *
+                              obj.Material.KDiffuse * (incidentVec * normalVec);
             }
             
             // Specular reflection

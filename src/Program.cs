@@ -32,7 +32,8 @@ namespace ImageSynthesis {
                     kD: 1.0f,
                     kS: 0.5f,
                     shininess: 20
-                )
+                ),
+                texture: new Texture("gold.jpg")
             );
 
             Sphere s2 = new Sphere(
@@ -42,9 +43,10 @@ namespace ImageSynthesis {
                 material: new PhongMaterial(
                     kA: 1.0f,
                     kD: 1.0f,
-                    kS: 0.0f,
+                    kS: 0.5f,
                     shininess: 40
-                )
+                ),
+                texture: new Texture("lead.jpg")
             );
             
             // Lights
@@ -71,6 +73,7 @@ namespace ImageSynthesis {
         }
         
         public static void Run() {
+
             Scene.Draw();
         }
     }

@@ -36,7 +36,7 @@ namespace ImageSynthesis {
                 for (float v = range.VMin ; v < range.VMax ; v += 0.01f) {
                     V3 p = obj.Point(u,v);
                     
-                    Color illumination = IlluModel.Compute(Lights, obj, p);
+                    Color illumination = IlluModel.Compute(Lights, obj, p, u, v);
                     
                     Canvas.DrawPixel(p, illumination);
                 }
