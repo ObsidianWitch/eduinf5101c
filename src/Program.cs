@@ -39,7 +39,7 @@ namespace ImageSynthesis {
                     tileV: 2.0f
                 )
             );
-
+            
             Sphere s2 = new Sphere(
                 center: new V3(450, 200, 200),
                 radius: 100,
@@ -62,7 +62,6 @@ namespace ImageSynthesis {
                 new Color(1.0f, 1.0f, 1.0f),
                 new V3(0, 0, 200)
             );
-            
             
             // Scene
             Scene = new Scene(
