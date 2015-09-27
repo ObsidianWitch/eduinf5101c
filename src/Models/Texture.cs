@@ -2,7 +2,7 @@ using System.IO;﻿
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace ImageSynthesis {
+namespace ImageSynthesis.Models {
 
     class Texture {
 
