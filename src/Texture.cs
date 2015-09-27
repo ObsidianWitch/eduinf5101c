@@ -30,7 +30,6 @@ namespace ImageSynthesis {
             TileUV = tileUV;
         }
 
-        /// u,v in [0,1]
         public Color Color(V2 uv) {
             return Interpolate(
                 uv.U * Width,
@@ -70,7 +69,6 @@ namespace ImageSynthesis {
                 PixelFormat.Format24bppRgb
             );
             
-            //int stride = data.Stride;
             C = new Color[Width, Height];
             
             unsafe {
@@ -93,28 +91,12 @@ namespace ImageSynthesis {
             int x = (int) (TileUV.U * u);
             int y = (int) (TileUV.V * v);
             
-            // float cx = Lu - x; // reste
-            // float cy = Hv - y;
-          
             x %= Width;
             y %= Height;
             if (x < 0) { x += Width; }
             if (y < 0) { y += Height; }
             
             return C[x, y];
-            
-            /*
-            int xpu = (x + 1) % Width;
-            int ypu = (y + 1) % Height;
-            
-            float ccx = cx * cx;
-            float ccy = cy * cy;
-            
-            return C[x, y] * (1 - ccx) * (1 - ccy) +
-                   C[xpu, y] * ccx * (1 - ccy) +
-                   C[x, ypu] * (1 - ccx) * ccy +
-                   C[xpu, ypu] * ccx * ccy;
-            */
         }
     }
 
