@@ -2,9 +2,9 @@ namespace ImageSynthesis {
 
     class V3 {
 
-        public float X;
-        public float Y;
-        public float Z;
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
 
         public V3(V3 t) {
             X = t.X;
