@@ -2,7 +2,7 @@ using System.Drawing;
 
 namespace ImageSynthesis {
 
-    public class Color {
+    class Color {
 
         public static Color Red = new Color(1.0f, 0.0f, 0.0f);
         public static Color Green = new Color(0.0f, 1.0f, 0.0f);

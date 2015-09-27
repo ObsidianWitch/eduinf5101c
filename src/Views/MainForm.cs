@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace ImageSynthesis.Views {
     
-    public partial class MainForm : Form {
+    partial class MainForm : Form {
         
         public MainForm() {
             InitializeComponent();

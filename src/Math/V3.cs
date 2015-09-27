@@ -1,6 +1,6 @@
 namespace ImageSynthesis {
 
-    struct V3 {
+    class V3 {
 
         public float X;
         public float Y;
@@ -43,36 +43,36 @@ namespace ImageSynthesis {
         }
 
         public static V3 operator +(V3 a, V3 b) {
-            V3 t;
-            t.X = a.X + b.X;
-            t.Y = a.Y + b.Y;
-            t.Z = a.Z + b.Z;
-            return t;
+             return new V3(
+                x: a.X + b.X,
+                y: a.Y + b.Y,
+                z: a.Z + b.Z
+            );
         }
 
         public static V3 operator -(V3 a, V3 b) {
-            V3 t;
-            t.X = a.X - b.X;
-            t.Y = a.Y - b.Y;
-            t.Z = a.Z - b.Z;
-            return t;
+            return new V3(
+                x: a.X - b.X,
+                y: a.Y - b.Y,
+                z: a.Z - b.Z
+            );
         }
 
         public static V3 operator -(V3 a) {
-            V3 t;
-            t.X = -a.X;
-            t.Y = -a.Y;
-            t.Z = -a.Z;
-            return t;
+            return new V3(
+                x: -a.X,
+                y: -a.Y,
+                z: -a.Z
+            );
         }
 
         /// Cross product
         public static V3 operator ^ (V3 a, V3 b) {
-            V3 t;
-            t.X = a.Y * b.Z - a.Z * b.Y;
-            t.Y = a.Z * b.X - a.X * b.Z;
-            t.Z = a.X * b.Y - a.Y * b.X;
-            return t;
+            return new V3(
+                x: a.Y * b.Z - a.Z * b.Y,
+                y: a.Z * b.X - a.X * b.Z,
+                z: a.X * b.Y - a.Y * b.X
+            );
         }
 
         /// Dot product
@@ -81,27 +81,23 @@ namespace ImageSynthesis {
         }
 
         public static V3 operator *(float a, V3 b) {
-            V3 t;
-            t.X = b.X * a;
-            t.Y = b.Y * a;
-            t.Z = b.Z * a;
-            return t;
+            return new V3(
+                x: b.X * a,
+                y: b.Y * a,
+                z: b.Z * a
+            );
         }
 
         public static V3 operator *(V3 b, float a) {
-            V3 t;
-            t.X = b.X * a;
-            t.Y = b.Y * a;
-            t.Z = b.Z * a;
-            return t;
+            return a * b;
         }
 
         public static V3 operator /(V3 b, float a) {
-            V3 t;
-            t.X = b.X / a;
-            t.Y = b.Y / a;
-            t.Z = b.Z / a;
-            return t;
+            return new V3(
+                x: b.X / a,
+                y: b.Y / a,
+                z: b.Z / a
+            );
         }
     }
 }
