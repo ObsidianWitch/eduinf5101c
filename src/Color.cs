@@ -12,25 +12,25 @@ namespace ImageSynthesis {
         public float R { get; set; }
         public float G { get; set; }
         public float B { get; set; }
-
-        public Color(float R, float G, float B) {
-            this.R = R;
-            this.G = G;
-            this.B = B;
+        
+        public Color(float r, float g, float b) {
+            R = r;
+            G = g;
+            B = b;
         }
 
         public Color(Color c) {
-            this.R = c.R;
-            this.G = c.G;
-            this.B = c.B;
+            R = c.R;
+            G = c.G;
+            B = c.B;
         }
-
-        public void From255(byte r255, byte g255, byte b255) {
+        
+        public Color(byte r255, byte g255, byte b255) {
             R = (float) (r255 / 255.0);
             G = (float) (g255 / 255.0);
             B = (float) (b255 / 255.0);
         }
-
+        
         public System.Drawing.Color To255() {
             return System.Drawing.Color.FromArgb(
                 R255(), G255(), B255()
