@@ -2,8 +2,17 @@ namespace ImageSynthesis {
 
     class V2 {
 
-        public float U;
-        public float V;
+        public float U { get; set; }
+        public float V { get; set; }
+        
+        public float X {
+            get { return U; }
+            set { U = value; }
+        }
+        public float Y {
+            get { return V; }
+            set { V = value; }
+        }
 
         public V2(V2 t) {
             U = t.U;
