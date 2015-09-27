@@ -9,43 +9,27 @@ namespace ImageSynthesis {
         private int Height;
         private int Width;
         private Color[,] C;
-
-        public Texture(string textureFile) {
-            // VisualStudio: Path.GetFullPath("..\\..")
-            string path = Path.Combine(
-                Path.GetFullPath("resources"),
-                "textures",
-                textureFile
-            );
-            Bitmap bmp = new Bitmap(path);
+        
+        /// Amount of tiling in the u direction.
+        private float TileU;
+        
+        /// Amount of tiling in the v direction.
+        private float TileV;
+        
+        public Texture(
+            string textureFile, float tileU = 1.0f, float tileV = 1.0f
+        ) {
+            Bitmap bmp = Open(textureFile);
             
             Height = bmp.Height;
             Width = bmp.Width;
             
-            BitmapData data = bmp.LockBits(
-                new Rectangle(0, 0, bmp.Width, bmp.Height),
-                ImageLockMode.ReadWrite,
-                PixelFormat.Format24bppRgb
-            );
+            FillColors(bmp);
             
-            int stride = data.Stride;
-            C = new Color[Width, Height];
-            
-            unsafe {
-                byte* ptr = (byte*) data.Scan0;
-                for (int x = 0 ; x < Width ; x++) {
-                    for (int y = 0 ; y < Height ; y++) {
-                        C[x,y] = new Color(
-                            b255: ptr[(x * 3) + y * stride],
-                            g255: ptr[(x * 3) + y * stride + 1],
-                            r255: ptr[(x * 3) + y * stride + 2]
-                        );
-                    }
-                }
-            }
-            
-            bmp.UnlockBits(data);
             bmp.Dispose();
+            
+            TileU = tileU;
+            TileV = tileV;
         }
 
         /// u,v in [0,1]
@@ -65,9 +49,48 @@ namespace ImageSynthesis {
             dhdv = vy - vv;
         }
 
+        /// Opens an image texture file.
+        private Bitmap Open(string textureFile) {
+            // FIXME VisualStudio: Path.GetFullPath("..\\..")
+            string path = Path.Combine(
+                Path.GetFullPath("resources"),
+                "textures",
+                textureFile
+            );
+            
+            return new Bitmap(path);
+        }
+
+        /// Fills the Colors array using the given Bitmap.
+        private void FillColors(Bitmap bmp) {
+            BitmapData data = bmp.LockBits(
+                new Rectangle(0, 0, bmp.Width, bmp.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb
+            );
+            
+            //int stride = data.Stride;
+            C = new Color[Width, Height];
+            
+            unsafe {
+                byte* ptr = (byte*) data.Scan0;
+                for (int x = 0 ; x < Width ; x++) {
+                    for (int y = 0 ; y < Height ; y++) {
+                        C[x,y] = new Color(
+                            b255: ptr[(x * 3) + y * data.Stride],
+                            g255: ptr[(x * 3) + y * data.Stride + 1],
+                            r255: ptr[(x * 3) + y * data.Stride + 2]
+                        );
+                    }
+                }
+            }
+            
+            bmp.UnlockBits(data);
+        }
+
         private Color Interpolate(float Lu, float Hv) {
-            int x = (int) Lu;  // plus grand entier <=
-            int y = (int) Hv;
+            int x = (int) (TileU * Lu);  // plus grand entier <=
+            int y = (int) (TileV * Hv);
             
             // float cx = Lu - x; // reste
             // float cy = Hv - y;

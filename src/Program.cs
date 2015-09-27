@@ -33,7 +33,11 @@ namespace ImageSynthesis {
                     kS: 0.5f,
                     shininess: 20
                 ),
-                texture: new Texture("gold.jpg")
+                texture: new Texture(
+                    textureFile: "brick01.jpg",
+                    tileU: 2.0f,
+                    tileV: 2.0f
+                )
             );
 
             Sphere s2 = new Sphere(
