@@ -16,14 +16,14 @@ namespace ImageSynthesis.Models {
             Radius = radius;
         }
 
-        override public V3 Point(float u, float v) {
-            float tmpU = u * 2 * Mathf.PI; // [0;1] -> [0;2PI]
-            float tmpV = (v - 0.5f) * Mathf.PI; // [0;1] -> [-PI/2;PI/2]
+        override public V3 Point(V2 uv) {
+            float u = uv.U * 2 * Mathf.PI; // [0;1] -> [0;2PI]
+            float v = (uv.V - 0.5f) * Mathf.PI; // [0;1] -> [-PI/2;PI/2]
             
             return new V3(
-                Center.X + (Radius * Mathf.Cos(tmpV) * Mathf.Cos(tmpU)),
-                Center.Y + (Radius * Mathf.Cos(tmpV) * Mathf.Sin(tmpU)),
-                Center.Z + (Radius * Mathf.Sin(tmpV))
+                Center.X + (Radius * Mathf.Cos(v) * Mathf.Cos(u)),
+                Center.Y + (Radius * Mathf.Cos(v) * Mathf.Sin(u)),
+                Center.Z + (Radius * Mathf.Sin(v))
             );
         }
 

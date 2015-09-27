@@ -32,9 +32,10 @@ namespace ImageSynthesis {
         private void DrawObject(Object3D obj) {
             for (float u = 0.0f ; u < 1.0f ; u += 0.001f) {
                 for (float v = 0.0f ; v < 1.0f ; v += 0.001f) {
-                    V3 p = obj.Point(u,v);
+                    V2 uv = new V2(u,v);
+                    V3 p = obj.Point(uv);
                     
-                    Color illumination = IlluModel.Compute(Lights, obj, p, u, v);
+                    Color illumination = IlluModel.Compute(Lights, obj, p, uv);
                     
                     Canvas.DrawPixel(p, illumination);
                 }

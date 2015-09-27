@@ -6,40 +6,41 @@ namespace ImageSynthesis {
 
     class Texture {
 
-        private int Height;
         private int Width;
+        private int Height;
         private Color[,] C;
         
-        /// Amount of tiling in the u direction.
-        private float TileU;
+        /// Amount of tiling in the u and v directions.
+        private V2 TileUV;
         
-        /// Amount of tiling in the v direction.
-        private float TileV;
+        public Texture(string textureFile) :
+            this(textureFile, new V2(1.0f, 1.0f))
+        {}
         
-        public Texture(
-            string textureFile, float tileU = 1.0f, float tileV = 1.0f
-        ) {
+        public Texture(string textureFile, V2 tileUV) {
             Bitmap bmp = Open(textureFile);
             
-            Height = bmp.Height;
             Width = bmp.Width;
+            Height = bmp.Height;
             
             FillColors(bmp);
             
             bmp.Dispose();
             
-            TileU = tileU;
-            TileV = tileV;
+            TileUV = tileUV;
         }
 
         /// u,v in [0,1]
-        public Color Color(float u, float v) {
-            return Interpolate(Width * u, Height * v);
+        public Color Color(V2 uv) {
+            return Interpolate(
+                uv.U * Width,
+                uv.V * Height
+            );
         }
 
-        public void Bump(float u, float v, out float dhdu, out float dhdv) {
-            float x = u * Height;
-            float y = v * Width;
+        public void Bump(V2 uv, out float dhdu, out float dhdv) {
+            float x = uv.U * Height;
+            float y = uv.V * Width;
 
             float vv = Interpolate(x, y).GreyLevel();
             float vx = Interpolate(x + 1, y).GreyLevel();
@@ -88,9 +89,9 @@ namespace ImageSynthesis {
             bmp.UnlockBits(data);
         }
 
-        private Color Interpolate(float Lu, float Hv) {
-            int x = (int) (TileU * Lu);  // plus grand entier <=
-            int y = (int) (TileV * Hv);
+        private Color Interpolate(float u, float v) {
+            int x = (int) (TileUV.U * u);
+            int y = (int) (TileUV.V * v);
             
             // float cx = Lu - x; // reste
             // float cy = Hv - y;

@@ -35,8 +35,7 @@ namespace ImageSynthesis {
                 ),
                 texture: new Texture(
                     textureFile: "brick01.jpg",
-                    tileU: 2.0f,
-                    tileV: 2.0f
+                    tileUV: new V2(2.0f, 2.0f)
                 )
             );
             

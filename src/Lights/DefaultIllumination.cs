@@ -10,19 +10,19 @@ namespace ImageSynthesis.Lights {
         public DefaultIllumination() {}
         
         override public Color Compute(
-            List<Light> lights, Object3D obj, V3 p, float u, float v
+            List<Light> lights, Object3D obj, V3 p, V2 uv
         ) {
-            return obj.TextureColor(u,v);
+            return obj.TextureColor(uv);
         }
         
         override public Color ComputeAmbientLight(
-            AmbientLight aL, Object3D obj, V3 p, float u, float v
+            AmbientLight aL, Object3D obj, V3 p, V2 uv
         ) {
             return new Color(0, 0, 0);
         }
         
         override public Color ComputePointLight(
-            PointLight pL, Object3D obj, V3 p, float u, float v
+            PointLight pL, Object3D obj, V3 p, V2 uv
         ) {
             return new Color(0, 0, 0);
         }

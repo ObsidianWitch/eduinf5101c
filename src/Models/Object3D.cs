@@ -18,15 +18,15 @@ namespace ImageSynthesis.Models {
         
         /// Returns the texture color at coordinates (u,v). If no Texture has
         /// been given for this Object3D, return the object's Color property.
-        public Color TextureColor(float u, float v) {
+        public Color TextureColor(V2 uv) {
             if (Texture != null) {
-                return Texture.Color(u,v);
+                return Texture.Color(uv);
             }
             
             return Color;
         }
         
-        abstract public V3 Point(float u, float v);
+        abstract public V3 Point(V2 uv);
         abstract public V3 Normal(V3 p);
     }
     
