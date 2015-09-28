@@ -51,7 +51,15 @@ namespace ImageSynthesis.Models {
 
         /// Opens an image texture file.
         private Bitmap Open(string textureFile) {
-            // FIXME VisualStudio: Path.GetFullPath("..\\..")
+            // FIXME VisualStudio: Path.GetFullPath("..\\..\\..\\resources")
+            /* FIXME VisualStudio
+                string path = Path.Combine(
+                    Path.GetFullPath("../../.."),
+                    "resources",
+                    "textures",
+                    textureFile
+                );
+            */
             string path = Path.Combine(
                 Path.GetFullPath("resources"),
                 "textures",
