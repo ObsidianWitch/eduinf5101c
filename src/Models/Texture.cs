@@ -37,16 +37,22 @@ namespace ImageSynthesis.Models {
             );
         }
 
-        public void Bump(V2 uv, out float dhdu, out float dhdv) {
+        /// Returns the partial derivative of h (the heightmap) with respect to
+        /// u and v.
+        public V2 Bump(V2 uv) {
             float x = uv.U * Height;
             float y = uv.V * Width;
-
+            
             float vv = Interpolate(x, y).GreyLevel();
             float vx = Interpolate(x + 1, y).GreyLevel();
             float vy = Interpolate(x, y + 1).GreyLevel();
-
-            dhdu = vx - vv;
-            dhdv = vy - vv;
+            
+            V2 dh = new V2(
+                u: vx - vv,
+                v: vy - vv
+            );
+            
+            return dh;
         }
 
         /// Opens an image texture file.
