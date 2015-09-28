@@ -30,12 +30,32 @@ namespace ImageSynthesis.Models {
             V2 uvS = UV(uv); // uv sphere
             
             return new V3(
-                Center.X + (Radius * Mathf.Cos(uvS.V) * Mathf.Cos(uvS.U)),
-                Center.Y + (Radius * Mathf.Cos(uvS.V) * Mathf.Sin(uvS.U)),
-                Center.Z + (Radius * Mathf.Sin(uvS.V))
+                x: Center.X + (Radius * Mathf.Cos(uvS.V) * Mathf.Cos(uvS.U)),
+                y: Center.Y + (Radius * Mathf.Cos(uvS.V) * Mathf.Sin(uvS.U)),
+                z: Center.Z + (Radius * Mathf.Sin(uvS.V))
             );
         }
         
+        override public Tuple<V3,V3> DerivativePoint(V2 uv) {
+            V2 uvS = UV(uv); // uv sphere
+            
+            V3 dPdu = new V3(
+                x: -Radius * Mathf.Cos(uvS.V) * Mathf.Sin(uvS.U),
+                y: Radius * Mathf.Cos(uvS.V) * Mathf.Cos(uvS.U),
+                z: 0
+            );
+            dPdu.Normalize();
+            
+            V3 dPdv = new V3(
+                x: -Radius * Mathf.Sin(uvS.V) * Mathf.Cos(uvS.U),
+                y: -Radius * Mathf.Sin(uvS.V) * Mathf.Sin(uvS.U),
+                z: Radius * Mathf.Cos(uvS.V)
+            );
+            dPdv.Normalize();
+            
+            return new Tuple<V3,V3>(dPdu, dPdv);
+        }
+
         override public V3 Normal(V3 p) {
             V3 n = p - Center;
             n.Normalize();

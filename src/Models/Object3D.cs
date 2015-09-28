@@ -31,6 +31,7 @@ namespace ImageSynthesis.Models {
         /// Retrieves uv values in the ranges specific to this 3D object.
         abstract public V2 UV(V2 uv);
         abstract public V3 Point(V2 uv);
+        abstract public Tuple<V3,V3> DerivativePoint(V2 uv);
         abstract public V3 Normal(V3 p);
     }
     
