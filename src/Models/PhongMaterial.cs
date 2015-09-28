@@ -4,7 +4,10 @@ namespace ImageSynthesis.Models {
     /// illumination model. The parameters for the 3 components of the
     /// illumination model are defined.
     class PhongMaterial {
-
+        
+        /// Material bump map
+        public Texture BumpMap { get; private set; }
+        
         /// Ambient reflection constant
         public float KAmbient { get; private set; }
         
@@ -18,11 +21,14 @@ namespace ImageSynthesis.Models {
         /// the smaller the highlight.
         public int Shininess { get; private set; }
 
-        public PhongMaterial(float kA, float kD, float kS, int shininess) {
+        public PhongMaterial(
+            float kA, float kD, float kS, int shininess, Texture bumpMap = null
+        ) {
             KAmbient = kA;
             KDiffuse = kD;
             KSpecular = kS;
             Shininess = shininess;
+            BumpMap = bumpMap;
         }
     }
     
