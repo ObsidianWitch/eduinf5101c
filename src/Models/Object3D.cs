@@ -1,3 +1,5 @@
+using System;
+
 namespace ImageSynthesis.Models {
     
     abstract class Object3D {
@@ -26,6 +28,8 @@ namespace ImageSynthesis.Models {
             return Color;
         }
         
+        /// Retrieves uv values in the ranges specific to this 3D object.
+        abstract public V2 UV(V2 uv);
         abstract public V3 Point(V2 uv);
         abstract public V3 Normal(V3 p);
     }
