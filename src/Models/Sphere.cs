@@ -7,7 +7,7 @@ namespace ImageSynthesis.Models {
     class Sphere : Object3D {
         
         public float Radius { get; set; }
-
+        
         public Sphere(
             V3 center, float radius, Color color, PhongMaterial material,
             Texture texture = null
@@ -55,12 +55,37 @@ namespace ImageSynthesis.Models {
             
             return new Tuple<V3,V3>(dPdu, dPdv);
         }
-
+        
         override public V3 Normal(V3 p) {
             V3 n = p - Center;
             n.Normalize();
             
             return n;
+        }
+        
+        override public V3 Normal(V3 p, V2 uv) {
+            if (Material.BumpMap != null) {
+                return AlteredNormal(p, uv);
+            }
+            
+            return Normal(p);
+        }
+        
+        override protected V3 AlteredNormal(V3 p, V2 uv) {
+            V2 dh = Material.BumpMap.Bump(uv);
+            
+            Tuple<V3,V3> dP = DerivativePoint(uv);
+            V3 dPdu = dP.Item1;
+            V3 dPdv = dP.Item2;
+            
+            V3 n = Normal(p);
+            V3 alteredN = n + (
+                (dPdu ^ n * dh.V) +
+                (n * dh.U ^ dPdv)
+            );
+            alteredN.Normalize();
+            
+            return alteredN;
         }
     }
 

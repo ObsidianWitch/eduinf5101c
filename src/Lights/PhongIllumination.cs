@@ -23,7 +23,7 @@ namespace ImageSynthesis.Lights {
         override public Color ComputePointLight(
             PointLight pL, Object3D obj, V3 p, V2 uv
         ) {
-            V3 normalVec = obj.Normal(p);
+            V3 normalVec = obj.Normal(p, uv);
             
             V3 incidentVec = pL.Direction(p);
             
