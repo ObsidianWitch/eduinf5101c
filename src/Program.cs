@@ -25,7 +25,7 @@ namespace ImageSynthesis {
             // Objects
             Sphere s1 = new Sphere(
                 center: new V3(200, 200, 200),
-                radius: 100,
+                radius: 150,
                 color: Color.Red,
                 material: new PhongMaterial(
                     kA: 1.0f,
@@ -36,13 +36,13 @@ namespace ImageSynthesis {
                 ),
                 texture: new Texture(
                     textureFile: "gold.jpg",
-                    tileUV: new V2(2.0f, 2.0f)
+                    tileUV: new V2(1.0f, 1.0f)
                 )
             );
             
             Sphere s2 = new Sphere(
-                center: new V3(450, 200, 200),
-                radius: 100,
+                center: new V3(550, 200, 200),
+                radius: 150,
                 color: Color.Green,
                 material: new PhongMaterial(
                     kA: 1.0f,

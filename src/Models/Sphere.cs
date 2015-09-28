@@ -72,6 +72,12 @@ namespace ImageSynthesis.Models {
         }
         
         override protected V3 AlteredNormal(V3 p, V2 uv) {
+            /* FIXME handle texture tiling?
+                Bump(new V2(
+                    u: uv.U / Texture.TileUV.U,
+                    v: uv.V / Texture.TileUV.V,
+                ))
+            */
             V2 dh = Material.BumpMap.Bump(uv);
             
             Tuple<V3,V3> dP = DerivativePoint(uv);
