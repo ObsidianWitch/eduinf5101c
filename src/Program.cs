@@ -31,10 +31,11 @@ namespace ImageSynthesis {
                     kA: 1.0f,
                     kD: 1.0f,
                     kS: 0.5f,
-                    shininess: 20
+                    shininess: 20,
+                    bumpMap: new Texture("gold_bump.jpg")
                 ),
                 texture: new Texture(
-                    textureFile: "brick01.jpg",
+                    textureFile: "gold.jpg",
                     tileUV: new V2(2.0f, 2.0f)
                 )
             );
@@ -47,7 +48,8 @@ namespace ImageSynthesis {
                     kA: 1.0f,
                     kD: 1.0f,
                     kS: 0.5f,
-                    shininess: 40
+                    shininess: 40,
+                    bumpMap: new Texture("lead_bump.jpg")
                 ),
                 texture: new Texture("lead.jpg")
             );
