@@ -93,14 +93,16 @@ namespace ImageSynthesis {
             bool inScreen = (xScreen >= 0) && (xScreen < Width) &&
                             (yScreen >= 0) && (yScreen < Height);
             
-            bool canDraw = ZBuffer.Set(xScreen, yScreen, z);
-            
-            if (inScreen && canDraw) {
-                if (Mode == DisplayMode.SLOW) {
-                    DrawSlowPixel(xScreen, yScreen, c);
-                }
-                else {
-                    DrawFastPixel(xScreen, yScreen, c);
+            if (inScreen) {
+                bool canDraw = ZBuffer.Set(xScreen, yScreen, z);
+                
+                if (canDraw) {
+                    if (Mode == DisplayMode.SLOW) {
+                        DrawSlowPixel(xScreen, yScreen, c);
+                    }
+                    else {
+                        DrawFastPixel(xScreen, yScreen, c);
+                    }
                 }
             }
         }
