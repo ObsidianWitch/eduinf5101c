@@ -99,10 +99,12 @@ namespace ImageSynthesis.Models {
             
             bmp.UnlockBits(data);
         }
-
-        private Color Interpolate(float u, float v) {
-            int x = (int) (TileUV.U * u);
-            int y = (int) (TileUV.V * v);
+        
+        /// @param uh u multiplied by texture's height
+        /// @param vw w multiplied by texture's width
+        private Color Interpolate(float uh, float vw) {
+            int x = (int) (TileUV.U * uh);
+            int y = (int) (TileUV.V * vw);
             
             x %= Width;
             y %= Height;
