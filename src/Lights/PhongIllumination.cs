@@ -5,10 +5,10 @@ namespace ImageSynthesis.Lights {
 
     class PhongIllumination : IlluminationModel {
         
-        private V3 CameraPos;
+        private V3 CameraTarget;
         
-        public PhongIllumination(V3 cameraPos) {
-            CameraPos = cameraPos;
+        public PhongIllumination(V3 cameraTarget) {
+            CameraTarget = cameraTarget;
         }
         
         /// Computes the ambient component of the Phong reflection model.
@@ -31,7 +31,7 @@ namespace ImageSynthesis.Lights {
                               normalVec - incidentVec;
             reflectedVec.Normalize();
             
-            V3 viewingVec = CameraPos - p;
+            V3 viewingVec = CameraTarget - p;
             viewingVec.Normalize();
             
             // Diffuse reflection
