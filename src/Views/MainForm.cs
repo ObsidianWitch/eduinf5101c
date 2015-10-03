@@ -14,8 +14,9 @@ namespace ImageSynthesis.Views {
             );
         }
 
-        public void PictureBoxInvalidate() { pictureBox1.Invalidate(); }
-        public void PictureBoxRefresh()    { pictureBox1.Refresh();    }
+        public void PictureBoxRefresh() {
+            pictureBox1.Refresh();
+        }
 
         private void RenderButtonClick(object sender, EventArgs e) {
             Canvas.Refresh(new Color(0, 0, 0));

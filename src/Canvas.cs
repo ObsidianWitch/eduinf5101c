@@ -40,8 +40,6 @@ namespace ImageSynthesis {
 
         private static void DrawSlowPixel(int x, int y, Color c) {
             Bmp.SetPixel(x, y, c.To255());
-            
-            Program.Form.PictureBoxInvalidate();
             pxCounter++;
             
             // Force redraw every REFRESH px
@@ -105,7 +103,7 @@ namespace ImageSynthesis {
                 Bmp.UnlockBits(data);
             }
             
-            Program.Form.PictureBoxInvalidate();
+            Program.Form.PictureBoxRefresh();
         }
     }
 }
