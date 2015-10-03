@@ -17,15 +17,16 @@ namespace ImageSynthesis.Views {
         public void PictureBoxInvalidate() { pictureBox1.Invalidate(); }
         public void PictureBoxRefresh()    { pictureBox1.Refresh();    }
 
-        private void button1_Click(object sender, EventArgs e) {
-            Canvas.Refresh(new Color(0,0,0));
+        private void RenderButtonClick(object sender, EventArgs e) {
+            Canvas.Refresh(new Color(0, 0, 0));
             Program.Run();
             Canvas.Show();
         }
-        
-        private void checkbox1_clicked(object sender, EventArgs e) {
-            Canvas.Mode = checkBox1.Checked ? DisplayMode.SLOW :
-                                              DisplayMode.FAST;
+
+        private void SlowModeToggle(object sender, EventArgs e) {
+            Canvas.Mode = SlowModeCheckbox.Checked ? DisplayMode.SLOW :
+                                                     DisplayMode.FAST;
         }
+
     }
 }
