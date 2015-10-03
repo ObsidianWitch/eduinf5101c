@@ -8,6 +8,9 @@ namespace ImageSynthesis {
 
     static class Program {
 
+        private const int CANVAS_WIDTH = 800;
+        private const int CANVAS_HEIGHT = 500;
+
         public static MainForm Form;
         private static Scene Scene;
 
@@ -15,13 +18,21 @@ namespace ImageSynthesis {
         static void Main() {
             Application.EnableVisualStyles();
             
-            PopulateScene();
+            Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
             
-            Form = new MainForm();
+            Scene = new Scene(
+                canvas,
+                new PhongIllumination(
+                    cameraPos: new V3(0, 0, 0)
+                )
+            );
+            PopulateScene(Scene);
+            
+            Form = new MainForm(canvas);
             Application.Run(Form);
         }
         
-        private static void PopulateScene() {
+        private static void PopulateScene(Scene scene) {
             // Objects
             Sphere s1 = new Sphere(
                 center: new V3(200, 200, 200),
@@ -64,20 +75,14 @@ namespace ImageSynthesis {
                 new V3(0, 0, 200)
             );
             
-            // Scene
-            Scene = new Scene(
-                new PhongIllumination(
-                    cameraPos: new V3(0, 0, 0)
-                )
-            );
-            Scene.Lights.Add(aL);
-            Scene.Lights.Add(pL);
-            Scene.Objects.Add(s1);
-            Scene.Objects.Add(s2);
+            // Populate
+            scene.Lights.Add(aL);
+            scene.Lights.Add(pL);
+            scene.Objects.Add(s1);
+            scene.Objects.Add(s2);
         }
         
         public static void Run() {
-
             Scene.Draw();
         }
     }

@@ -9,11 +9,14 @@ namespace ImageSynthesis {
         
         public List<Light> Lights { get; private set; }
         public List<Object3D> Objects { get; private set; }
+        
         private IlluminationModel IlluModel;
+        private Canvas Canvas;
         
-        public Scene() : this(new DefaultIllumination()) {}
+        public Scene(Canvas canvas) : this(canvas, new DefaultIllumination()) {}
         
-        public Scene(IlluminationModel illuModel) {
+        public Scene(Canvas canvas, IlluminationModel illuModel) {
+            Canvas = canvas;
             IlluModel = illuModel;
             Lights = new List<Light>();
             Objects = new List<Object3D>();
@@ -21,7 +24,6 @@ namespace ImageSynthesis {
         
         // Draw the whole scene.
         public void Draw() {
-            
             foreach (Object3D obj in Objects) {
                 DrawObject(obj);
             }

@@ -5,23 +5,15 @@ namespace ImageSynthesis.Views {
     
     partial class MainForm : Form {
         
-        public MainForm() {
+        public MainForm(Canvas canvas) {
             InitializeComponent();
-            pictureBox1.Image = Canvas.Init(
-                pictureBox1.Width,
-                pictureBox1.Height,
-                DisplayMode.SLOW
-            );
-        }
-
-        public void PictureBoxRefresh() {
-            pictureBox1.Refresh();
+            InitializeCanvas(canvas);
         }
 
         private void RenderButtonClick(object sender, EventArgs e) {
-            Canvas.Refresh(new Color(0, 0, 0));
+            Canvas.BeginDrawing();
             Program.Run();
-            Canvas.Show();
+            Canvas.EndDrawing();
         }
 
         private void SlowModeToggle(object sender, EventArgs e) {

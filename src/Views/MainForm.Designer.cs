@@ -1,9 +1,9 @@
 ﻿namespace ImageSynthesis.Views {
     partial class MainForm {
         
+        private Canvas Canvas;
         private System.Windows.Forms.Button RenderButton;
         private System.Windows.Forms.CheckBox SlowModeCheckbox;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.ComponentModel.IContainer components = null;
         
         protected override void Dispose(bool disposing) {
@@ -15,9 +15,7 @@
 
         private void InitializeComponent() {
             this.RenderButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.SlowModeCheckbox = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             //
             // RenderButton
@@ -29,17 +27,6 @@
             this.RenderButton.Text = "Render";
             this.RenderButton.UseVisualStyleBackColor = true;
             this.RenderButton.Click += new System.EventHandler(this.RenderButtonClick);
-            //
-            // pictureBox1
-            //
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 38);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(800, 500);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             //
             // SlowModeCheckbox
             //
@@ -61,14 +48,26 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(821, 547);
             this.Controls.Add(this.SlowModeCheckbox);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.RenderButton);
             this.Name = "MainForm";
             this.Text = "INF-5101C - Projet";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
+        }
+        
+        private void InitializeCanvas(Canvas canvas) {
+            Canvas = canvas;
+            
+            SuspendLayout();
+            Canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            Canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            Canvas.Location = new System.Drawing.Point(12, 38);
+            Canvas.Name = "Canvas";
+            Canvas.TabStop = false;
+            
+            Controls.Add(Canvas);
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }

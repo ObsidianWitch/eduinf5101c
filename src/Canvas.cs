@@ -3,33 +3,31 @@ using System.Drawing.Imaging;
 
 namespace ImageSynthesis {
 
-    enum DisplayMode { SLOW, FAST};
+    enum DisplayMode { SLOW, FAST };
 
-    class Canvas {
-
+    class Canvas : System.Windows.Forms.PictureBox {
+        
         private const int REFRESH = 1000;
-
-        private static int pxCounter = 0;
-
-        private static Bitmap Bmp;
-        public static DisplayMode Mode { get; set; }
-        public static int Width { get; private set; }
-        public static int Height { get; private set; }
-        private static BitmapData data;
-        private static ZBuffer ZBuffer;
-
-        public static Bitmap Init(int w, int h, DisplayMode mode) {
-            Width = w;
-            Height = h;
-            Mode = mode;
-            
-            Bmp = new Bitmap(Width, Height);
+        
+        private ZBuffer ZBuffer;
+        private Bitmap Bmp;
+        private BitmapData data;
+        private int PxCounter;
+        
+        public DisplayMode Mode { get; set; }
+        
+        public Canvas(int width, int height) {
+            Size = new Size(width, height);
+            Bmp = new Bitmap(width, height);
+            Image = Bmp;
             ZBuffer = new ZBuffer(Width, Height);
             
-            return Bmp;
+            PxCounter = 0;
+            
+            Mode = DisplayMode.SLOW;
         }
- 
-        private static void DrawFastPixel(int x, int y, Color c) {
+
+        private void DrawFastPixel(int x, int y, Color c) {
             unsafe {
                 byte* ptr = (byte*) data.Scan0;
                 ptr[(x * 3) + y * data.Stride    ] = c.B255();
@@ -37,23 +35,23 @@ namespace ImageSynthesis {
                 ptr[(x * 3) + y * data.Stride + 2] = c.R255();
             }
         }
-
-        private static void DrawSlowPixel(int x, int y, Color c) {
+        
+        private void DrawSlowPixel(int x, int y, Color c) {
             Bmp.SetPixel(x, y, c.To255());
-            pxCounter++;
+            PxCounter++;
             
             // Force redraw every REFRESH px
-            if (pxCounter > REFRESH) {
-               Program.Form.PictureBoxRefresh();
-               pxCounter = 0;
+            if (PxCounter > REFRESH) {
+               Refresh();
+               PxCounter = 0;
             }
          }
-
-        public static void Refresh(Color c) {
+         
+        public void BeginDrawing() {
             ZBuffer.clear();
             
             Graphics g = Graphics.FromImage(Bmp);
-            g.Clear(c.To255());
+            g.Clear(Color.Black.To255());
             
             if (Mode == DisplayMode.FAST) {
                 data = Bmp.LockBits(
@@ -63,21 +61,21 @@ namespace ImageSynthesis {
                 );
             }
         }
-
-        /// Draw a pixel at the position specified by the p vector.
+        
+        /// Draws a pixel at the position specified by the p vector.
         /// p's coordinates are in the orthonormal basis specified in the
         /// assignement with Y being the viewing direction.
-        public static void DrawPixel(V3 p, Color c) {
+        public void DrawPixel(V3 p, Color c) {
             DrawPixel((int) p.X, (int) p.Z, p.Y, c);
         }
-
-        /// Draw a pixel on the screen at the following position:
+        
+        /// Draws a pixel on the screen at the following position:
         /// xScreen = x
         /// yScreen = screenHeight - y
         /// A pixel is drawn only if it is inside the screen (canvas), and
         /// if it is not hidden by another already drawn pixel (check the
         /// ZBuffer).
-        public static void DrawPixel(int x, int y, float z, Color c) {
+        public void DrawPixel(int x, int y, float z, Color c) {
             int xScreen = x;
             int yScreen = Height - y;
             
@@ -97,13 +95,13 @@ namespace ImageSynthesis {
                 }
             }
         }
-
-        public static void Show() {
+        
+        public void EndDrawing() {
             if (Mode == DisplayMode.FAST) {
                 Bmp.UnlockBits(data);
             }
             
-            Program.Form.PictureBoxRefresh();
+            Refresh();
         }
     }
 }
