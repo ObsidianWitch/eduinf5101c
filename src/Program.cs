@@ -41,7 +41,7 @@ namespace ImageSynthesis {
             );
             
             Sphere s2 = new Sphere(
-                center: new V3(520, 200, 200),
+                center: new V3(550, 200, 200),
                 radius: 150,
                 color: Color.Green,
                 material: new PhongMaterial(
@@ -67,7 +67,7 @@ namespace ImageSynthesis {
             // Scene
             Scene = new Scene(
                 new PhongIllumination(
-                    cameraTarget: new V3(0, 0, 0)
+                    cameraPos: new V3(0, 0, 0)
                 )
             );
             Scene.Lights.Add(aL);
@@ -77,6 +77,7 @@ namespace ImageSynthesis {
         }
         
         public static void Run() {
+
             Scene.Draw();
         }
     }
