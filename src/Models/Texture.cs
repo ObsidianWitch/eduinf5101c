@@ -100,18 +100,31 @@ namespace ImageSynthesis.Models {
             bmp.UnlockBits(data);
         }
         
+        /// Bilinear Filtering
         /// @param uh u multiplied by texture's height
         /// @param vw w multiplied by texture's width
         private Color Interpolate(float uh, float vw) {
             int x = (int) (TileUV.U * uh);
             int y = (int) (TileUV.V * vw);
-            
+
+            float cx = uh - x;
+            float cy = vw - y;
+
             x %= Width;
             y %= Height;
             if (x < 0) { x += Width; }
             if (y < 0) { y += Height; }
-            
-            return C[x, y];
+
+            int xpu = (x + 1) % Width;
+            int ypu = (y + 1) % Height;
+
+            float ccx = cx * cx;
+            float ccy = cy * cy;
+
+            return C[x, y] * (1 - ccx) * (1 - ccy) +
+                   C[xpu, y] * ccx * (1 - ccy) +
+                   C[x, ypu] * (1 - ccx) * ccy +
+                   C[xpu, ypu] * ccx * ccy;
         }
     }
 
