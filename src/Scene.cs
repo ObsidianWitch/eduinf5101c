@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using ImageSynthesis.Models;
 using ImageSynthesis.Lights;
+using ImageSynthesis.Views;
 
 namespace ImageSynthesis {
     

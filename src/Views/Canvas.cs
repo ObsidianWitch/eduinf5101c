@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace ImageSynthesis {
+namespace ImageSynthesis.Views {
 
     enum DisplayMode { SLOW, FAST };
 

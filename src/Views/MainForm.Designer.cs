@@ -1,7 +1,6 @@
 ﻿namespace ImageSynthesis.Views {
     partial class MainForm {
         
-        private Canvas Canvas;
         private System.Windows.Forms.Button RenderButton;
         private System.Windows.Forms.CheckBox SlowModeCheckbox;
         private System.ComponentModel.IContainer components = null;

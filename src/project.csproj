@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Canvas.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Scene.cs" />
@@ -82,6 +81,7 @@
     <Compile Include="Models\PhongMaterial.cs" />
     <Compile Include="Models\Sphere.cs" />
     <Compile Include="Models\Texture.cs" />
+    <Compile Include="Views\Canvas.cs" />
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
