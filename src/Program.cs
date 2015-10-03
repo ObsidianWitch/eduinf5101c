@@ -20,7 +20,7 @@ namespace ImageSynthesis {
             Scene scene = new Scene(
                 canvas,
                 new PhongIllumination(
-                    cameraPos: new V3(0, 0, 0)
+                    cameraPos: new V3(CANVAS_WIDTH/2, 0, CANVAS_HEIGHT/2)
                 )
             );
             PopulateScene(scene);
@@ -37,7 +37,7 @@ namespace ImageSynthesis {
                 color: Color.Red,
                 material: new PhongMaterial(
                     kA: 1.0f,
-                    kD: 1.0f,
+                    kD: 0.7f,
                     kS: 0.5f,
                     shininess: 20,
                     bumpMap: new Texture("gold_bump.jpg")
@@ -49,12 +49,12 @@ namespace ImageSynthesis {
             );
             
             Sphere s2 = new Sphere(
-                center: new V3(550, 200, 200),
+                center: new V3(600, 200, 200),
                 radius: 150,
                 color: Color.Green,
                 material: new PhongMaterial(
                     kA: 1.0f,
-                    kD: 1.0f,
+                    kD: 0.7f,
                     kS: 0.5f,
                     shininess: 40,
                     bumpMap: new Texture("lead_bump.jpg")
@@ -64,12 +64,12 @@ namespace ImageSynthesis {
             
             // Lights
             AmbientLight aL = new AmbientLight(
-                new Color(0.2f, 0.2f, 0.2f)
+                new Color(0.3f, 0.3f, 0.3f)
             );
             
             PointLight pL = new PointLight(
                 new Color(1.0f, 1.0f, 1.0f),
-                new V3(0, 0, 200)
+                new V3(700, 0, 200)
             );
             
             // Populate
