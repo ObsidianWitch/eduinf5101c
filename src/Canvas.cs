@@ -54,22 +54,15 @@ namespace ImageSynthesis {
         public static void Refresh(Color c) {
             ZBuffer.clear();
             
-            if (Mode == DisplayMode.SLOW) {
-                Graphics g = Graphics.FromImage(Bmp);
-                g.Clear(c.To255());
-            }
-            else if (Mode == DisplayMode.FAST) {
+            Graphics g = Graphics.FromImage(Bmp);
+            g.Clear(c.To255());
+            
+            if (Mode == DisplayMode.FAST) {
                 data = Bmp.LockBits(
                     new Rectangle(0, 0, Bmp.Width, Bmp.Height),
                     ImageLockMode.ReadWrite,
                     PixelFormat.Format24bppRgb
                 );
-                
-                for (int x = 0; x < Width; x++) {
-                    for (int y = 0; y < Height; y++) {
-                        DrawFastPixel(x, y, c);
-                    }
-                }
             }
         }
 
