@@ -56,16 +56,14 @@
         }
         
         private void InitializeCanvas(Canvas canvas) {
-            Canvas = canvas;
-            
             SuspendLayout();
-            Canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            Canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            Canvas.Location = new System.Drawing.Point(12, 38);
-            Canvas.Name = "Canvas";
-            Canvas.TabStop = false;
+            canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            canvas.Location = new System.Drawing.Point(12, 38);
+            canvas.Name = "Canvas";
+            canvas.TabStop = false;
             
-            Controls.Add(Canvas);
+            Controls.Add(canvas);
             ResumeLayout(false);
             PerformLayout();
         }

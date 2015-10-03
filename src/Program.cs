@@ -11,24 +11,21 @@ namespace ImageSynthesis {
         private const int CANVAS_WIDTH = 800;
         private const int CANVAS_HEIGHT = 500;
 
-        public static MainForm Form;
-        private static Scene Scene;
-
         [STAThread]
         static void Main() {
             Application.EnableVisualStyles();
             
             Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
             
-            Scene = new Scene(
+            Scene scene = new Scene(
                 canvas,
                 new PhongIllumination(
                     cameraPos: new V3(0, 0, 0)
                 )
             );
-            PopulateScene(Scene);
+            PopulateScene(scene);
             
-            Form = new MainForm(canvas);
+            MainForm Form = new MainForm(scene);
             Application.Run(Form);
         }
         
@@ -82,8 +79,5 @@ namespace ImageSynthesis {
             scene.Objects.Add(s2);
         }
         
-        public static void Run() {
-            Scene.Draw();
-        }
     }
 }

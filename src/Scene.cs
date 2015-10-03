@@ -9,9 +9,9 @@ namespace ImageSynthesis {
         
         public List<Light> Lights { get; private set; }
         public List<Object3D> Objects { get; private set; }
+        public Canvas Canvas { get; private set; }
         
         private IlluminationModel IlluModel;
-        private Canvas Canvas;
         
         public Scene(Canvas canvas) : this(canvas, new DefaultIllumination()) {}
         
@@ -24,10 +24,11 @@ namespace ImageSynthesis {
         
         // Draw the whole scene.
         public void Draw() {
+            Canvas.BeginDrawing();
             foreach (Object3D obj in Objects) {
                 DrawObject(obj);
             }
-            
+            Canvas.EndDrawing();
         }
         
         // Draw one object.

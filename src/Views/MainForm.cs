@@ -5,19 +5,21 @@ namespace ImageSynthesis.Views {
     
     partial class MainForm : Form {
         
-        public MainForm(Canvas canvas) {
+        private Scene Scene;
+        
+        public MainForm(Scene scene) {
             InitializeComponent();
-            InitializeCanvas(canvas);
+            
+            Scene = scene;
+            InitializeCanvas(Scene.Canvas);
         }
 
         private void RenderButtonClick(object sender, EventArgs e) {
-            Canvas.BeginDrawing();
-            Program.Run();
-            Canvas.EndDrawing();
+            Scene.Draw();
         }
 
         private void SlowModeToggle(object sender, EventArgs e) {
-            Canvas.Mode = SlowModeCheckbox.Checked ? DisplayMode.SLOW :
+            Scene.Canvas.Mode = SlowModeCheckbox.Checked ? DisplayMode.SLOW :
                                                      DisplayMode.FAST;
         }
 
