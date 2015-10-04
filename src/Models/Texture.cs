@@ -77,7 +77,7 @@ namespace ImageSynthesis.Models {
         /// Fills the Colors array using the given Bitmap.
         private void FillColors(Bitmap bmp) {
             BitmapData data = bmp.LockBits(
-                new Rectangle(0, 0, bmp.Width, bmp.Height),
+                new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
                 ImageLockMode.ReadWrite,
                 PixelFormat.Format24bppRgb
             );

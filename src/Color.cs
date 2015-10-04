@@ -59,7 +59,6 @@ namespace ImageSynthesis {
             return (byte) (B * 255);
         }
 
-        // TODO Useful for bump mapping
         public float GreyLevel() {
             return (R + G + B) / 3.0f;
         }

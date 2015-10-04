@@ -62,6 +62,21 @@ namespace ImageSynthesis {
                 texture: new Texture("lead.jpg")
             );
             
+            Rectangle r1 = new Rectangle(
+                center: new V3(CANVAS_WIDTH/2 - 10, 1, CANVAS_HEIGHT/2 - 20),
+                va: new V3(200, 200, 0),
+                vb: new V3(0, 0, 200),
+                color: Color.Blue,
+                material: new PhongMaterial(
+                    kA: 1.0f,
+                    kD: 0.7f,
+                    kS: 0.0f,
+                    shininess: 0,
+                    bumpMap: new Texture("bump38.jpg")
+                ),
+                texture: new Texture("fibre.jpg")
+            );
+            
             // Lights
             AmbientLight aL = new AmbientLight(
                 new Color(0.3f, 0.3f, 0.3f)
@@ -77,6 +92,7 @@ namespace ImageSynthesis {
             scene.Lights.Add(pL);
             scene.Objects.Add(s1);
             scene.Objects.Add(s2);
+            scene.Objects.Add(r1);
         }
         
     }
