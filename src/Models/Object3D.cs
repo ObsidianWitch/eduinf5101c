@@ -39,11 +39,32 @@ namespace ImageSynthesis.Models {
         
         /// Returns the altered normal if this object possesses a bump map, or
         /// the unaltered one if it does not.
-        abstract public V3 Normal(V3 p, V2 uv);
+        public V3 Normal(V3 p, V2 uv) {
+            if (Material.BumpMap != null) {
+                return AlteredNormal(p, uv);
+            }
+            
+            return Normal(p);
+        }
         
         /// Returns this object's normal altered by the Bump Map attached to
         /// this object's material.
-        abstract protected V3 AlteredNormal(V3 p, V2 uv);
+        protected V3 AlteredNormal(V3 p, V2 uv) {
+            V2 dh = Material.BumpMap.Bump(uv);
+            
+            Tuple<V3,V3> dP = DerivativePoint(uv);
+            V3 dPdu = dP.Item1;
+            V3 dPdv = dP.Item2;
+            
+            V3 n = Normal(p);
+            V3 alteredN = n + (
+                (dPdu ^ n * dh.V) +
+                (n * dh.U ^ dPdv)
+            );
+            alteredN.Normalize();
+            
+            return alteredN;
+        }
     }
     
 }
