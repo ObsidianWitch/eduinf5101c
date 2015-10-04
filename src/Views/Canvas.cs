@@ -9,7 +9,6 @@ namespace ImageSynthesis.Views {
         
         private const int REFRESH = 1000;
         
-        private ZBuffer ZBuffer;
         private Bitmap Bmp;
         private BitmapData data;
         private int PxCounter;
@@ -20,7 +19,6 @@ namespace ImageSynthesis.Views {
             Size = new Size(width, height);
             Bmp = new Bitmap(width, height);
             Image = Bmp;
-            ZBuffer = new ZBuffer(Width, Height);
             
             PxCounter = 0;
             
@@ -48,8 +46,6 @@ namespace ImageSynthesis.Views {
          }
          
         public void BeginDrawing() {
-            ZBuffer.clear();
-            
             Graphics g = Graphics.FromImage(Bmp);
             g.Clear(Color.Black.To255());
             
@@ -62,36 +58,22 @@ namespace ImageSynthesis.Views {
             }
         }
         
-        /// Draws a pixel at the position specified by the p vector.
-        /// p's coordinates are in the orthonormal basis specified in the
-        /// assignement with Y being the viewing direction.
-        public void DrawPixel(V3 p, Color c) {
-            DrawPixel((int) p.X, (int) p.Z, p.Y, c);
+        public void DrawPixel(V3 pScreen, Color c) {
+            DrawPixel((int) pScreen.X, (int) pScreen.Y, c);
         }
         
-        /// Draws a pixel on the screen at the following position:
-        /// xScreen = x
-        /// yScreen = screenHeight - y
-        /// A pixel is drawn only if it is inside the screen (canvas), and
-        /// if it is not hidden by another already drawn pixel (check the
-        /// ZBuffer).
-        public void DrawPixel(int x, int y, float z, Color c) {
-            int xScreen = x;
-            int yScreen = Height - y;
-            
-            bool inScreen = (xScreen >= 0) && (xScreen < Width) &&
-                            (yScreen >= 0) && (yScreen < Height);
+        /// Draws a pixel on the canvas. A pixel is only drawn if it is inside
+        /// the canvas.
+        public void DrawPixel(int x, int y, Color c) {
+            bool inScreen = (x >= 0) && (x < Width) &&
+                            (y >= 0) && (y < Height);
             
             if (inScreen) {
-                bool canDraw = ZBuffer.Set(xScreen, yScreen, z);
-                
-                if (canDraw) {
-                    if (Mode == DisplayMode.SLOW) {
-                        DrawSlowPixel(xScreen, yScreen, c);
-                    }
-                    else {
-                        DrawFastPixel(xScreen, yScreen, c);
-                    }
+                if (Mode == DisplayMode.SLOW) {
+                    DrawSlowPixel(x, y, c);
+                }
+                else {
+                    DrawFastPixel(x, y, c);
                 }
             }
         }

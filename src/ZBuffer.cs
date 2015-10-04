@@ -16,6 +16,10 @@ namespace ImageSynthesis {
         public float Get(int x, int y) {
             return Data[x,y];
         }
+        
+        public bool Set(V3 pScreen) {
+            return Set((int) pScreen.X, (int) pScreen.Y, pScreen.Z);
+        }
 
         /// Sets the value 'z' at position (x,y) of the z-buffer.
         /// If the new value is farther from the viewer than the previous one,

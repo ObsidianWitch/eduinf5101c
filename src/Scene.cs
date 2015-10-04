@@ -12,6 +12,7 @@ namespace ImageSynthesis {
         public List<Object3D> Objects { get; private set; }
         public Canvas Canvas { get; private set; }
         
+        private ZBuffer ZBuffer;
         private IlluminationModel IlluModel;
         
         public Scene(Canvas canvas) : this(canvas, new DefaultIllumination()) {}
@@ -19,12 +20,14 @@ namespace ImageSynthesis {
         public Scene(Canvas canvas, IlluminationModel illuModel) {
             Canvas = canvas;
             IlluModel = illuModel;
+            ZBuffer = new ZBuffer(Canvas.Width, Canvas.Height);
             Lights = new List<Light>();
             Objects = new List<Object3D>();
         }
         
         // Draw the whole scene.
         public void Draw() {
+            ZBuffer.clear();
             Canvas.BeginDrawing();
             foreach (Object3D obj in Objects) {
                 DrawObject(obj);
@@ -41,7 +44,17 @@ namespace ImageSynthesis {
                     
                     Color illumination = IlluModel.Compute(Lights, obj, p, uv);
                     
-                    Canvas.DrawPixel(p, illumination);
+                    V3 pScreen = new V3(
+                        x: p.X,
+                        y: Canvas.Height - p.Z,
+                        z: p.Y
+                    );
+                    
+                    bool objectVisible = ZBuffer.Set(pScreen);
+                    
+                    if (objectVisible) {
+                        Canvas.DrawPixel(pScreen, illumination);
+                    }
                 }
             }
         }
