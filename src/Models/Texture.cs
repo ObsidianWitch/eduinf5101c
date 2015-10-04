@@ -101,14 +101,12 @@ namespace ImageSynthesis.Models {
         }
         
         /// Bilinear Filtering
-        /// @param uh u multiplied by texture's height
-        /// @param vw w multiplied by texture's width
-        private Color Interpolate(float uh, float vw) {
-            int x = (int) (TileUV.U * uh);
-            int y = (int) (TileUV.V * vw);
+        private Color Interpolate(float ux, float vy) {
+            int x = (int) (TileUV.U * ux);
+            int y = (int) (TileUV.V * vy);
 
-            float cx = uh - x;
-            float cy = vw - y;
+            float cx = ux - x;
+            float cy = vy - y;
 
             x %= Width;
             y %= Height;
