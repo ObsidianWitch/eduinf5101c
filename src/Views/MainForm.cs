@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Windows.Forms;
+using ImageSynthesis.Renderers;
 
 namespace ImageSynthesis.Views {
     
     partial class MainForm : Form {
         
-        private Scene Scene;
+        private Renderer Renderer;
         
-        public MainForm(Scene scene) {
+        public MainForm(Renderer renderer) {
             InitializeComponent();
             
-            Scene = scene;
-            InitializeCanvas(Scene.Canvas);
+            Renderer = renderer;
+            InitializeCanvas(Renderer.Canvas);
         }
 
         private void RenderButtonClick(object sender, EventArgs e) {
-            Scene.Draw();
+            Renderer.Render();
         }
 
         private void SlowModeToggle(object sender, EventArgs e) {
-            Scene.Canvas.Mode = SlowModeCheckbox.Checked ? DisplayMode.SLOW :
-                                                     DisplayMode.FAST;
+            Renderer.Canvas.Mode = SlowModeCheckbox.Checked ?
+                DisplayMode.SLOW : DisplayMode.FAST;
         }
 
     }

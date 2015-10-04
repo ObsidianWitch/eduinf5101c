@@ -66,7 +66,6 @@
     <Compile Include="Color.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Scene.cs" />
-    <Compile Include="ZBuffer.cs" />
     <Compile Include="Lights\AmbientLight.cs" />
     <Compile Include="Lights\DefaultIllumination.cs" />
     <Compile Include="Lights\IlluminationModel.cs" />
@@ -81,8 +80,10 @@
     <Compile Include="Models\PhongMaterial.cs" />
     <Compile Include="Models\Sphere.cs" />
     <Compile Include="Models\Texture.cs" />
+    <Compile Include="Renderers\Renderer.cs" />
+    <Compile Include="Renderers\ZBuffer.cs" />
     <Compile Include="Views\Canvas.cs" />
-    <Compile Include="Views\MainForm.cs">
+    <Compile Include="Views\MainForm.cs" >
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\MainForm.Designer.cs">

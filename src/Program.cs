@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ImageSynthesis.Models;
 using ImageSynthesis.Lights;
 using ImageSynthesis.Views;
+using ImageSynthesis.Renderers;
 
 namespace ImageSynthesis {
 
@@ -25,7 +26,9 @@ namespace ImageSynthesis {
             );
             PopulateScene(scene);
             
-            MainForm Form = new MainForm(scene);
+            Renderer renderer = new ZBuffer(canvas, scene);
+            
+            MainForm Form = new MainForm(renderer);
             Application.Run(Form);
         }
         
