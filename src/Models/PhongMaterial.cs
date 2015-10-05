@@ -8,6 +8,9 @@ namespace ImageSynthesis.Models {
         /// Material bump map
         public Texture BumpMap { get; private set; }
         
+        /// Bump map coefficient
+        public float KBump { get; private set; }
+        
         /// Ambient reflection constant
         public float KAmbient { get; private set; }
         
@@ -22,13 +25,15 @@ namespace ImageSynthesis.Models {
         public int Shininess { get; private set; }
 
         public PhongMaterial(
-            float kA, float kD, float kS, int shininess, Texture bumpMap = null
+            float kA, float kD, float kS, int shininess,
+            Texture bumpMap = null, float kBump = 1.0f
         ) {
             KAmbient = kA;
             KDiffuse = kD;
             KSpecular = kS;
             Shininess = shininess;
             BumpMap = bumpMap;
+            KBump = kBump;
         }
     }
     

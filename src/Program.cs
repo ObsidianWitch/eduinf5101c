@@ -43,7 +43,8 @@ namespace ImageSynthesis {
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 20,
-                    bumpMap: new Texture("gold_bump.jpg")
+                    bumpMap: new Texture("gold_bump.jpg"),
+                    kBump: 0.5f
                 ),
                 texture: new Texture(
                     textureFile: "gold.jpg",
@@ -60,13 +61,14 @@ namespace ImageSynthesis {
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 40,
-                    bumpMap: new Texture("lead_bump.jpg")
+                    bumpMap: new Texture("lead_bump.jpg"),
+                    kBump: 0.5f
                 ),
                 texture: new Texture("lead.jpg")
             );
             
             Rectangle r1 = new Rectangle(
-                center: new V3(CANVAS_WIDTH/2 - 10, 1, CANVAS_HEIGHT/2 - 20),
+                center: new V3(CANVAS_WIDTH/2, 1, CANVAS_HEIGHT/2),
                 va: new V3(200, 200, 0),
                 vb: new V3(0, 0, 200),
                 color: Color.Blue,

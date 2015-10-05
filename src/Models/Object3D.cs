@@ -57,7 +57,7 @@ namespace ImageSynthesis.Models {
             V3 dPdv = dP.Item2;
             
             V3 n = Normal(p);
-            V3 alteredN = n + (
+            V3 alteredN = n + Material.KBump * (
                 (dPdu ^ n * dh.V) +
                 (n * dh.U ^ dPdv)
             );
