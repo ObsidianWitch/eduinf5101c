@@ -28,6 +28,11 @@ namespace ImageSynthesis.Models {
             );
         }
         
+        override public V2 UV(V3 p) {
+            // TODO
+            return new V2(0,0);
+        }
+        
         override public V3 Point(V2 uv) {
             V2 uvR = UV(uv); // uv rectangle
             
@@ -48,6 +53,11 @@ namespace ImageSynthesis.Models {
             V3 normal = VA ^ VB;
             normal.Normalize();
             return normal;
+        }
+        
+        override public bool intersect(V3 cameraPos, V3 p) {
+            // TODO
+            return false;
         }
     }
 

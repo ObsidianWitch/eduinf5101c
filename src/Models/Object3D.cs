@@ -30,6 +30,7 @@ namespace ImageSynthesis.Models {
         
         /// Retrieves uv values in the ranges specific to this 3D object.
         abstract public V2 UV(V2 uv);
+        abstract public V2 UV(V3 p);
         abstract public V3 Point(V2 uv);
         abstract public Tuple<V3,V3> DerivativePoint(V2 uv);
         
@@ -65,6 +66,8 @@ namespace ImageSynthesis.Models {
             
             return alteredN;
         }
+        
+        abstract public bool intersect(V3 cameraPos, V3 p);
     }
     
 }

@@ -18,15 +18,14 @@ namespace ImageSynthesis {
             
             Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
             
+            V3 cameraPos = new V3(CANVAS_WIDTH/2, -1000, CANVAS_HEIGHT/2);
+            
             Scene scene = new Scene(
-                canvas,
-                new PhongIllumination(
-                    cameraPos: new V3(CANVAS_WIDTH/2, 0, CANVAS_HEIGHT/2)
-                )
+                canvas, new PhongIllumination(cameraPos)
             );
             PopulateScene(scene);
             
-            Renderer renderer = new ZBuffer(canvas, scene);
+            Renderer renderer = new Raycasting(canvas, scene, cameraPos);
             
             MainForm Form = new MainForm(renderer);
             Application.Run(Form);
