@@ -79,6 +79,7 @@
     <Compile Include="Models\Object3D.cs" />
     <Compile Include="Models\PhongMaterial.cs" />
     <Compile Include="Models\Sphere.cs" />
+    <Compile Include="Models\Rectangle.cs" />
     <Compile Include="Models\Texture.cs" />
     <Compile Include="Renderers\Renderer.cs" />
     <Compile Include="Renderers\ZBuffer.cs" />
