@@ -22,6 +22,11 @@ namespace ImageSynthesis.Lights {
                         (PointLight) l, obj, p, uv
                     );
                 }
+                else if (l.GetType().Name == "DirectionalLight") {
+                    illumination += ComputeDirectionalLight(
+                        (DirectionalLight) l, obj, p, uv
+                    );
+                }
             }
             
             return illumination;
@@ -32,6 +37,9 @@ namespace ImageSynthesis.Lights {
         );
         abstract public Color ComputePointLight(
             PointLight pL, Object3D obj, V3 p, V2 uv
+        );
+        abstract public Color ComputeDirectionalLight(
+            DirectionalLight dL, Object3D obj, V3 p, V2 uv
         );
     }
     

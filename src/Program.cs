@@ -68,7 +68,7 @@ namespace ImageSynthesis {
             );
             
             Rectangle r1 = new Rectangle(
-                center: new V3(CANVAS_WIDTH/2, 1, CANVAS_HEIGHT/2),
+                center: new V3(120, 1, CANVAS_HEIGHT - 120),
                 va: new V3(200, 200, 0),
                 vb: new V3(0, 0, 200),
                 color: Color.Blue,
@@ -92,9 +92,15 @@ namespace ImageSynthesis {
                 new V3(700, 0, 200)
             );
             
+            DirectionalLight dL = new DirectionalLight(
+                new Color(1.0f, 1.0f, 1.0f),
+                new V3(-1, 1, -1)
+            );
+            
             // Populate
             scene.Lights.Add(aL);
             scene.Lights.Add(pL);
+            //scene.Lights.Add(dL);
             scene.Objects.Add(s1);
             scene.Objects.Add(s2);
             scene.Objects.Add(r1);

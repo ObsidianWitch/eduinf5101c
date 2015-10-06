@@ -26,6 +26,12 @@ namespace ImageSynthesis.Lights {
         ) {
             return new Color(0, 0, 0);
         }
+        
+        override public Color ComputeDirectionalLight(
+            DirectionalLight dL, Object3D obj, V3 p, V2 uv
+        ) {
+            return new Color(0, 0, 0);
+        }
     }
 
 }
