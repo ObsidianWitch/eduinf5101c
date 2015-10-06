@@ -26,7 +26,8 @@ namespace ImageSynthesis.Lights {
         ) {
             V3 normalVec = obj.Normal(p, uv);
             
-            V3 incidentVec = pL.Direction(p);
+            V3 incidentVec = pL.Position - p;
+            incidentVec.Normalize();
             
             V3 reflectedVec = 2 * (normalVec * incidentVec) *
                               normalVec - incidentVec;

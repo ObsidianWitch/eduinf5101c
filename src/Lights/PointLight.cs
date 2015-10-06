@@ -9,13 +9,5 @@ namespace ImageSynthesis.Lights {
         {
             Position = position;
         }
-
-        /// Gets the normalized direction vector from the given point p toward
-        /// the current light source.
-        public V3 Direction(V3 p) {
-            V3 dir = Position - p;
-            dir.Normalize();
-            return dir;
-        }
     }
 }
