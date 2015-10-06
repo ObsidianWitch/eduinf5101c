@@ -24,26 +24,10 @@ namespace ImageSynthesis.Lights {
         override public Color ComputePointLight(
             PointLight pL, Object3D obj, V3 p, V2 uv
         ) {
-            V3 normalVec = obj.Normal(p, uv);
-            
             V3 incidentVec = pL.Position - p;
             incidentVec.Normalize();
             
-            V3 reflectedVec = 2 * (normalVec * incidentVec) *
-                              normalVec - incidentVec;
-            reflectedVec.Normalize();
-            
-            V3 viewingVec = CameraPos - p;
-            viewingVec.Normalize();
-            
-            Color diffuseIllu = ComputeDiffuseComponent(
-                pL, incidentVec, normalVec, obj, uv
-            );
-            Color specularIllu = ComputeSpecularComponent(
-                pL, reflectedVec, normalVec, obj, uv
-            );
-            
-            return diffuseIllu + specularIllu;
+            return ComputeDiffuseSpecular(pL, obj, p, uv, incidentVec);
         }
         
         /// Computes the diffuse and specular components of the Phong
@@ -51,9 +35,19 @@ namespace ImageSynthesis.Lights {
         override public Color ComputeDirectionalLight(
             DirectionalLight dL, Object3D obj, V3 p, V2 uv
         ) {
-            V3 normalVec = obj.Normal(p, uv);
-            
             V3 incidentVec = dL.Direction;
+            
+            return ComputeDiffuseSpecular(dL, obj, p, uv, incidentVec);
+        }
+        
+        /// Computes the diffuse and specular components of the Phong
+        /// reflection model.
+        /// @Note Avoids code duplication in ComputePointLight and
+        /// ComputeDirectionalLight.
+        private Color ComputeDiffuseSpecular(
+            Light l, Object3D obj, V3 p, V2 uv, V3 incidentVec
+        ) {
+            V3 normalVec = obj.Normal(p, uv);
             
             V3 reflectedVec = 2 * (normalVec * incidentVec) *
                               normalVec - incidentVec;
@@ -62,17 +56,17 @@ namespace ImageSynthesis.Lights {
             V3 viewingVec = CameraPos - p;
             viewingVec.Normalize();
             
-            Color diffuseIllu = ComputeDiffuseComponent(
-                dL, incidentVec, normalVec, obj, uv
+            Color diffuseIllu = ComputeDiffuse(
+                l, incidentVec, normalVec, obj, uv
             );
-            Color specularIllu = ComputeSpecularComponent(
-                dL, reflectedVec, normalVec, obj, uv
+            Color specularIllu = ComputeSpecular(
+                l, reflectedVec, normalVec, obj, uv
             );
             
             return diffuseIllu + specularIllu;
         }
         
-        private Color ComputeDiffuseComponent(
+        private Color ComputeDiffuse(
             Light l, V3 incidentVec, V3 normalVec, Object3D obj, V2 uv
         ) {
             Color diffuseIllu = new Color(0, 0, 0);
@@ -84,7 +78,7 @@ namespace ImageSynthesis.Lights {
             return diffuseIllu;
         }
         
-        private Color ComputeSpecularComponent(
+        private Color ComputeSpecular(
             Light l, V3 reflectedVec, V3 viewingVec, Object3D obj, V2 uv
         ) {
             Color specularIllu = new Color(0, 0, 0);
