@@ -1,3 +1,5 @@
+using System;
+
 namespace ImageSynthesis {
 
     class V3 {
@@ -98,6 +100,10 @@ namespace ImageSynthesis {
                 y: b.Y / a,
                 z: b.Z / a
             );
+        }
+        
+        override public string ToString() {
+            return "(" + X + "," + Y + "," + Z + ")";
         }
     }
 }

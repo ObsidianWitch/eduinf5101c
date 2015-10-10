@@ -14,6 +14,12 @@ namespace ImageSynthesis.Models {
             PhongMaterial material, Texture texture = null
         ) : base(center, color, material, texture)
         {
+            if (va * vb != 0) {
+                throw new Exception(
+                    "Not a rectangle (VA: " + va + ", VB: " + vb + ")."
+                );
+            }
+            
             VA = va;
             VB = vb;
         }
