@@ -26,9 +26,24 @@ namespace ImageSynthesis.Models {
             );
         }
         
+        /// Retrieves uv values in the [0;1] range for a point p on the sphere.
         override public V2 UV(V3 p) {
-            // TODO
-            return new V2(0,0);
+            V3 d = p - Center;
+            
+            // cos(u) = (x - c.x) / (r * cos(v))
+            // sin(u) = (y - c.y) / (r * cos(v))
+            // tan(u) = sin(u) / cos(u)
+            // u = atan((y - c.y) / (x - c.x))
+            float u = Mathf.Atan2(d.Y, d.X);
+            
+            // v = asin((z - c.z) / r)
+            float v = Mathf.Asin(d.Z / Radius);
+            
+            // u,v in [0;1]
+            u = (u / (2 * Mathf.PI));
+            v = 0.5f + (v / Mathf.PI);
+
+            return new V2(u,v);
         }
         
         override public V3 Point(V2 uv) {
