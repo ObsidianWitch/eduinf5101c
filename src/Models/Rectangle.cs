@@ -31,11 +31,7 @@ namespace ImageSynthesis.Models {
         override public V3 Point(V2 uv) {
             V2 uvR = UV(uv); // uv rectangle
             
-            return new V3(
-                x: Center.X + (uvR.U * VA.X) + (uvR.V * VB.X),
-                y: Center.Y + (uvR.U * VA.Y) + (uvR.V * VB.Y),
-                z: Center.Z + (uvR.U * VA.Z) + (uvR.V * VB.Z)
-            );
+            return Center + (uvR.U * VA) + (uvR.V * VB);
         }
         
         override public Tuple<V3,V3> DerivativePoint(V2 uv) {
