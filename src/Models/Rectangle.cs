@@ -29,8 +29,25 @@ namespace ImageSynthesis.Models {
         }
         
         override public V2 UV(V3 p) {
-            // TODO
-            return new V2(0,0);
+            V3 d = p - Center;
+            
+            V3 van = new V3(VA);
+            van.Normalize();
+            
+            V3 vbn = new V3(VB);
+            vbn.Normalize();
+            
+            // u = ||d -> VA|| / ||VA||
+            float u = ((d * van) / VA.Norm1());
+            
+            // v = ||d -> VB|| / ||VB||
+            float v = ((d * vbn) / VB.Norm1());
+            
+            // u & v: [-0.5 ; 0.5] -> [0;1]
+            u += 0.5f;
+            v += 0.5f;
+            
+            return new V2(u,v);
         }
         
         override public V3 Point(V2 uv) {
