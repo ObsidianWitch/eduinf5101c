@@ -73,14 +73,38 @@ namespace ImageSynthesis.Models {
             return new Tuple<V3,V3>(dPdu, dPdv);
         }
         
-        override public V3 Normal(V3 p) {
+        public V3 Normal() {
             V3 normal = VA ^ VB;
             normal.Normalize();
             return normal;
         }
         
+        override public V3 Normal(V3 p) {
+            return Normal();
+        }
+        
         override public bool intersect(Ray ray, out float distance) {
-            // TODO
+            V3 centerDirection = Center - ray.Origin;
+            
+            V3 n = Normal();
+            float t = (centerDirection * n) / (ray.Direction * n);
+            
+            if (t >= 0) {
+                distance = t;
+                
+                V3 collisionPoint = ray.Origin + (ray.Direction * distance);
+                V3 cornerPoint = Center - VB/2 - VA/2;
+                
+                V3 v = collisionPoint - cornerPoint;
+                
+                bool inRectangle = (VA * v >= 0) &&
+                                   (VA * v <= VA.Norm2()) &&
+                                   (VB * v >= 0) &&
+                                   (VB * v <= VB.Norm2());
+                
+                return inRectangle;
+            }
+            
             distance = float.MaxValue;
             return false;
         }
