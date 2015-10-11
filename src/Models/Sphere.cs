@@ -84,7 +84,7 @@ namespace ImageSynthesis.Models {
             return n;
         }
         
-        override public bool intersect(Ray ray, out float distance) {
+        override public bool Intersect(Ray ray, out float distance) {
             V3 centerDirection = ray.Origin - Center;
             
             float a = 1;

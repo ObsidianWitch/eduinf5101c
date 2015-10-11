@@ -20,7 +20,7 @@ namespace ImageSynthesis.Renderers {
             for (int x = 0 ; x < Canvas.Width ; x++) {
                 for (int y = 0 ; y < Canvas.Height ; y++) {
                     V3 p = new V3(x, 0, y);
-                    Color color = raycast(p);
+                    Color color = Raycast(p);
                     
                     if (color != null) {
                         V3 pScreen = new V3(x, Canvas.Height - y, 0);
@@ -32,7 +32,7 @@ namespace ImageSynthesis.Renderers {
             Canvas.EndDrawing();
         }
         
-        private Color raycast(V3 p) {
+        private Color Raycast(V3 p) {
             Ray ray = new Ray(
                 origin: CameraPos,
                 direction: p - CameraPos
@@ -45,8 +45,7 @@ namespace ImageSynthesis.Renderers {
             float distance = float.MaxValue;
             foreach (Object3D obj in Scene.Objects) {
                 float newDistance;
-                bool intersect = obj.intersect(ray, out newDistance
-                );
+                bool intersect = obj.Intersect(ray, out newDistance);
                 
                 if (intersect && newDistance < distance) {
                     collidedObject = obj;

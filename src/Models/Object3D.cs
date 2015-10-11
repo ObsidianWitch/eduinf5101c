@@ -68,7 +68,7 @@ namespace ImageSynthesis.Models {
             return alteredN;
         }
         
-        abstract public bool intersect(Ray ray, out float distance);
+        abstract public bool Intersect(Ray ray, out float distance);
     }
     
 }

@@ -83,7 +83,7 @@ namespace ImageSynthesis.Models {
             return Normal();
         }
         
-        override public bool intersect(Ray ray, out float distance) {
+        override public bool Intersect(Ray ray, out float distance) {
             V3 centerDirection = Center - ray.Origin;
             
             V3 n = Normal();
