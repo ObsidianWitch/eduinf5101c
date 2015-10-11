@@ -33,8 +33,10 @@ namespace ImageSynthesis.Renderers {
         }
         
         private Color raycast(V3 p) {
-            V3 rayDirection = p - CameraPos;
-            rayDirection.Normalize();
+            Ray ray = new Ray(
+                origin: CameraPos,
+                direction: p - CameraPos
+            );
             
             // Check if the current ray intersect with any object, and keep the
             // first intersected object.
@@ -43,8 +45,7 @@ namespace ImageSynthesis.Renderers {
             float distance = float.MaxValue;
             foreach (Object3D obj in Scene.Objects) {
                 float newDistance;
-                bool intersect = obj.intersect(
-                    CameraPos, rayDirection, out newDistance
+                bool intersect = obj.intersect(ray, out newDistance
                 );
                 
                 if (intersect && newDistance < distance) {
@@ -56,7 +57,7 @@ namespace ImageSynthesis.Renderers {
             // If the ray previously encountered an object, compute the pixel's
             // color.
             if (collidedObject != null) {
-                V3 collisionPoint = CameraPos + (rayDirection * distance);
+                V3 collisionPoint = ray.Origin + (ray.Direction * distance);
                 
                 return Scene.IlluModel.Compute(
                     Scene.Lights, collidedObject, collisionPoint

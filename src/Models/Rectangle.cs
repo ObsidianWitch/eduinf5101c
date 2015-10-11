@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ImageSynthesis.Lights;
+using ImageSynthesis.Renderers;
 
 namespace ImageSynthesis.Models {
 
@@ -78,9 +79,7 @@ namespace ImageSynthesis.Models {
             return normal;
         }
         
-        override public bool intersect(
-            V3 cameraPos, V3 rayDirection, out float distance
-        ) {
+        override public bool intersect(Ray ray, out float distance) {
             // TODO
             distance = float.MaxValue;
             return false;

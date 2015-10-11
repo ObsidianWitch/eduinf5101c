@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ImageSynthesis.Lights;
+using ImageSynthesis.Renderers;
 
 namespace ImageSynthesis.Models {
 
@@ -83,13 +84,11 @@ namespace ImageSynthesis.Models {
             return n;
         }
         
-        override public bool intersect(
-            V3 cameraPos, V3 rayDirection, out float distance
-        ) {
-            V3 centerDirection = cameraPos - Center;
+        override public bool intersect(Ray ray, out float distance) {
+            V3 centerDirection = ray.Origin - Center;
             
             float a = 1;
-            float b = 2 * centerDirection * rayDirection;
+            float b = 2 * centerDirection * ray.Direction;
             float c = (centerDirection * centerDirection) - (Radius * Radius);
             
             float delta = (b * b) - 4 * a * c;
