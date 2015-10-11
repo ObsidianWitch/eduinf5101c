@@ -78,8 +78,11 @@ namespace ImageSynthesis.Models {
             return normal;
         }
         
-        override public bool intersect(V3 cameraPos, V3 p) {
+        override public bool intersect(
+            V3 cameraPos, V3 rayDirection, out float distance
+        ) {
             // TODO
+            distance = float.MaxValue;
             return false;
         }
     }

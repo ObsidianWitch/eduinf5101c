@@ -67,7 +67,9 @@ namespace ImageSynthesis.Models {
             return alteredN;
         }
         
-        abstract public bool intersect(V3 cameraPos, V3 p);
+        abstract public bool intersect(
+            V3 cameraPos, V3 rayDirection, out float distance
+        );
     }
     
 }

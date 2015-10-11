@@ -38,12 +38,18 @@ namespace ImageSynthesis.Renderers {
             
             // Check if the current ray intersect with any object, and keep the
             // first intersected object.
-            // TODO should not keep the first intersected object, but the
-            // nearest one
+            
             Object3D collidedObject = null;
+            float distance = float.MaxValue;
             foreach (Object3D obj in Scene.Objects) {
-                if (obj.intersect(CameraPos, p)) {
+                float newDistance;
+                bool intersect = obj.intersect(
+                    CameraPos, rayDirection, out newDistance
+                );
+                
+                if (intersect && newDistance < distance) {
                     collidedObject = obj;
+                    distance = newDistance;
                 }
             }
             

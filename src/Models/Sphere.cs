@@ -83,8 +83,29 @@ namespace ImageSynthesis.Models {
             return n;
         }
         
-        override public bool intersect(V3 cameraPos, V3 p) {
-            // TODO
+        override public bool intersect(
+            V3 cameraPos, V3 rayDirection, out float distance
+        ) {
+            V3 centerDirection = cameraPos - Center;
+            
+            float a = 1;
+            float b = 2 * centerDirection * rayDirection;
+            float c = (centerDirection * centerDirection) - (Radius * Radius);
+            
+            float delta = (b * b) - 4 * a * c;
+            
+            distance = float.MaxValue;
+            if (delta >= 0) {
+                float d1 = (-b + Mathf.Sqrt(delta))/(2 * a);
+                float d2 = (-b - Mathf.Sqrt(delta))/(2 * a);
+                
+                if (d1 < 0 && d2 < 0) { return false; }
+                else if (d1 < 0 || d2 < 0) { distance = Math.Max(d1,d2); }
+                else { distance = Math.Min(d1,d2); }
+                
+                return true;
+            }
+            
             return false;
         }
     }
