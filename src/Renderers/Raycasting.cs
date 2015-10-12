@@ -107,8 +107,7 @@ namespace ImageSynthesis.Renderers {
             objects.Remove(currentObject);
             
             foreach (Object3D o in objects) {
-                float distance;
-                if (o.Intersect(lightRay, out distance)) { return false; }
+                if (o.Intersect(lightRay)) { return false; }
             }
             
             return true;
