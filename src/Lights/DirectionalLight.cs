@@ -7,7 +7,7 @@ namespace ImageSynthesis.Lights {
         public DirectionalLight(Color intensity, V3 direction) :
             base(intensity)
         {
-            Direction = -direction;
+            Direction = direction;
             Direction.Normalize();
         }
     }

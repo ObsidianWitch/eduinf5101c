@@ -35,7 +35,7 @@ namespace ImageSynthesis.Lights {
         override public Color ComputeDirectionalLight(
             DirectionalLight dL, Object3D obj, V3 p, V2 uv
         ) {
-            V3 incidentVec = dL.Direction;
+            V3 incidentVec = -dL.Direction;
             
             return ComputeDiffuseSpecular(dL, obj, p, uv, incidentVec);
         }

@@ -96,7 +96,7 @@ namespace ImageSynthesis.Renderers {
             }
             else if (light.GetType().Name == "DirectionalLight") {
                 DirectionalLight dl = (DirectionalLight) light;
-                lightRay = new Ray(currentPoint, dl.Direction);
+                lightRay = new Ray(currentPoint, -dl.Direction);
             }
             else if (light.GetType().Name == "AmbientLight") {
                 return true;
