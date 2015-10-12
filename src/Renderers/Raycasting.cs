@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using ImageSynthesis.Models;
 using ImageSynthesis.Views;
+using ImageSynthesis.Lights;
 
 namespace ImageSynthesis.Renderers {
 
@@ -39,8 +41,7 @@ namespace ImageSynthesis.Renderers {
             );
             
             // Check if the current ray intersect with any object, and keep the
-            // first intersected object.
-            
+            // nearest intersected object.
             Object3D collidedObject = null;
             float distance = float.MaxValue;
             foreach (Object3D obj in Scene.Objects) {
@@ -57,13 +58,60 @@ namespace ImageSynthesis.Renderers {
             // color.
             if (collidedObject != null) {
                 V3 collisionPoint = ray.Origin + (ray.Direction * distance);
+                List<Light> lights = Occultation(collidedObject, collisionPoint);
                 
                 return Scene.IlluModel.Compute(
-                    Scene.Lights, collidedObject, collisionPoint
+                    lights, collidedObject, collisionPoint
                 );
             }
             
             return null;
+        }
+        
+        /// Returns a list of lights from which the currentPoint is visible.
+        /// If another object is placed between the currentPoint and a light,
+        /// then this point is occulted and the light will not be added to the
+        /// list.
+        private List<Light> Occultation(Object3D currentObject, V3 currentPoint) {
+            List<Light> lights = new List<Light>();
+            
+            foreach (Light l in Scene.Lights) {
+                if (PointLightened(currentObject, currentPoint, l)) {
+                    lights.Add(l);
+                }
+            }
+            
+            return lights;
+        }
+        
+        /// Checks whether the specified light is able to lightens the
+        /// currentPoint (i.e. there is no obstacle between them).
+        private bool PointLightened (
+            Object3D currentObject, V3 currentPoint, Light light
+        ) {
+            Ray lightRay;
+            if (light.GetType().Name == "PointLight") {
+                PointLight pl = (PointLight) light;
+                lightRay = new Ray(currentPoint, pl.Position - currentPoint);
+            }
+            else if (light.GetType().Name == "DirectionalLight") {
+                DirectionalLight dl = (DirectionalLight) light;
+                lightRay = new Ray(currentPoint, dl.Direction);
+            }
+            else if (light.GetType().Name == "AmbientLight") {
+                return true;
+            }
+            else { return false; }
+            
+            List<Object3D> objects = new List<Object3D>(Scene.Objects);
+            objects.Remove(currentObject);
+            
+            foreach (Object3D o in objects) {
+                float distance;
+                if (o.Intersect(lightRay, out distance)) { return false; }
+            }
+            
+            return true;
         }
     }
 }
