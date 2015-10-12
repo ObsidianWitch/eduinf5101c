@@ -72,6 +72,7 @@
     <Compile Include="Lights\Light.cs" />
     <Compile Include="Lights\PhongIllumination.cs" />
     <Compile Include="Lights\PointLight.cs" />
+    <Compile Include="Lights\DirectionalLight.cs" />
     <Compile Include="Math\Mathf.cs" />
     <Compile Include="Math\V2.cs" />
     <Compile Include="Math\V3.cs" />

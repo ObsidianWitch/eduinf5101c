@@ -34,7 +34,7 @@ namespace ImageSynthesis {
         private static void PopulateScene(Scene scene) {
             // Objects
             Sphere s1 = new Sphere(
-                center: new V3(200, 200, 200),
+                center: new V3(200, 300, 200),
                 radius: 150,
                 color: Color.Red,
                 material: new PhongMaterial(
@@ -52,7 +52,7 @@ namespace ImageSynthesis {
             );
             
             Sphere s2 = new Sphere(
-                center: new V3(600, 200, 200),
+                center: new V3(500, 200, 200),
                 radius: 150,
                 color: Color.Green,
                 material: new PhongMaterial(
@@ -64,6 +64,21 @@ namespace ImageSynthesis {
                     kBump: 0.5f
                 ),
                 texture: new Texture("lead.jpg")
+            );
+            
+            Sphere s3 = new Sphere(
+                center: new V3(350, 400, 200),
+                radius: 150,
+                color: Color.Green,
+                material: new PhongMaterial(
+                    kA: 1.0f,
+                    kD: 0.7f,
+                    kS: 0.5f,
+                    shininess: 40,
+                    bumpMap: new Texture("bump38.jpg"),
+                    kBump: 1.0f
+                ),
+                texture: new Texture("wood.jpg")
             );
             
             Rectangle r1 = new Rectangle(
@@ -86,9 +101,14 @@ namespace ImageSynthesis {
                 new Color(0.3f, 0.3f, 0.3f)
             );
             
-            PointLight pL = new PointLight(
+            PointLight pL1 = new PointLight(
                 new Color(1.0f, 1.0f, 1.0f),
                 new V3(700, 0, 200)
+            );
+            
+            PointLight pL2 = new PointLight(
+                new Color(1.0f, 1.0f, 1.0f),
+                new V3(0, 0, 200)
             );
             
             DirectionalLight dL = new DirectionalLight(
@@ -98,10 +118,12 @@ namespace ImageSynthesis {
             
             // Populate
             scene.Lights.Add(aL);
-            scene.Lights.Add(pL);
+            scene.Lights.Add(pL1);
+            scene.Lights.Add(pL2);
             //scene.Lights.Add(dL);
             scene.Objects.Add(s1);
             scene.Objects.Add(s2);
+            scene.Objects.Add(s3);
             scene.Objects.Add(r1);
         }
         
