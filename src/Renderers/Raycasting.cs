@@ -58,10 +58,12 @@ namespace ImageSynthesis.Renderers {
             // color.
             if (collidedObject != null) {
                 V3 collisionPoint = ray.Origin + (ray.Direction * distance);
+                V2 collisionUV = collidedObject.UV(collisionPoint);
+                
                 List<Light> lights = Occultation(collidedObject, collisionPoint);
                 
                 return Scene.IlluModel.Compute(
-                    lights, collidedObject, collisionPoint
+                    lights, collidedObject, collisionPoint, collisionUV
                 );
             }
             
