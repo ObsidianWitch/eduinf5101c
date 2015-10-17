@@ -22,7 +22,13 @@ namespace ImageSynthesis.Renderers {
             for (int x = 0 ; x < Canvas.Width ; x++) {
                 for (int y = 0 ; y < Canvas.Height ; y++) {
                     V3 p = new V3(x, 0, y);
-                    Color color = Raycast(p);
+                    
+                    Ray ray = new Ray(
+                        origin: CameraPos,
+                        direction: p - CameraPos
+                    );
+                    
+                    Color color = Raycast(ray);
                     
                     if (color != null) {
                         V3 pScreen = new V3(x, Canvas.Height - y, 0);
@@ -34,12 +40,10 @@ namespace ImageSynthesis.Renderers {
             Canvas.EndDrawing();
         }
         
-        private Color Raycast(V3 p) {
-            Ray ray = new Ray(
-                origin: CameraPos,
-                direction: p - CameraPos
-            );
-            
+        /// Casts a ray and checks if it intersects any object. We can then
+        /// compute the color of the point corresponding to the nearest
+        /// intersected object.
+        private Color Raycast(Ray ray) {
             // Check if the current ray intersect with any object, and keep the
             // nearest intersected object.
             Object3D collidedObject = null;
