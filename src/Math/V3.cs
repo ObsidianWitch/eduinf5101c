@@ -43,6 +43,13 @@ namespace ImageSynthesis {
             Y /= n;
             Z /= n;
         }
+        
+        /// Gets the reflected vector to the surface defined by normalVec for
+        /// the current (incident) vector.
+        public V3 ReflectedVector(V3 normalVec) {
+            return 2 * (normalVec * this)
+                     * normalVec - this;
+        }
 
         public static V3 operator +(V3 a, V3 b) {
              return new V3(

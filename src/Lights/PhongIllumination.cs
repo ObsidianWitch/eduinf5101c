@@ -49,8 +49,7 @@ namespace ImageSynthesis.Lights {
         ) {
             V3 normalVec = obj.Normal(p, uv);
             
-            V3 reflectedVec = 2 * (normalVec * incidentVec) *
-                              normalVec - incidentVec;
+            V3 reflectedVec = incidentVec.ReflectedVector(normalVec);
             reflectedVec.Normalize();
             
             V3 viewingVec = CameraPos - p;
