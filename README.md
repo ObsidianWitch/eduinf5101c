@@ -1,8 +1,17 @@
 # INF-5101C - Projet image de synthèse
 
-<!-- TODO description -->
+Implementation of computer graphics techniques: z-Buffer, Phong
+reflection model, ray casting & ray tracing.
 
-<!-- TODO build instructions
- * with Visual Studio
- * with Mono
--->
+## Compilation
+
+### Visual Studio
+
+Open the `project.sln` solution with Visual Studio.
+
+### Mono
+
+```
+$ make
+$ build/project.out
+```
