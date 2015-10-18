@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using ImageSynthesis;
+using ImageSynthesis.Models;
 
 namespace ImageSynthesis.Renderers {
     
@@ -6,12 +8,48 @@ namespace ImageSynthesis.Renderers {
         
         public V3 Origin { get; private set; }
         public V3 Direction { get; private set; }
+        public float Distance { get; private set; }
         
         public Ray(V3 origin, V3 direction) {
             Origin = origin;
             
             Direction = direction;
             Direction.Normalize();
+            
+            Distance = float.MaxValue;
+        }
+        
+        public V3 CollisionPoint() {
+            return Origin + (Direction * Distance);
+        }
+        
+        /// Checks whether this ray intersects any object.
+        public bool IntersectObject(List<Object3D> objects) {
+            foreach (Object3D o in objects) {
+                if (o.Intersect(this)) { return true; }
+            }
+            
+            return false;
+        }
+        
+        /// Retrieves the closest intersected object by this ray, and sets the
+        /// distance to this object (Distance attribute).
+        /// If no object is intersected, returns null.
+        public Object3D ClosestIntersectedObject(List<Object3D> objects) {
+            Object3D closestObject = null;
+            Distance = float.MaxValue;
+            
+            foreach (Object3D o in objects) {
+                float newDistance;
+                bool intersect = o.Intersect(this, out newDistance);
+                
+                if (intersect && newDistance < Distance) {
+                    closestObject = o;
+                    Distance = newDistance;
+                }
+            }
+            
+            return closestObject;
         }
         
     }

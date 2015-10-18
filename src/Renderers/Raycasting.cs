@@ -41,33 +41,21 @@ namespace ImageSynthesis.Renderers {
         }
         
         /// Casts a ray and checks if it intersects any object. We can then
-        /// compute the color of the point corresponding to the nearest
+        /// compute the color of the point corresponding to the closest
         /// intersected object.
         private Color Raycast(Ray ray) {
-            // Check if the current ray intersect with any object, and keep the
-            // nearest intersected object.
-            Object3D collidedObject = null;
-            float distance = float.MaxValue;
-            foreach (Object3D obj in Scene.Objects) {
-                float newDistance;
-                bool intersect = obj.Intersect(ray, out newDistance);
-                
-                if (intersect && newDistance < distance) {
-                    collidedObject = obj;
-                    distance = newDistance;
-                }
-            }
+            Object3D collidedObj = ray.ClosestIntersectedObject(Scene.Objects);
             
             // If the ray previously encountered an object, compute the pixel's
             // color.
-            if (collidedObject != null) {
-                V3 collisionPoint = ray.Origin + (ray.Direction * distance);
-                V2 collisionUV = collidedObject.UV(collisionPoint);
+            if (collidedObj != null) {
+                V3 collisionPoint = ray.CollisionPoint();
+                V2 collisionUV = collidedObj.UV(collisionPoint);
                 
-                List<Light> lights = Occultation(collidedObject, collisionPoint);
+                List<Light> lights = Occultation(collidedObj, collisionPoint);
                 
                 return Scene.IlluModel.Compute(
-                    lights, collidedObject, collisionPoint, collisionUV
+                    lights, collidedObj, collisionPoint, collisionUV
                 );
             }
             
@@ -96,6 +84,7 @@ namespace ImageSynthesis.Renderers {
             Object3D currentObject, V3 currentPoint, Light light
         ) {
             Ray lightRay;
+            
             if (light.GetType().Name == "PointLight") {
                 PointLight pl = (PointLight) light;
                 lightRay = new Ray(currentPoint, pl.Position - currentPoint);
@@ -112,11 +101,7 @@ namespace ImageSynthesis.Renderers {
             List<Object3D> objects = new List<Object3D>(Scene.Objects);
             objects.Remove(currentObject);
             
-            foreach (Object3D o in objects) {
-                if (o.Intersect(lightRay)) { return false; }
-            }
-            
-            return true;
+            return !lightRay.IntersectObject(objects);
         }
     }
 }
