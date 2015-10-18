@@ -68,11 +68,11 @@
     <Compile Include="Scene.cs" />
     <Compile Include="Lights\AmbientLight.cs" />
     <Compile Include="Lights\DefaultIllumination.cs" />
+    <Compile Include="Lights\DirectionalLight.cs" />
     <Compile Include="Lights\IlluminationModel.cs" />
     <Compile Include="Lights\Light.cs" />
     <Compile Include="Lights\PhongIllumination.cs" />
     <Compile Include="Lights\PointLight.cs" />
-    <Compile Include="Lights\DirectionalLight.cs" />
     <Compile Include="Math\Mathf.cs" />
     <Compile Include="Math\V2.cs" />
     <Compile Include="Math\V3.cs" />
@@ -83,6 +83,8 @@
     <Compile Include="Models\Texture.cs" />
     <Compile Include="Renderers\Ray.cs" />
     <Compile Include="Renderers\Raycasting.cs" />
+    <Compile Include="Renderers\RayRenderer.cs" />
+    <Compile Include="Renderers\Raytracing.cs" />
     <Compile Include="Renderers\Renderer.cs" />
     <Compile Include="Renderers\ZBuffer.cs" />
     <Compile Include="Views\Canvas.cs" />

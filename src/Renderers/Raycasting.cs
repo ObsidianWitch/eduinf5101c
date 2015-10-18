@@ -5,15 +5,11 @@ using ImageSynthesis.Lights;
 
 namespace ImageSynthesis.Renderers {
 
-    class Raycasting : Renderer {
-        
-        private V3 CameraPos;
+    class Raycasting : RayRenderer {
         
         public Raycasting(Canvas canvas, Scene scene, V3 cameraPos) :
-            base(canvas, scene)
-        {
-            CameraPos = cameraPos;
-        }
+            base(canvas, scene, cameraPos)
+        {}
 
         /// Renders the scene.
         override public void Render() {
@@ -23,12 +19,10 @@ namespace ImageSynthesis.Renderers {
                 for (int y = 0 ; y < Canvas.Height ; y++) {
                     V3 p = new V3(x, 0, y);
                     
-                    Ray ray = new Ray(
+                    Color color = Raycast(new Ray(
                         origin: CameraPos,
                         direction: p - CameraPos
-                    );
-                    
-                    Color color = Raycast(ray);
+                    ));
                     
                     if (color != null) {
                         V3 pScreen = new V3(x, Canvas.Height - y, 0);
@@ -62,51 +56,5 @@ namespace ImageSynthesis.Renderers {
             return null;
         }
         
-        /// Returns a list of lights from which the currentPoint is visible.
-        /// If another object is placed between the currentPoint and a light,
-        /// then this point is occulted and the light will not be added to the
-        /// list.
-        private List<Light> Occultation(Object3D currentObject, V3 currentPoint) {
-            List<Light> lights = new List<Light>();
-            
-            foreach (Light l in Scene.Lights) {
-                if (PointLightened(currentObject, currentPoint, l)) {
-                    lights.Add(l);
-                }
-            }
-            
-            return lights;
-        }
-        
-        /// Checks whether the specified light is able to lightens the
-        /// currentPoint (i.e. there is no obstacle between them).
-        private bool PointLightened (
-            Object3D currentObject, V3 currentPoint, Light light
-        ) {
-            Ray lightRay;
-            
-            if (light.GetType().Name == "PointLight") {
-                PointLight pl = (PointLight) light;
-                lightRay = new Ray(
-                    origin:       currentPoint,
-                    direction:    pl.Position - currentPoint,
-                    originObject: currentObject
-                );
-            }
-            else if (light.GetType().Name == "DirectionalLight") {
-                DirectionalLight dl = (DirectionalLight) light;
-                lightRay = new Ray(
-                    origin:       currentPoint,
-                    direction:    -dl.Direction,
-                    originObject: currentObject
-                );
-            }
-            else if (light.GetType().Name == "AmbientLight") {
-                return true;
-            }
-            else { return false; }
-            
-            return !lightRay.IntersectObject(Scene.Objects);
-        }
     }
 }

@@ -5,16 +5,14 @@ using ImageSynthesis.Lights;
 
 namespace ImageSynthesis.Renderers {
 
-    class Raytracing : Renderer {
+    class Raytracing : RayRenderer {
         
-        private V3 CameraPos;
         private int MaxDepth;
         
         public Raytracing(
             Canvas canvas, Scene scene, V3 cameraPos, int maxDepth
-        ) : base(canvas, scene)
+        ) : base(canvas, scene, cameraPos)
         {
-            CameraPos = cameraPos;
             MaxDepth = maxDepth;
         }
 
@@ -127,53 +125,6 @@ namespace ImageSynthesis.Renderers {
             if (refractionColor == null) { return Color.Black; }
             
             return collidedObj.Material.Transparency * refractionColor;
-        }
-        
-        /// Returns a list of lights from which the currentPoint is visible.
-        /// If another object is placed between the currentPoint and a light,
-        /// then this point is occulted and the light will not be added to the
-        /// list.
-        private List<Light> Occultation(Object3D currentObject, V3 currentPoint) {
-            List<Light> lights = new List<Light>();
-            
-            foreach (Light l in Scene.Lights) {
-                if (PointLightened(currentObject, currentPoint, l)) {
-                    lights.Add(l);
-                }
-            }
-            
-            return lights;
-        }
-        
-        /// Checks whether the specified light is able to lightens the
-        /// currentPoint (i.e. there is no obstacle between them).
-        private bool PointLightened (
-            Object3D currentObject, V3 currentPoint, Light light
-        ) {
-            Ray lightRay;
-            
-            if (light.GetType().Name == "PointLight") {
-                PointLight pl = (PointLight) light;
-                lightRay = new Ray(
-                    origin:       currentPoint,
-                    direction:    pl.Position - currentPoint,
-                    originObject: currentObject
-                );
-            }
-            else if (light.GetType().Name == "DirectionalLight") {
-                DirectionalLight dl = (DirectionalLight) light;
-                lightRay = new Ray(
-                    origin:       currentPoint,
-                    direction:    -dl.Direction,
-                    originObject: currentObject
-                );
-            }
-            else if (light.GetType().Name == "AmbientLight") {
-                return true;
-            }
-            else { return false; }
-            
-            return !lightRay.IntersectObject(Scene.Objects);
         }
         
     }

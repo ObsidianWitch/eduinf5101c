@@ -148,9 +148,9 @@ namespace ImageSynthesis {
             
             // Populate
             scene.Lights.Add(aL);
-            scene.Lights.Add(pL1);
-            scene.Lights.Add(pL2);
-            //scene.Lights.Add(dL);
+            //scene.Lights.Add(pL1);
+            //scene.Lights.Add(pL2);
+            scene.Lights.Add(dL);
             scene.Objects.Add(s1);
             scene.Objects.Add(s2);
             scene.Objects.Add(s3);
