@@ -86,8 +86,9 @@ namespace ImageSynthesis.Renderers {
             
             V3 normal = collidedObj.Normal(collisionPoint, collisionUV);
             Ray reflectionRay = new Ray(
-                origin: collisionPoint,
-                direction: incidentVec.ReflectedVector(normal)
+                origin:       collisionPoint,
+                direction:    incidentVec.ReflectedVector(normal),
+                originObject: collidedObj
             );
             
             Color reflectionColor = Raytrace(reflectionRay, depth - 1);
@@ -121,11 +122,19 @@ namespace ImageSynthesis.Renderers {
             
             if (light.GetType().Name == "PointLight") {
                 PointLight pl = (PointLight) light;
-                lightRay = new Ray(currentPoint, pl.Position - currentPoint);
+                lightRay = new Ray(
+                    origin:       currentPoint,
+                    direction:    pl.Position - currentPoint,
+                    originObject: currentObject
+                );
             }
             else if (light.GetType().Name == "DirectionalLight") {
                 DirectionalLight dl = (DirectionalLight) light;
-                lightRay = new Ray(currentPoint, -dl.Direction);
+                lightRay = new Ray(
+                    origin:       currentPoint,
+                    direction:    -dl.Direction,
+                    originObject: currentObject
+                );
             }
             else if (light.GetType().Name == "AmbientLight") {
                 return true;

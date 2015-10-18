@@ -10,11 +10,15 @@ namespace ImageSynthesis.Renderers {
         public V3 Direction { get; private set; }
         public float Distance { get; private set; }
         
-        public Ray(V3 origin, V3 direction) {
+        private Object3D OriginObject;
+        
+        public Ray(V3 origin, V3 direction, Object3D originObject = null) {
             Origin = origin;
             
             Direction = direction;
             Direction.Normalize();
+            
+            OriginObject = originObject;
             
             Distance = float.MaxValue;
         }
@@ -26,7 +30,7 @@ namespace ImageSynthesis.Renderers {
         /// Checks whether this ray intersects any object.
         public bool IntersectObject(List<Object3D> objects) {
             foreach (Object3D o in objects) {
-                if (o.Intersect(this)) { return true; }
+                if (o != OriginObject && o.Intersect(this)) { return true; }
             }
             
             return false;
@@ -43,7 +47,7 @@ namespace ImageSynthesis.Renderers {
                 float newDistance;
                 bool intersect = o.Intersect(this, out newDistance);
                 
-                if (intersect && newDistance < Distance) {
+                if (o != OriginObject && intersect && newDistance < Distance) {
                     closestObject = o;
                     Distance = newDistance;
                 }

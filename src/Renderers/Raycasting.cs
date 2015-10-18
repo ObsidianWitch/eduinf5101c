@@ -87,21 +87,26 @@ namespace ImageSynthesis.Renderers {
             
             if (light.GetType().Name == "PointLight") {
                 PointLight pl = (PointLight) light;
-                lightRay = new Ray(currentPoint, pl.Position - currentPoint);
+                lightRay = new Ray(
+                    origin:       currentPoint,
+                    direction:    pl.Position - currentPoint,
+                    originObject: currentObject
+                );
             }
             else if (light.GetType().Name == "DirectionalLight") {
                 DirectionalLight dl = (DirectionalLight) light;
-                lightRay = new Ray(currentPoint, -dl.Direction);
+                lightRay = new Ray(
+                    origin:       currentPoint,
+                    direction:    -dl.Direction,
+                    originObject: currentObject
+                );
             }
             else if (light.GetType().Name == "AmbientLight") {
                 return true;
             }
             else { return false; }
             
-            List<Object3D> objects = new List<Object3D>(Scene.Objects);
-            objects.Remove(currentObject);
-            
-            return !lightRay.IntersectObject(objects);
+            return !lightRay.IntersectObject(Scene.Objects);
         }
     }
 }
