@@ -12,10 +12,14 @@ namespace ImageSynthesis {
         public List<Object3D> Objects { get; private set; }
         public IlluminationModel IlluModel { get; private set; }
         
-        public Scene(Canvas canvas) : this(canvas, new DefaultIllumination()) {}
+        public float RefractiveIndex { get; private set; }
         
-        public Scene(Canvas canvas, IlluminationModel illuModel) {
+        public Scene(
+            IlluminationModel illuModel, float refractiveIndex = 1.0f
+        ) {
             IlluModel = illuModel;
+            RefractiveIndex = refractiveIndex;
+            
             Lights = new List<Light>();
             Objects = new List<Object3D>();
         }

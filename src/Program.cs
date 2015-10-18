@@ -20,16 +20,14 @@ namespace ImageSynthesis {
             
             V3 cameraPos = new V3(CANVAS_WIDTH/2, -1000, CANVAS_HEIGHT/2);
             
-            Scene scene = new Scene(
-                canvas, new PhongIllumination(cameraPos)
-            );
+            Scene scene = new Scene(new PhongIllumination(cameraPos));
             PopulateScene(scene);
             
             Renderer renderer = new Raytracing(
                 canvas:    canvas,
                 scene:     scene,
                 cameraPos: cameraPos,
-                maxDepth:  3
+                maxDepth:  10
             );
             
             MainForm Form = new MainForm(renderer);
@@ -69,8 +67,8 @@ namespace ImageSynthesis {
                     kS: 0.5f,
                     shininess: 40,
                     reflection: 0.5f,
-                    transparency: 0.5f,
-                    refractiveIndex: 1.5f,
+                    transparency: 0.7f,
+                    refractiveIndex: 1.2f,
                     bumpMap: new Texture("lead_bump.jpg"),
                     kBump: 0.5f
                 ),
@@ -93,6 +91,21 @@ namespace ImageSynthesis {
                     kBump: 1.0f
                 ),
                 texture: new Texture("wood.jpg")
+            );
+            
+            Sphere s4 = new Sphere(
+                center: new V3(500, 300, 200),
+                radius: 50,
+                color: Color.Green,
+                material: new PhongMaterial(
+                    kA: 1.0f,
+                    kD: 0.7f,
+                    kS: 0.5f,
+                    shininess: 40,
+                    reflection: 0.0f,
+                    transparency: 0.0f,
+                    refractiveIndex: 1.2f
+                )
             );
             
             Rectangle r1 = new Rectangle(
@@ -141,6 +154,7 @@ namespace ImageSynthesis {
             scene.Objects.Add(s1);
             scene.Objects.Add(s2);
             scene.Objects.Add(s3);
+            scene.Objects.Add(s4);
             scene.Objects.Add(r1);
         }
         

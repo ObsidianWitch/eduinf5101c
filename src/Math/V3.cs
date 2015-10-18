@@ -50,6 +50,23 @@ namespace ImageSynthesis {
             return 2 * (normalVec * this)
                      * normalVec - this;
         }
+        
+        public V3 RefractedVector(V3 normalVec, float n1, float n2) {
+           float n;
+           float cosI;
+           if (normalVec * this < 0.0f) { // medium 1 -> medium 2
+               n = n1 / n2;
+               cosI = -normalVec * this;
+           }
+           else { // medium 2 -> medium 1
+               n = n2 / n1;
+               cosI = normalVec * this;
+           }
+           
+           float sinT_pow2 = n * n * (1.0f - (cosI * cosI));
+           float cosT = Mathf.Sqrt(1.0f - sinT_pow2);
+           return n * this + (n * cosI - cosT) * normalVec;
+        }
 
         public static V3 operator +(V3 a, V3 b) {
              return new V3(

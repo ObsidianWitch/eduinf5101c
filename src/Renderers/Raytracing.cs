@@ -46,8 +46,8 @@ namespace ImageSynthesis.Renderers {
         
         /// Casts a ray and checks if it intersects any object. We can then
         /// compute the color of the point corresponding to the closest
-        /// intersected object.
-        /// TODO
+        /// intersected object. If the intersected object is transparent or
+        /// reflective, new rays are cast from the collision point.
         private Color Raytrace(Ray ray, int depth) {
             if (depth <= 0) { return null; }
             
@@ -70,14 +70,20 @@ namespace ImageSynthesis.Renderers {
                     collidedObj, depth
                 );
                 
-                return directComponent + reflectionColor;
+                // refracted light component
+                Color refractionColor = RefractionColor(
+                    ray.Direction, collisionPoint, collisionUV,
+                    collidedObj, depth
+                );
+                
+                return directComponent + reflectionColor + refractionColor;
             }
             
             return null;
         }
         
-        /// Recursivly raytrace to get the color for the specified
-        /// collisionPoint.
+        /// Recursivly raytrace to get the color resulting from the reflected
+        /// light component for the specified collisionPoint.
         private Color ReflectionColor(
             V3 incidentVec, V3 collisionPoint, V2 collisionUV,
             Object3D collidedObj, int depth
@@ -95,6 +101,32 @@ namespace ImageSynthesis.Renderers {
             if (reflectionColor == null) { return Color.Black; }
             
             return collidedObj.Material.Reflection * reflectionColor;
+        }
+        
+        /// Recursivly raytrace to get the color resulting from the refracted
+        /// light component for the specified collisionPoint.
+        private Color RefractionColor(
+            V3 incidentVec, V3 collisionPoint, V2 collisionUV,
+            Object3D collidedObj, int depth
+        ) {
+            if (!collidedObj.Material.IsTransparent()) { return Color.Black; }
+            
+            V3 normal = collidedObj.Normal(collisionPoint, collisionUV);
+            
+            Ray refractionRay = new Ray(
+                origin: collisionPoint,
+                direction: incidentVec.RefractedVector(
+                    normalVec: normal,
+                    n1: Scene.RefractiveIndex,
+                    n2: collidedObj.Material.RefractiveIndex
+                ),
+                originObject: collidedObj
+            );
+            
+            Color refractionColor = Raytrace(refractionRay, depth - 1);
+            if (refractionColor == null) { return Color.Black; }
+            
+            return collidedObj.Material.Transparency * refractionColor;
         }
         
         /// Returns a list of lights from which the currentPoint is visible.
