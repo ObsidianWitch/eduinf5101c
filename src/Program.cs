@@ -42,6 +42,9 @@ namespace ImageSynthesis {
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 20,
+                    reflection: 1.0f,
+                    transparency: 0.0f,
+                    refractiveIndex: 1.0f,
                     bumpMap: new Texture("gold_bump.jpg"),
                     kBump: 0.5f
                 ),
@@ -60,6 +63,9 @@ namespace ImageSynthesis {
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 40,
+                    reflection: 0.0f,
+                    transparency: 0.5f,
+                    refractiveIndex: 1.5f,
                     bumpMap: new Texture("lead_bump.jpg"),
                     kBump: 0.5f
                 ),
@@ -75,6 +81,9 @@ namespace ImageSynthesis {
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 40,
+                    reflection: 0.0f,
+                    transparency: 0.0f,
+                    refractiveIndex: 1.0f,
                     bumpMap: new Texture("bump38.jpg"),
                     kBump: 1.0f
                 ),
@@ -91,6 +100,9 @@ namespace ImageSynthesis {
                     kD: 0.7f,
                     kS: 0.0f,
                     shininess: 0,
+                    reflection: 0.0f,
+                    transparency: 0.0f,
+                    refractiveIndex: 1.0f,
                     bumpMap: new Texture("bump38.jpg")
                 ),
                 texture: new Texture("fibre.jpg")

@@ -23,15 +23,26 @@ namespace ImageSynthesis.Models {
         /// Specifies how small the highlights are, the shinier the material,
         /// the smaller the highlight.
         public int Shininess { get; private set; }
+        
+        public float Reflection { get; private set; }
+        public bool IsReflective() { return Reflection > 0; }
+        
+        public float Transparency { get; private set; }
+        public bool IsTransparent() { return Transparency > 0; }
+        public float RefractiveIndex { get; private set; }
 
         public PhongMaterial(
             float kA, float kD, float kS, int shininess,
+            float reflection, float transparency, float refractiveIndex,
             Texture bumpMap = null, float kBump = 1.0f
         ) {
             KAmbient = kA;
             KDiffuse = kD;
             KSpecular = kS;
             Shininess = shininess;
+            Reflection = reflection;
+            Transparency = transparency;
+            RefractiveIndex = refractiveIndex;
             BumpMap = bumpMap;
             KBump = kBump;
         }
