@@ -25,7 +25,7 @@ namespace ImageSynthesis {
             );
             PopulateScene(scene);
             
-            Renderer renderer = new Raycasting(canvas, scene, cameraPos);
+            Renderer renderer = new Raytracing(canvas, scene, cameraPos);
             
             MainForm Form = new MainForm(renderer);
             Application.Run(Form);
