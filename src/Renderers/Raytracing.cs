@@ -8,11 +8,14 @@ namespace ImageSynthesis.Renderers {
     class Raytracing : Renderer {
         
         private V3 CameraPos;
+        private int MaxDepth;
         
-        public Raytracing(Canvas canvas, Scene scene, V3 cameraPos) :
-            base(canvas, scene)
+        public Raytracing(
+            Canvas canvas, Scene scene, V3 cameraPos, int maxDepth
+        ) : base(canvas, scene)
         {
             CameraPos = cameraPos;
+            MaxDepth = maxDepth;
         }
 
         /// Renders the scene.
@@ -23,10 +26,13 @@ namespace ImageSynthesis.Renderers {
                 for (int y = 0 ; y < Canvas.Height ; y++) {
                     V3 p = new V3(x, 0, y);
                     
-                    Color color = Raytrace(new Ray(
-                        origin: CameraPos,
-                        direction: p - CameraPos
-                    ));
+                    Color color = Raytrace(
+                        new Ray(
+                            origin: CameraPos,
+                            direction: p - CameraPos
+                        ),
+                        MaxDepth
+                    );
                     
                     if (color != null) {
                         V3 pScreen = new V3(x, Canvas.Height - y, 0);
@@ -42,8 +48,91 @@ namespace ImageSynthesis.Renderers {
         /// compute the color of the point corresponding to the closest
         /// intersected object.
         /// TODO
-        private Color Raytrace(Ray ray) {
+        private Color Raytrace(Ray ray, int depth) {
+            if (depth <= 0) { return null; }
+            
+            Object3D collidedObj = ray.ClosestIntersectedObject(Scene.Objects);
+            
+            // If the ray previously encountered an object, compute the pixel's
+            // color.
+            if (collidedObj != null) {
+                V3 collisionPoint = ray.CollisionPoint();
+                V2 collisionUV = collidedObj.UV(collisionPoint);
+                
+                List<Light> lights = Occultation(collidedObj, collisionPoint);
+                Color directComponent = Scene.IlluModel.Compute(
+                    lights, collidedObj, collisionPoint, collisionUV
+                );
+                
+                // reflected light component
+                Color reflectionColor = ReflectionColor(
+                    -ray.Direction, collisionPoint, collisionUV,
+                    collidedObj, depth
+                );
+                
+                return directComponent + reflectionColor;
+            }
+            
             return null;
+        }
+        
+        /// Recursivly raytrace to get the color for the specified
+        /// collisionPoint.
+        private Color ReflectionColor(
+            V3 incidentVec, V3 collisionPoint, V2 collisionUV,
+            Object3D collidedObj, int depth
+        ) {
+            if (!collidedObj.Material.IsReflective()) { return Color.Black; }
+            
+            V3 normal = collidedObj.Normal(collisionPoint, collisionUV);
+            Ray reflectionRay = new Ray(
+                origin: collisionPoint,
+                direction: incidentVec.ReflectedVector(normal)
+            );
+            
+            Color reflectionColor = Raytrace(reflectionRay, depth - 1);
+            if (reflectionColor == null) { return Color.Black; }
+            
+            return collidedObj.Material.Reflection * reflectionColor;
+        }
+        
+        /// Returns a list of lights from which the currentPoint is visible.
+        /// If another object is placed between the currentPoint and a light,
+        /// then this point is occulted and the light will not be added to the
+        /// list.
+        private List<Light> Occultation(Object3D currentObject, V3 currentPoint) {
+            List<Light> lights = new List<Light>();
+            
+            foreach (Light l in Scene.Lights) {
+                if (PointLightened(currentObject, currentPoint, l)) {
+                    lights.Add(l);
+                }
+            }
+            
+            return lights;
+        }
+        
+        /// Checks whether the specified light is able to lightens the
+        /// currentPoint (i.e. there is no obstacle between them).
+        private bool PointLightened (
+            Object3D currentObject, V3 currentPoint, Light light
+        ) {
+            Ray lightRay;
+            
+            if (light.GetType().Name == "PointLight") {
+                PointLight pl = (PointLight) light;
+                lightRay = new Ray(currentPoint, pl.Position - currentPoint);
+            }
+            else if (light.GetType().Name == "DirectionalLight") {
+                DirectionalLight dl = (DirectionalLight) light;
+                lightRay = new Ray(currentPoint, -dl.Direction);
+            }
+            else if (light.GetType().Name == "AmbientLight") {
+                return true;
+            }
+            else { return false; }
+            
+            return !lightRay.IntersectObject(Scene.Objects);
         }
         
     }

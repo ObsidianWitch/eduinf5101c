@@ -25,7 +25,12 @@ namespace ImageSynthesis {
             );
             PopulateScene(scene);
             
-            Renderer renderer = new Raytracing(canvas, scene, cameraPos);
+            Renderer renderer = new Raytracing(
+                canvas:    canvas,
+                scene:     scene,
+                cameraPos: cameraPos,
+                maxDepth:  3
+            );
             
             MainForm Form = new MainForm(renderer);
             Application.Run(Form);
@@ -63,7 +68,7 @@ namespace ImageSynthesis {
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 40,
-                    reflection: 0.0f,
+                    reflection: 0.5f,
                     transparency: 0.5f,
                     refractiveIndex: 1.5f,
                     bumpMap: new Texture("lead_bump.jpg"),
