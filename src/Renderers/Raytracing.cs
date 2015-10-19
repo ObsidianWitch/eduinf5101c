@@ -118,7 +118,7 @@ namespace ImageSynthesis.Renderers {
                     n1: Scene.RefractiveIndex,
                     n2: collidedObj.Material.RefractiveIndex
                 ),
-                originObject: collidedObj
+                originObject: null
             );
             
             Color refractionColor = Raytrace(refractionRay, depth - 1);

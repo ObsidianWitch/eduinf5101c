@@ -89,7 +89,7 @@ namespace ImageSynthesis.Models {
             V3 n = Normal();
             float t = (centerDirection * n) / (ray.Direction * n);
             
-            if (t >= 0) {
+            if (t > DIST_THRES) {
                 distance = t;
                 
                 V3 collisionPoint = ray.Origin + (ray.Direction * distance);

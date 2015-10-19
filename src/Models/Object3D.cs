@@ -5,6 +5,9 @@ namespace ImageSynthesis.Models {
     
     abstract class Object3D {
         
+        /// Distance threshold used for intersection.
+        public const float DIST_THRES = 0.1f;
+        
         public V3 Center { get; set; }
         public Color Color { get; set; }
         public PhongMaterial Material { get; set; }

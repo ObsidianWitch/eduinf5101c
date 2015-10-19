@@ -98,9 +98,15 @@ namespace ImageSynthesis.Models {
                 float d1 = (-b + Mathf.Sqrt(delta))/(2 * a);
                 float d2 = (-b - Mathf.Sqrt(delta))/(2 * a);
                 
-                if (d1 < 0 && d2 < 0) { return false; }
-                else if (d1 < 0 || d2 < 0) { distance = Math.Max(d1,d2); }
-                else { distance = Math.Min(d1,d2); }
+                if (d1 < DIST_THRES && d2 < DIST_THRES) {
+                    return false;
+                }
+                else if (d1 < DIST_THRES || d2 < DIST_THRES) {
+                    distance = Math.Max(d1,d2);
+                }
+                else {
+                    distance = Math.Min(d1,d2);
+                }
                 
                 return true;
             }
