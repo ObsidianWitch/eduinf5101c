@@ -9,27 +9,21 @@ namespace ImageSynthesis.Models {
         public const float DIST_THRES = 0.1f;
         
         public V3 Center { get; set; }
-        public Color Color { get; set; }
         public PhongMaterial Material { get; set; }
-        public Texture Texture { get; set; }
         
-        public Object3D(
-            V3 center, Color color, PhongMaterial material, Texture texture
-        ) {
+        public Object3D(V3 center, PhongMaterial material) {
             Center = center;
-            Color = color;
             Material = material;
-            Texture = texture;
         }
         
         /// Returns the texture color at coordinates (u,v). If no Texture has
         /// been given for this Object3D, return the object's Color property.
         public Color TextureColor(V2 uv) {
-            if (Texture != null) {
-                return Texture.Color(uv);
+            if (Material.Texture != null) {
+                return Material.Texture.Color(uv);
             }
             
-            return Color;
+            return Material.Color;
         }
         
         /// Retrieves uv values in the ranges specific to this 3D object.

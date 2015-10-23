@@ -39,65 +39,65 @@ namespace ImageSynthesis {
             Sphere s1 = new Sphere(
                 center: new V3(200, 300, 200),
                 radius: 150,
-                color: Color.Red,
                 material: new PhongMaterial(
+                    color: Color.Red,
+                    texture: new Texture(
+                        textureFile: "gold.jpg",
+                        tileUV: new V2(1.0f, 1.0f)
+                    ),
+                    bumpMap: new Texture("gold_bump.jpg"),
+                    kBump: 0.5f,
                     kA: 1.0f,
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 20,
                     reflection: 1.0f,
                     transparency: 0.0f,
-                    refractiveIndex: 1.0f,
-                    bumpMap: new Texture("gold_bump.jpg"),
-                    kBump: 0.5f
-                ),
-                texture: new Texture(
-                    textureFile: "gold.jpg",
-                    tileUV: new V2(1.0f, 1.0f)
+                    refractiveIndex: 1.0f
                 )
             );
             
             Sphere s2 = new Sphere(
                 center: new V3(500, 200, 200),
                 radius: 150,
-                color: Color.Green,
                 material: new PhongMaterial(
+                    color: Color.Green,
+                    texture: new Texture("lead.jpg"),
+                    bumpMap: new Texture("lead_bump.jpg"),
+                    kBump: 0.5f,
                     kA: 1.0f,
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 40,
                     reflection: 0.5f,
                     transparency: 0.7f,
-                    refractiveIndex: 1.2f,
-                    bumpMap: new Texture("lead_bump.jpg"),
-                    kBump: 0.5f
-                ),
-                texture: new Texture("lead.jpg")
+                    refractiveIndex: 1.2f
+                )
             );
             
             Sphere s3 = new Sphere(
                 center: new V3(350, 400, 200),
                 radius: 150,
-                color: Color.Green,
                 material: new PhongMaterial(
+                    color: Color.Green,
+                    texture: new Texture("wood.jpg"),
+                    bumpMap: new Texture("bump38.jpg"),
+                    kBump: 1.0f,
                     kA: 1.0f,
                     kD: 0.7f,
                     kS: 0.5f,
                     shininess: 40,
                     reflection: 0.0f,
                     transparency: 0.0f,
-                    refractiveIndex: 1.0f,
-                    bumpMap: new Texture("bump38.jpg"),
-                    kBump: 1.0f
-                ),
-                texture: new Texture("wood.jpg")
+                    refractiveIndex: 1.0f
+                )
             );
             
             Sphere s4 = new Sphere(
-                center: new V3(500, 300, 200),
+                center: new V3(600, 300, 200),
                 radius: 50,
-                color: Color.Green,
                 material: new PhongMaterial(
+                    color: Color.Green,
                     kA: 1.0f,
                     kD: 0.7f,
                     kS: 0.5f,
@@ -112,18 +112,18 @@ namespace ImageSynthesis {
                 center: new V3(120, 1, CANVAS_HEIGHT - 120),
                 va: new V3(200, 200, 0),
                 vb: new V3(0, 0, 200),
-                color: Color.Blue,
                 material: new PhongMaterial(
+                    color: Color.Blue,
+                    texture: new Texture("fibre.jpg"),
+                    bumpMap: new Texture("bump38.jpg"),
                     kA: 1.0f,
                     kD: 0.7f,
                     kS: 0.0f,
                     shininess: 0,
                     reflection: 0.0f,
                     transparency: 0.0f,
-                    refractiveIndex: 1.0f,
-                    bumpMap: new Texture("bump38.jpg")
-                ),
-                texture: new Texture("fibre.jpg")
+                    refractiveIndex: 1.0f
+                )
             );
             
             // Lights

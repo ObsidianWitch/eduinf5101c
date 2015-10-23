@@ -1,9 +1,15 @@
 namespace ImageSynthesis.Models {
-
+    
     /// This class holds properties caracterizing a material using the Phong
     /// illumination model. The parameters for the 3 components of the
     /// illumination model are defined.
     class PhongMaterial {
+        
+        /// Material color (unused if material texture defined)
+        public Color Color { get; set; }
+        
+        /// Material texture
+        public Texture Texture { get; set; }
         
         /// Material bump map
         public Texture BumpMap { get; private set; }
@@ -30,12 +36,14 @@ namespace ImageSynthesis.Models {
         public float Transparency { get; private set; }
         public bool IsTransparent() { return Transparency > 0; }
         public float RefractiveIndex { get; private set; }
-
+        
         public PhongMaterial(
-            float kA, float kD, float kS, int shininess,
+            Color color, float kA, float kD, float kS, int shininess,
             float reflection, float transparency, float refractiveIndex,
-            Texture bumpMap = null, float kBump = 1.0f
+            Texture texture = null, Texture bumpMap = null, float kBump = 1.0f
         ) {
+            Color = color;
+            Texture = texture;
             KAmbient = kA;
             KDiffuse = kD;
             KSpecular = kS;

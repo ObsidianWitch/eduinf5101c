@@ -10,10 +10,8 @@ namespace ImageSynthesis.Models {
         public V3 VA { get; set; }
         public V3 VB { get; set; }
         
-        public Rectangle(
-            V3 center, V3 va, V3 vb, Color color,
-            PhongMaterial material, Texture texture = null
-        ) : base(center, color, material, texture)
+        public Rectangle(V3 center, V3 va, V3 vb, PhongMaterial material) :
+            base(center, material)
         {
             if (va * vb != 0) {
                 throw new Exception(
