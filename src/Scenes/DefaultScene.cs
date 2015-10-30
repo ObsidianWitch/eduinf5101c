@@ -116,16 +116,6 @@ namespace ImageSynthesis.Scenes {
         public static void PopulateDL(Scene scene) {
             Populate(scene);
             
-            PointLight pL1 = new PointLight(
-                new Color(1.0f, 1.0f, 1.0f),
-                new V3(700, 0, 200)
-            );
-            
-            PointLight pL2 = new PointLight(
-                new Color(1.0f, 1.0f, 1.0f),
-                new V3(0, 0, 200)
-            );
-            
             DirectionalLight dL = new DirectionalLight(
                 new Color(1.0f, 1.0f, 1.0f),
                 new V3(-1, 1, -1)
