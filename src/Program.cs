@@ -8,33 +8,16 @@ using ImageSynthesis.Renderers;
 namespace ImageSynthesis {
 
     static class Program {
-
-        private const int CANVAS_WIDTH = 800;
-        private const int CANVAS_HEIGHT = 500;
-
+        
         [STAThread]
         static void Main() {
             Application.EnableVisualStyles();
             
-            Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-            
-            V3 cameraPos = new V3(CANVAS_WIDTH/2, -1000, CANVAS_HEIGHT/2);
-            
-            Scene scene = new Scene(new PhongIllumination(cameraPos));
-            PopulateScene(scene);
-            
-            Renderer renderer = new Raytracing(
-                canvas:    canvas,
-                scene:     scene,
-                cameraPos: cameraPos,
-                maxDepth:  10
-            );
-            
-            MainForm Form = new MainForm(renderer);
+            MainForm Form = new MainForm();
             Application.Run(Form);
         }
         
-        private static void PopulateScene(Scene scene) {
+        public static void PopulateScene(Scene scene) {
             // Objects
             Sphere s1 = new Sphere(
                 center: new V3(200, 300, 200),
@@ -109,7 +92,7 @@ namespace ImageSynthesis {
             );
             
             Rectangle r1 = new Rectangle(
-                center: new V3(120, 1, CANVAS_HEIGHT - 120),
+                center: new V3(120, 1, MainForm.CANVAS_HEIGHT - 120),
                 va: new V3(200, 200, 0),
                 vb: new V3(0, 0, 200),
                 material: new PhongMaterial(
