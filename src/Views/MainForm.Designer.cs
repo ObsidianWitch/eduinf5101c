@@ -4,6 +4,7 @@
         private System.Windows.Forms.Button RenderButton;
         private System.Windows.Forms.CheckBox SlowModeCheckbox;
         private System.Windows.Forms.ComboBox RendererComboBox;
+        private System.Windows.Forms.ComboBox SceneComboBox;
         private System.ComponentModel.IContainer components = null;
         
         protected override void Dispose(bool disposing) {
@@ -17,6 +18,7 @@
             this.RenderButton = new System.Windows.Forms.Button();
             this.SlowModeCheckbox = new System.Windows.Forms.CheckBox();
             this.RendererComboBox = new System.Windows.Forms.ComboBox();
+            this.SceneComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // RenderButton
@@ -52,12 +54,23 @@
             this.RendererComboBox.TabIndex = 5;
             this.RendererComboBox.SelectedIndexChanged += new System.EventHandler(this.RendererChanged);
             // 
+            // SceneComboBox
+            // 
+            this.SceneComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SceneComboBox.FormattingEnabled = true;
+            this.SceneComboBox.Location = new System.Drawing.Point(304, 12);
+            this.SceneComboBox.Name = "SceneComboBox";
+            this.SceneComboBox.Size = new System.Drawing.Size(121, 21);
+            this.SceneComboBox.TabIndex = 6;
+            this.SceneComboBox.SelectedIndexChanged += new System.EventHandler(this.SceneChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(821, 547);
+            this.Controls.Add(this.SceneComboBox);
             this.Controls.Add(this.RendererComboBox);
             this.Controls.Add(this.SlowModeCheckbox);
             this.Controls.Add(this.RenderButton);

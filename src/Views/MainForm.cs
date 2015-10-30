@@ -15,6 +15,8 @@ namespace ImageSynthesis.Views {
         private V3 CameraPos;
         private Dictionary<string, Renderer> Renderers;
         private Renderer CurrentRenderer;
+        private Dictionary<string, Scene> Scenes;
+        private Scene CurrentScene;
         
         public MainForm() {
             InitializeComponent();
@@ -23,32 +25,46 @@ namespace ImageSynthesis.Views {
             InitializeCanvas(canvas);
             
             CameraPos = new V3(CANVAS_WIDTH/2, -1000, CANVAS_HEIGHT/2);
-            
-            Scene scene = new Scene(new PhongIllumination(CameraPos));
-            DefaultScene.PopulateDL(scene);
 
-            InitializeRenderers(canvas, scene);
+            InitializeScenes();
+            InitializeRenderers(canvas);
         }
 
-        private void InitializeRenderers(Canvas canvas, Scene scene) {
+        private void InitializeScenes() {
+            Scenes = new Dictionary<string, Scene>();
+
+            Scene defaultSceneDL = new Scene(new PhongIllumination(CameraPos));
+            DefaultScene.PopulateDL(defaultSceneDL);
+            Scenes.Add("DefaultDL", defaultSceneDL);
+
+            Scene defaultScenePL = new Scene(new PhongIllumination(CameraPos));
+            DefaultScene.PopulatePL(defaultScenePL);
+            Scenes.Add("DefaultPL", defaultScenePL);
+
+            SceneComboBox.DataSource = new BindingSource(Scenes, null);
+            SceneComboBox.DisplayMember = "Key";
+            SceneComboBox.ValueMember = "Value";
+        }
+
+        private void InitializeRenderers(Canvas canvas) {
             Renderers = new Dictionary<string, Renderer>();
 
             Renderer zbuffer = new ZBuffer(
                 canvas: canvas,
-                scene: scene
+                scene:  CurrentScene
             );
             Renderers.Add("ZBuffer", zbuffer);
 
             Renderer raycasting = new Raycasting(
                 canvas:    canvas,
-                scene:     scene,
+                scene:     CurrentScene,
                 cameraPos: CameraPos
             );
             Renderers.Add("Raycasting", raycasting);
 
             Renderer raytracing = new Raytracing(
                 canvas:    canvas,
-                scene:     scene,
+                scene:     CurrentScene,
                 cameraPos: CameraPos,
                 maxDepth:  10
             );
@@ -73,5 +89,16 @@ namespace ImageSynthesis.Views {
 
         }
 
+        private void SceneChanged(object sender, EventArgs e) {
+            var selectedItem = (KeyValuePair<string, Scene>)SceneComboBox.SelectedItem;
+            CurrentScene = selectedItem.Value;
+
+            // Avoid problems during initialization (Scenes are initialized first, then Renderers).
+            if (Renderers == null) { return; }
+
+            foreach (Renderer renderer in Renderers.Values) {
+                renderer.Scene = CurrentScene;
+            }
+        }
     }
 }

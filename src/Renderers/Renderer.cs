@@ -6,7 +6,7 @@ namespace ImageSynthesis.Renderers {
     abstract class Renderer {
         
         public Canvas Canvas { get; private set; }
-        protected Scene Scene;
+        public Scene Scene { get; set; }
         
         public Renderer(Canvas canvas, Scene scene) {
             Canvas = canvas;
