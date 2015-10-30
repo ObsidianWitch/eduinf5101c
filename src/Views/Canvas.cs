@@ -85,5 +85,9 @@ namespace ImageSynthesis.Views {
             
             Refresh();
         }
+        
+        public void SwitchDisplayMode(bool slow) {
+            Mode = slow ? DisplayMode.SLOW : DisplayMode.FAST;
+        }
     }
 }

@@ -36,8 +36,7 @@ namespace ImageSynthesis.Views {
         }
 
         private void SlowModeToggle(object sender, EventArgs e) {
-            Renderer.Canvas.Mode = SlowModeCheckbox.Checked ?
-                DisplayMode.SLOW : DisplayMode.FAST;
+            Renderer.Canvas.SwitchDisplayMode(SlowModeCheckbox.Checked);
         }
 
     }
