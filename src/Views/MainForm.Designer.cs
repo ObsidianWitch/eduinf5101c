@@ -5,6 +5,7 @@
         private System.Windows.Forms.CheckBox SlowModeCheckbox;
         private System.Windows.Forms.ComboBox RendererComboBox;
         private System.Windows.Forms.ComboBox SceneComboBox;
+        private Canvas Canvas;
         private System.ComponentModel.IContainer components = null;
         
         protected override void Dispose(bool disposing) {
@@ -81,15 +82,16 @@
 
         }
         
-        private void InitializeCanvas(Canvas canvas) {
+        private void InitializeCanvas() {
+            Canvas = new Canvas(800, 500);
             SuspendLayout();
-            canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            canvas.Location = new System.Drawing.Point(12, 38);
-            canvas.Name = "Canvas";
-            canvas.TabStop = false;
+            Canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            Canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            Canvas.Location = new System.Drawing.Point(12, 38);
+            Canvas.Name = "Canvas";
+            Canvas.TabStop = false;
             
-            Controls.Add(canvas);
+            Controls.Add(Canvas);
             ResumeLayout(false);
             PerformLayout();
         }

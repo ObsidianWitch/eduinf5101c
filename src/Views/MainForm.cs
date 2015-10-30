@@ -9,9 +9,6 @@ namespace ImageSynthesis.Views {
     
     partial class MainForm : Form {
         
-        public const int CANVAS_WIDTH = 800;
-        public const int CANVAS_HEIGHT = 500;
-
         private V3 CameraPos;
         private Dictionary<string, Renderer> Renderers;
         private Renderer CurrentRenderer;
@@ -20,14 +17,12 @@ namespace ImageSynthesis.Views {
         
         public MainForm() {
             InitializeComponent();
+            InitializeCanvas();
             
-            Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-            InitializeCanvas(canvas);
-            
-            CameraPos = new V3(CANVAS_WIDTH/2, -1000, CANVAS_HEIGHT/2);
+            CameraPos = new V3(Canvas.Width/2, -1000, Canvas.Height/2);
 
             InitializeScenes();
-            InitializeRenderers(canvas);
+            InitializeRenderers();
         }
 
         private void InitializeScenes() {
@@ -46,24 +41,24 @@ namespace ImageSynthesis.Views {
             SceneComboBox.ValueMember = "Value";
         }
 
-        private void InitializeRenderers(Canvas canvas) {
+        private void InitializeRenderers() {
             Renderers = new Dictionary<string, Renderer>();
 
             Renderer zbuffer = new ZBuffer(
-                canvas: canvas,
+                canvas: Canvas,
                 scene:  CurrentScene
             );
             Renderers.Add("ZBuffer", zbuffer);
 
             Renderer raycasting = new Raycasting(
-                canvas:    canvas,
+                canvas:    Canvas,
                 scene:     CurrentScene,
                 cameraPos: CameraPos
             );
             Renderers.Add("Raycasting", raycasting);
 
             Renderer raytracing = new Raytracing(
-                canvas:    canvas,
+                canvas:    Canvas,
                 scene:     CurrentScene,
                 cameraPos: CameraPos,
                 maxDepth:  10
