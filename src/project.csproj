@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Color.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Lights\AmbientLight.cs" />
     <Compile Include="Lights\DefaultIllumination.cs" />
@@ -72,6 +71,7 @@
     <Compile Include="Lights\Light.cs" />
     <Compile Include="Lights\PhongIllumination.cs" />
     <Compile Include="Lights\PointLight.cs" />
+    <Compile Include="Math\Color.cs" />
     <Compile Include="Math\Mathf.cs" />
     <Compile Include="Math\V2.cs" />
     <Compile Include="Math\V3.cs" />
