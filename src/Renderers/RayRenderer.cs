@@ -18,20 +18,21 @@ namespace ImageSynthesis.Renderers {
             CameraPos = cameraPos;
         }
         
-        /// Returns a list of lights from which the currentPoint is visible.
-        /// If another object is placed between the currentPoint and a light,
-        /// then this point is occulted and the light will not be added to the
-        /// list.
-        protected List<Light> Occultation(Object3D currentObject, V3 currentPoint) {
-            List<Light> lights = new List<Light>();
+        /// Returns a shadow coefficient based on the list of lights visible
+        /// from the currentPoint.
+        protected float Occultation(Object3D currentObject, V3 currentPoint) {
+            int lightsSize = Scene.Lights.Count;
+            float shadowCoeff = 0.0f;
             
             foreach (Light l in Scene.Lights) {
                 if (PointLightened(currentObject, currentPoint, l)) {
-                    lights.Add(l);
+                    shadowCoeff += 1.0f;
                 }
             }
             
-            return lights;
+            shadowCoeff /= lightsSize;
+            
+            return shadowCoeff;
         }
         
         /// Checks whether the specified light is able to lightens the

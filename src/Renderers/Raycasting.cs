@@ -47,10 +47,10 @@ namespace ImageSynthesis.Renderers {
                 V3 collisionPoint = ray.CollisionPoint();
                 V2 collisionUV = collidedObj.UV(collisionPoint);
                 
-                List<Light> lights = Occultation(collidedObj, collisionPoint);
+                float shadowCoeff = Occultation(collidedObj, collisionPoint);
                 
-                return Scene.IlluModel.Compute(
-                    lights, collidedObj, collisionPoint, collisionUV
+                return shadowCoeff * Scene.IlluModel.Compute(
+                    Scene.Lights, collidedObj, collisionPoint, collisionUV
                 );
             }
             

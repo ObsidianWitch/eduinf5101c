@@ -58,9 +58,10 @@ namespace ImageSynthesis.Renderers {
                 V3 collisionPoint = ray.CollisionPoint();
                 V2 collisionUV = collidedObj.UV(collisionPoint);
                 
-                List<Light> lights = Occultation(collidedObj, collisionPoint);
+                float shadowCoeff = Occultation(collidedObj, collisionPoint);
+                
                 Color directComponent = Scene.IlluModel.Compute(
-                    lights, collidedObj, collisionPoint, collisionUV
+                    Scene.Lights, collidedObj, collisionPoint, collisionUV
                 );
                 
                 // reflected light component
@@ -75,7 +76,9 @@ namespace ImageSynthesis.Renderers {
                     collidedObj, depth
                 );
                 
-                return directComponent + reflectionColor + refractionColor;
+                return shadowCoeff * (
+                    directComponent + reflectionColor + refractionColor
+                );
             }
             
             return null;
