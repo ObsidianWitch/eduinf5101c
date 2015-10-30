@@ -3,7 +3,7 @@ using ImageSynthesis.Models;
 using ImageSynthesis.Lights;
 using ImageSynthesis.Views;
 
-namespace ImageSynthesis {
+namespace ImageSynthesis.Scenes {
     
     /// A scene contains lights and objects and can be rendered (drawn).
     class Scene {

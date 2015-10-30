@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ImageSynthesis.Models;
 using ImageSynthesis.Views;
 using ImageSynthesis.Lights;
+using ImageSynthesis.Scenes;
 
 namespace ImageSynthesis.Renderers {
 

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
+using ImageSynthesis.Scenes;
 using ImageSynthesis.Renderers;
 using ImageSynthesis.Lights;
 
@@ -21,7 +22,7 @@ namespace ImageSynthesis.Views {
             V3 cameraPos = new V3(CANVAS_WIDTH/2, -1000, CANVAS_HEIGHT/2);
             
             Scene scene = new Scene(new PhongIllumination(cameraPos));
-            Program.PopulateScene(scene);
+            DefaultScene.PopulateDL(scene);
             
             Renderer = new Raytracing(
                 canvas:    canvas,

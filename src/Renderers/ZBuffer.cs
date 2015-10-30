@@ -1,5 +1,6 @@
 using ImageSynthesis.Models;
 using ImageSynthesis.Views;
+using ImageSynthesis.Scenes;
 
 namespace ImageSynthesis.Renderers {
 

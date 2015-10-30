@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Color.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Scene.cs" />
     <Compile Include="Lights\AmbientLight.cs" />
     <Compile Include="Lights\DefaultIllumination.cs" />
     <Compile Include="Lights\DirectionalLight.cs" />
@@ -87,6 +86,8 @@
     <Compile Include="Renderers\Raytracing.cs" />
     <Compile Include="Renderers\Renderer.cs" />
     <Compile Include="Renderers\ZBuffer.cs" />
+    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\DefaultScene.cs" />
     <Compile Include="Views\Canvas.cs" />
     <Compile Include="Views\MainForm.cs" >
       <SubType>Form</SubType>
