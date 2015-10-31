@@ -28,9 +28,15 @@ namespace ImageSynthesis.Renderers {
         }
         
         /// Checks whether this ray intersects any object.
-        public bool IntersectObject(List<Object3D> objects) {
+        public bool IntersectObject(List<Object3D> objects, out float distance) {
+            distance = float.MaxValue;
+            
             foreach (Object3D o in objects) {
-                if (o != OriginObject && o.Intersect(this)) { return true; }
+                bool intersect = o.Intersect(this, out distance);
+                
+                if (o != OriginObject && intersect) {
+                    return true;
+                }
             }
             
             return false;

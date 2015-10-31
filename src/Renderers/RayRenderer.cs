@@ -63,7 +63,22 @@ namespace ImageSynthesis.Renderers {
             }
             else { return false; }
             
-            return !lightRay.IntersectObject(Scene.Objects);
+            float obstacleDistance;
+            bool intersect = lightRay.IntersectObject(
+                Scene.Objects, out obstacleDistance
+            );
+            
+            if (light.GetType().Name == "PointLight") {
+                PointLight pl = (PointLight) light;
+                float lightDistance = (pl.Position - currentPoint).Norm1();
+                
+                // Discard intersection if the obstacle is behind the PointLight
+                // compared to the currentPoint.
+                bool intersectBehind = obstacleDistance > lightDistance;
+                return !intersect || (intersect && intersectBehind);
+            }
+            
+            return !intersect;
         }
         
     }
