@@ -27,15 +27,21 @@ namespace ImageSynthesis.Views {
 
         private void InitializeScenes() {
             Scenes = new Dictionary<string, Scene>();
-
-            Scene defaultSceneDL = new Scene(new PhongIllumination(CameraPos));
+            
+            PhongIllumination illu = new PhongIllumination(CameraPos);
+            
+            Scene boxScene = new Scene(illu);
+            BoxScene.Populate(boxScene);
+            Scenes.Add("Box", boxScene);
+            
+            Scene defaultSceneDL = new Scene(illu);
             DefaultScene.PopulateDL(defaultSceneDL);
             Scenes.Add("DefaultDL", defaultSceneDL);
 
-            Scene defaultScenePL = new Scene(new PhongIllumination(CameraPos));
+            Scene defaultScenePL = new Scene(illu);
             DefaultScene.PopulatePL(defaultScenePL);
             Scenes.Add("DefaultPL", defaultScenePL);
-
+            
             SceneComboBox.DataSource = new BindingSource(Scenes, null);
             SceneComboBox.DisplayMember = "Key";
             SceneComboBox.ValueMember = "Value";

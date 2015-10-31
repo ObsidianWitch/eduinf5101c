@@ -86,8 +86,9 @@
     <Compile Include="Renderers\Raytracing.cs" />
     <Compile Include="Renderers\Renderer.cs" />
     <Compile Include="Renderers\ZBuffer.cs" />
-    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\BoxScene.cs" />
     <Compile Include="Scenes\DefaultScene.cs" />
+    <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Views\Canvas.cs" />
     <Compile Include="Views\MainForm.cs" >
       <SubType>Form</SubType>
