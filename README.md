@@ -1,9 +1,9 @@
-# INF-5101C - Projet image de synthèse
+# INF-5101C - 3D Rendering Project
 
-Implementation of computer graphics techniques: z-Buffer, Phong
-reflection model, ray casting & ray tracing.
+Implementation of computer graphics techniques: z-Buffer, Phong reflection
+model, ray casting & ray tracing.
 
-## Compilation
+## Building
 
 ### Visual Studio
 
