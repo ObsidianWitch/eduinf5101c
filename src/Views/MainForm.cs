@@ -50,19 +50,6 @@ namespace ImageSynthesis.Views {
         private void InitializeRenderers() {
             Renderers = new Dictionary<string, Renderer>();
 
-            Renderer zbuffer = new ZBuffer(
-                canvas: Canvas,
-                scene:  CurrentScene
-            );
-            Renderers.Add("ZBuffer", zbuffer);
-
-            Renderer raycasting = new Raycasting(
-                canvas:    Canvas,
-                scene:     CurrentScene,
-                cameraPos: CameraPos
-            );
-            Renderers.Add("Raycasting", raycasting);
-
             Renderer raytracing = new Raytracing(
                 canvas:    Canvas,
                 scene:     CurrentScene,
@@ -70,7 +57,20 @@ namespace ImageSynthesis.Views {
                 maxDepth:  10
             );
             Renderers.Add("Raytracing", raytracing);
-
+            
+            Renderer raycasting = new Raycasting(
+                canvas:    Canvas,
+                scene:     CurrentScene,
+                cameraPos: CameraPos
+            );
+            Renderers.Add("Raycasting", raycasting);
+            
+            Renderer zbuffer = new ZBuffer(
+                canvas: Canvas,
+                scene:  CurrentScene
+            );
+            Renderers.Add("ZBuffer", zbuffer);
+            
             RendererComboBox.DataSource = new BindingSource(Renderers, null);
             RendererComboBox.DisplayMember = "Key";
             RendererComboBox.ValueMember = "Value";
