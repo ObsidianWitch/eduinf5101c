@@ -57,6 +57,10 @@ namespace ImageSynthesis.Renderers {
         /// then do not set the new value.
         /// Returns whether the value was set or not.
         private bool Set(int x, int y, float z) {
+            bool inRange = (x >= 0 && x < Canvas.Width)
+                        && (y >= 0 && y < Canvas.Height);
+            if (!inRange) { return false; }
+            
             if (z < Data[x,y]) {
                 Data[x,y] = z;
                 return true;
