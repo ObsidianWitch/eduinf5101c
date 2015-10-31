@@ -27,21 +27,6 @@ namespace ImageSynthesis.Renderers {
             return Origin + (Direction * Distance);
         }
         
-        /// Checks whether this ray intersects any object.
-        public bool IntersectObject(List<Object3D> objects, out float distance) {
-            distance = float.MaxValue;
-            
-            foreach (Object3D o in objects) {
-                bool intersect = o.Intersect(this, out distance);
-                
-                if (o != OriginObject && intersect) {
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-        
         /// Retrieves the closest intersected object by this ray, and sets the
         /// distance to this object (Distance attribute).
         /// If no object is intersected, returns null.
