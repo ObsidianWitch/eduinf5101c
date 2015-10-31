@@ -94,8 +94,11 @@ namespace ImageSynthesis.Models {
         
         /// Bilinear Filtering
         private Color Interpolate(float ux, float vy) {
-            int x = (int) (TileUV.U * ux);
-            int y = (int) (TileUV.V * vy);
+            ux *= TileUV.U;
+            vy *= TileUV.V;
+            
+            int x = (int) ux;
+            int y = (int) vy;
 
             float cx = ux - x;
             float cy = vy - y;
