@@ -1,9 +1,11 @@
-# INF-5101C - 3D Rendering Project
+# INF-5101C 3D Rendering
+
+![screenshot](https://i.imgur.com/H88VPhI.png)
 
 Implementation of computer graphics techniques: z-Buffer, Phong reflection
 model, ray casting & ray tracing.
 
-## Building
+## Build instructions
 
 ### Visual Studio
 
